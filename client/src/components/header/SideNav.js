@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "../UI/Button";
 import classes from "./SideNav.module.scss";
 import LinkButton from "../UI/LinkButton";
@@ -6,7 +6,7 @@ import Backdrop from "./Backdrop";
 
 const SideNav = (props) => {
   return (
-    <div>
+    <div className={props.className}>
       <div
         className={`${classes["side-nav"]} ${props.onOpen ? classes.open : ""}`}
       >
