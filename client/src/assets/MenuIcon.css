@@ -1,0 +1,12 @@
+.menu-icon {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0px;
+  transition: all 500ms ease;
+}
+
+.menu-icon:hover {
+  fill: black;
+  border: 3px solid black;
+  border-radius: 50px;
+}

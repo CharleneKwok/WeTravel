@@ -1,0 +1,39 @@
+@mixin line-through($width: 0) {
+  content: " ";
+  position: absolute;
+  top: 60%;
+  left: 0;
+  width: $width;
+  height: 1.5px;
+  background: black;
+  transition: all 500ms ease;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+  font: {
+    size: 1rem;
+  }
+  transition: letter-spacing 500ms ease;
+  margin: 0 20px;
+  position: relative;
+  span {
+    @include line-through();
+  }
+
+  &:hover span {
+    width: 100%;
+  }
+}
+
+.link:hover,
+.link-active {
+  @extend .link;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: 3px;
+  span {
+    @include line-through(100%);
+  }
+}

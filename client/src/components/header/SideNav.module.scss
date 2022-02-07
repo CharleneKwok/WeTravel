@@ -1,0 +1,25 @@
+@import "../../variables/variables";
+
+.side-nav {
+  display: grid;
+  grid-template-rows: 100px 70px 70px 70px;
+  row-gap: 50px;
+  width: 200px;
+  height: 100%;
+  background-color: $nav-white;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  box-shadow: $box-shadow;
+  transition: all 500ms ease;
+  transform: translateX(100%);
+  .login-btn {
+    align-self: center;
+    justify-self: center;
+  }
+}
+
+.open {
+  transform: translateX(0);
+}

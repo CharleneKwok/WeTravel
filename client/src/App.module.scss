@@ -1,0 +1,87 @@
+@import "./variables/variables";
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: $text-font;
+  background-color: #f8f9fa;
+}
+
+.container {
+  @include flex-center();
+  width: 100vw;
+  height: 100vh;
+  animation: disappear 500ms ease-in-out 2s forwards;
+
+  div {
+    @include flex-center();
+    border: 2px black solid;
+    width: 90vw;
+    height: 90vh;
+    border-radius: 30px;
+    opacity: 0.5;
+  }
+  img {
+    opacity: 0;
+    animation: icon-appear 500ms ease-in 1000ms forwards;
+    margin-top: -20px;
+  }
+}
+
+.opening {
+  margin: 0;
+  width: auto;
+  font: {
+    size: 5rem;
+    family: $title-font;
+  }
+  text-align: center;
+  letter-spacing: 1rem;
+  display: inline-block;
+  @media (max-width: 700px) {
+    font-size: 3rem;
+    letter-spacing: 0.4rem;
+  }
+  animation: bounce 1200ms ease-in-out forwards;
+}
+
+@keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-80%);
+  }
+  60% {
+    transform: translateY(-40%);
+  }
+
+  100% {
+    transform: translateX(6%);
+  }
+}
+
+@keyframes icon-appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

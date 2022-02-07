@@ -1,0 +1,20 @@
+@import "../../variables/variables";
+
+.btn {
+  background-color: transparent;
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 15px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 500ms ease;
+  width: 100px;
+  height: 50px;
+
+  &:hover {
+    border: 1px solid $nav-white;
+    background-color: black;
+    color: $nav-white;
+    box-shadow: $box-shadow;
+  }
+}
