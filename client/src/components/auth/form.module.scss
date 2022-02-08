@@ -26,8 +26,8 @@
 
 .google {
   @include flex-center();
-  vertical-align: middle;
-  text-align: center;
+  opacity: 1;
+  color: black;
   p {
     margin-left: 10px;
   }
