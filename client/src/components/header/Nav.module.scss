@@ -1,6 +1,6 @@
 @import "../../variables/variables";
 
-header {
+.header {
   padding: 10px 25px;
   display: flex;
   width: 100%;
@@ -13,9 +13,13 @@ header {
   z-index: 1;
   h1 {
     margin: 0;
-    letter-spacing: 5px;
     font: {
       family: $title-font;
+    }
+    cursor: pointer;
+    transition: all 500ms ease;
+    &:hover {
+      transform: scale(1.1);
     }
   }
   nav {
@@ -32,13 +36,16 @@ header {
   display: none;
 }
 
+.login {
+  @include button();
+}
+
 @media (max-width: 700px) {
-  header nav {
+  .header nav,
+  .header .login {
     display: none;
   }
-  header .login {
-    display: none;
-  }
+
   .show-side-nav {
     display: inline-block;
   }

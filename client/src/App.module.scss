@@ -21,11 +21,17 @@ body {
     height: 90vh;
     border-radius: 30px;
     opacity: 0.5;
+    @media (max-width: 900px) {
+      flex-direction: column;
+    }
   }
   img {
     opacity: 0;
     animation: icon-appear 500ms ease-in 1000ms forwards;
     margin-top: -20px;
+    @media (max-width: 900px) {
+      width: 80%;
+    }
   }
 }
 
@@ -39,14 +45,18 @@ body {
   text-align: center;
   letter-spacing: 1rem;
   display: inline-block;
-  @media (max-width: 700px) {
+  @media (max-width: 900px) {
+    animation: bounce 1200ms ease-in-out forwards;
     font-size: 3rem;
     letter-spacing: 0.4rem;
   }
-  animation: bounce 1200ms ease-in-out forwards;
+  animation: bounce-max 1200ms ease-in-out forwards;
 }
 
-@keyframes bounce {
+@keyframes bounce-max {
+  0% {
+    opacity: 0;
+  }
   0%,
   20%,
   50%,
@@ -63,6 +73,24 @@ body {
 
   100% {
     transform: translateX(6%);
+  }
+}
+@keyframes bounce {
+  0% {
+    opacity: 0;
+  }
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-80%);
+  }
+  60% {
+    transform: translateY(-40%);
   }
 }
 

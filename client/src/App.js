@@ -1,13 +1,12 @@
 import React, { Fragment, useEffect, useState } from "react";
 import classes from "./App.module.scss";
-import open from "./assets/open.png";
+import open from "./assets/037.png";
 import Main from "./components/main/Main";
 import { Routes, Route } from "react-router-dom";
 import Explore from "./components/explore/Explore";
 import Profile from "./components/profile/Profile";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-import Nav from "./components/header/Nav";
 
 function App() {
   const [openPage, setOpenPage] = useState(true);
@@ -23,7 +22,7 @@ function App() {
       {/* {openPage ? (
         <div className={classes.container}>
           <div>
-            <img src={open} alt="opening" />
+            <img src={open} alt="opening" width="30%" />
             <p className={classes.opening}>WeTravel</p>
           </div>
         </div>

@@ -1,0 +1,46 @@
+@import "../../variables/variables";
+
+$error: lighten(rgba(255, 0, 0, 0.619), 20%);
+
+.input {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  input {
+    margin: 4px 0;
+    height: 2.1rem;
+    border-radius: 10px;
+    border: $border;
+    padding: 6px;
+    font-family: inherit;
+  }
+}
+
+.input-error {
+  background-color: $error;
+  animation: jiggle 200ms ease-in-out forwards;
+}
+
+.error {
+  margin: 0;
+  color: $error;
+}
+
+@keyframes jiggle {
+  0% {
+    transform: translateX(0);
+  }
+  30% {
+    transform: translateX(7px);
+  }
+  70% {
+    transform: translateX(-7px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}

@@ -17,6 +17,7 @@
   .login-btn {
     align-self: center;
     justify-self: center;
+    @include button();
   }
 }
 

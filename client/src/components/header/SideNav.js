@@ -1,16 +1,24 @@
-import React, { useEffect } from "react";
-import Button from "../UI/Button";
+import React from "react";
 import classes from "./SideNav.module.scss";
 import LinkButton from "../UI/LinkButton";
 import Backdrop from "./Backdrop";
+import { useNavigate } from "react-router-dom";
 
 const SideNav = (props) => {
+  const navigate = useNavigate();
   return (
     <div className={props.className}>
       <div
         className={`${classes["side-nav"]} ${props.onOpen ? classes.open : ""}`}
       >
-        <Button text="LOGIN" className={classes["login-btn"]} />
+        <button
+          className={classes["login-btn"]}
+          onClick={() => {
+            navigate("/login");
+          }}
+        >
+          LOGIN
+        </button>
         <LinkButton to="/" text="MAIN" />
         <LinkButton to="/explore" text="EXPLORE" />
         <LinkButton to="/profile" text="PROFILE" />

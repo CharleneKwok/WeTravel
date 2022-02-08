@@ -1,0 +1,46 @@
+@import "../../variables/variables";
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  @include flex-center();
+}
+
+.card {
+  @include card(50%, auto);
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  h1 {
+    text-align: center;
+    font-family: $title-font;
+    letter-spacing: 4px;
+    font-size: 2.4rem;
+  }
+
+  button {
+    @include button(100%);
+    margin: 10px 0;
+  }
+}
+
+.google {
+  @include flex-center();
+  vertical-align: middle;
+  text-align: center;
+  p {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: 70%;
+  }
+
+  @media (max-width: 500px) {
+    .card {
+      width: 90%;
+    }
+  }
+}

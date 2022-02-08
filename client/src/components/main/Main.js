@@ -1,6 +1,5 @@
 import React from "react";
 import Nav from "../header/Nav";
-import Button from "../UI/Button";
 
 const Main = () => {
   return (
