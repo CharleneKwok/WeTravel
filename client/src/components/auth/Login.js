@@ -60,7 +60,7 @@ const Login = () => {
                   <p>Sign in with Google</p>
                 </button>
               )}
-              clientId="27800067760-ch205cuvhdmtg7ko4sb397dugedr660t.apps.googleusercontent.com"
+              clientId={process.env.REACT_APP_OAUTH}
               onSuccess={googleSuccess}
               onFailure={googleFailure}
               cookiePolicy="single_host_origin"
