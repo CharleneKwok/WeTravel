@@ -1,11 +1,11 @@
 import User from "./user.js";
 
-export const checkSignUpValid = async (req, res, next) => {
+export const checkSignUp = async (req, res, next) => {
   const { username, email, password } = req.body;
   if (!username || username.length < 1) {
     return res.status(400).json({
       success: false,
-      msg: "please provide username and username cannot be empty",
+      msg: "Username cannot be empty",
     });
   } else if (!email || !email.includes("@")) {
     return res.status(400).json({

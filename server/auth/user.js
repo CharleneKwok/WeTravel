@@ -16,10 +16,10 @@ const user = new mongoose.Schema({
   },
   avatar: String,
   token: String,
-  // createdAt: {
-  //   type: Date,
-  //   default: new Date(),
-  // },
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
   // posts: []
 });
 
