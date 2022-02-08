@@ -7,7 +7,7 @@
 }
 
 .card {
-  @include card(50%, auto);
+  @include card(30%, auto);
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -33,7 +33,7 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1300px) {
   .card {
     width: 70%;
   }

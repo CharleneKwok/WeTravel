@@ -39,7 +39,7 @@ const Login = () => {
             <button onClick={() => navigate("/signup")}>SIGNUP</button>
             <button className={classes.google}>
               <img src={google} alt="google login button" />
-              <p>Sign in with Google</p>
+              <p>Login with Google</p>
             </button>
           </Form>
         </Formik>
