@@ -10,12 +10,15 @@ const authSlice = createSlice({
     login(state, action) {
       state.isLogin = true;
       state.user = action.payload.user;
-      localStorage.setItem("token", state.user.token);
+      localStorage.setItem("profile", JSON.stringify(action.payload.user));
     },
     logout(state) {
       state.isLogin = false;
       state.user = [];
-      localStorage.removeItem("token");
+      localStorage.removeItem("profile");
+    },
+    autoLogin(state) {
+      state.isLogin = true;
     },
   },
 });

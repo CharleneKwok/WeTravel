@@ -14,44 +14,45 @@ import { getUser, userLogin, userLogout } from "./store/auth-actions";
 import { authActions } from "./store/auth-slice";
 
 function App() {
-  const [openPage, setOpenPage] = useState(true);
+  // const [openPage, setOpenPage] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      const decodedToken = decode(token);
+    const user = JSON.parse(localStorage.getItem("profile"));
+    if (user) {
+      console.log("🚀 ~ user", user);
+      const decodedToken = decode(user.token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         dispatch(userLogout(decodedToken.id));
       } else {
-        dispatch(getUser(decodedToken.id));
+        dispatch(authActions.login({ user: user }));
       }
     }
-    setTimeout(() => {
-      setOpenPage(false);
-    }, 2600);
+    // setTimeout(() => {
+    //   setOpenPage(false);
+    // }, 2600);
   }, []);
 
   return (
     <Fragment>
-      {openPage ? (
+      {/* {openPage ? (
         <div className={classes.container}>
           <div>
             <img src={open} alt="opening" width="30%" />
             <p className={classes.opening}>WeTravel</p>
           </div>
         </div>
-      ) : (
-        <Routes>
-          <Route path="/" element={<Main />} />
-          <Route path="/explore" element={<Explore />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="*" element={<p>this page doesn't exist.</p>} />
-        </Routes>
-      )}
+      ) : ( */}
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/explore" element={<Explore />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/setting" element={<Setting />} />
+        <Route path="*" element={<p>this page doesn't exist.</p>} />
+      </Routes>
+      {/* )} */}
     </Fragment>
   );
 }
