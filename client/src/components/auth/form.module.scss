@@ -7,7 +7,8 @@
 }
 
 .card {
-  @include card(30%, auto);
+  @include card(650px, auto);
+  margin: auto;
   display: flex;
   flex-direction: column;
   padding: 30px;
@@ -30,17 +31,5 @@
   color: black;
   p {
     margin-left: 10px;
-  }
-}
-
-@media (max-width: 1300px) {
-  .card {
-    width: 70%;
-  }
-
-  @media (max-width: 500px) {
-    .card {
-      width: 90%;
-    }
   }
 }

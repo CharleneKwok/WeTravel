@@ -16,11 +16,11 @@ export const signup = async (req, res) => {
     email: email.toLowerCase(),
     password: encryptedPwd,
     token: jwt.sign({ id: uId, email: email }, process.env.TOKEN_KEY, {
-      expiresIn: "7h",
+      expiresIn: "2h",
     }),
   });
   await user.save();
-  return res.status(200).json({ success: true, user: user });
+  return res.status(200).json({ user });
 };
 
 // login
@@ -28,10 +28,7 @@ export const login = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email: email });
   if (!user) {
-    return res.status(404).json({
-      msg: "User not found.",
-      invalidEmail: true,
-    });
+    return res.status(404).send("User not found");
   }
 
   bcrypt.compare(password, user.password, async (err, result) => {
@@ -47,12 +44,21 @@ export const login = async (req, res) => {
         }
       );
       await user.save();
-      return res.status(200).json({ success: true, user: user });
+      return res.status(200).json({ user });
     } else {
-      return res.status(400).json({
-        msg: "Wrong password",
-        invalidPwd: true,
-      });
+      return res.status(400).send("Wrong Password");
     }
   });
+};
+
+// logout
+export const logout = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  user.token = "";
+  await user.save();
+  res.status(200).send("Logout success");
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "../header/Nav";
 import Input from "../UI/Input";
 import classes from "./form.module.scss";
@@ -7,9 +7,19 @@ import * as Yup from "yup";
 import google from "../../assets/Google.svg";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
+import { useDispatch, useSelector } from "react-redux";
+import { userLogin } from "../../store/auth-actions";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.auth.isLogin);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
 
   const googleSuccess = async (res) => {
     console.log(res);
@@ -34,12 +44,11 @@ const Login = () => {
               .email("👉 Invalid email address")
               .required("👉 Please enter your Email address"),
             loginPwd: Yup.string()
-              .min(1, "👉 Password cannot be empty")
+              .min(6, "👉 Password must be longer than 6")
               .required("👉 Please enter your password"),
           })}
           onSubmit={(values) => {
-            console.log(values);
-            navigate("/profile");
+            dispatch(userLogin(values));
           }}
         >
           <Form className={classes.card}>
@@ -47,7 +56,7 @@ const Login = () => {
             <Input id="loginEmail" text="Email" type="email" />
             <Input id="loginPwd" text="Password" type="password" />
             <a href="/">Forgotten password?</a>
-            <button>LOGIN</button>
+            <button type="submit">LOGIN</button>
             <button onClick={() => navigate("/signup")}>SIGNUP</button>
             <GoogleLogin
               render={(props) => (
