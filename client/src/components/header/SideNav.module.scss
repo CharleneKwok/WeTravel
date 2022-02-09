@@ -2,7 +2,7 @@
 
 .side-nav {
   display: grid;
-  grid-template-rows: 100px 70px 70px 70px;
+  grid-template-rows: 100px 70px 70px 70px 70px 70px;
   row-gap: 50px;
   width: 200px;
   height: 100%;
@@ -14,11 +14,36 @@
   box-shadow: $box-shadow;
   transition: all 500ms ease;
   transform: translateX(100%);
+  overflow: scroll;
   .login-btn {
-    align-self: center;
-    justify-self: center;
+    place-self: center;
     @include button();
   }
+  button {
+    margin: 0 10px;
+    @include button();
+  }
+  .avatar {
+    place-self: center;
+    width: 30%;
+    height: auto;
+    margin: auto;
+  }
+  h4 {
+    margin: 4px;
+    text-align: center;
+    word-break: break-all;
+    text-align: center;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 1px;
+}
+
+.top {
+  place-self: center;
+  margin-top: 20px;
 }
 
 .open {

@@ -5,11 +5,9 @@ export const checkSignUp = async (req, res, next) => {
   if (!username || username.length < 1) {
     return res.status(400).send("Username cannot be empty");
   } else if (!email || !email.includes("@")) {
-    return res.status(400).send("Email cannot be empty or invalid");
+    return res.status(400).send("Invalid email address");
   } else if (!password || password.length < 6) {
-    return res
-      .status(400)
-      .send("please provide valid password with length more than 5");
+    return res.status(400).send("Password must be longer than 5");
   }
 
   const oldUser = await User.findOne({ email: email });

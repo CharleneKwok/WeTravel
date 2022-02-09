@@ -1,5 +1,5 @@
 import { authActions } from "./auth-slice";
-import { uiActions } from "./ui-slice";
+import { errActions } from "./err-slice";
 import {
   sendLogin,
   sendSignUp,
@@ -7,7 +7,7 @@ import {
   sendGetUser,
 } from "../components/api/auth-api";
 
-export const userLogin = (user) => async (dispatch) => {
+export const userLogin = (user, setFieldError) => async (dispatch) => {
   try {
     const sendData = {
       email: user.loginEmail,
@@ -15,8 +15,12 @@ export const userLogin = (user) => async (dispatch) => {
     };
     const resp = await sendLogin(sendData);
     dispatch(authActions.login({ user: resp.data.user }));
-  } catch (err) {
-    console.log("login ", err);
+  } catch ({ response }) {
+    if (response.status === 400) {
+      setFieldError("loginPwd", response.data);
+    } else {
+      setFieldError("loginEmail", response.data);
+    }
   }
 };
 
@@ -24,8 +28,13 @@ export const userLogout = (id) => async (dispatch) => {
   try {
     await sendLogout({ id });
     dispatch(authActions.logout());
-  } catch (err) {
-    console.log("logout ", err);
+  } catch ({ response }) {
+    dispatch(
+      errActions.showNotification({
+        status: response.status,
+        message: response.data,
+      })
+    );
   }
 };
 
@@ -41,7 +50,12 @@ export const getUser = (id) => async (dispatch) => {
     const resp = await sendGetUser(id);
     console.log("🚀 ~ resp", resp);
     dispatch(authActions.login({ user: resp.data.user }));
-  } catch (err) {
-    console.log("get user ", err);
+  } catch ({ response }) {
+    dispatch(
+      errActions.showNotification({
+        status: response.status,
+        message: response.data,
+      })
+    );
   }
 };

@@ -47,7 +47,7 @@ export const login = async (req, res) => {
       await user.save();
       return res.status(200).json({ user });
     } else {
-      return res.status(400).send("Wrong Password");
+      return res.status(400).send("Wrong Password. Please try again.");
     }
   });
 };

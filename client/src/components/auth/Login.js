@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../header/Nav";
 import Input from "../UI/Input";
 import classes from "./form.module.scss";
@@ -14,12 +14,18 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
+  const loginError = useSelector((state) => state.errMsg);
+  const [err, setErr] = useState("");
 
   useEffect(() => {
     if (isLogin) {
       navigate("/");
     }
   }, [isLogin, navigate]);
+
+  // useEffect(() => {
+  //   setErr(loginError.message);
+  // }, [loginError]);
 
   const googleSuccess = async (res) => {
     console.log(res);
@@ -44,11 +50,12 @@ const Login = () => {
               .email("👉 Invalid email address")
               .required("👉 Please enter your Email address"),
             loginPwd: Yup.string()
-              .min(6, "👉 Password must be longer than 6")
+              .min(6, "👉 Password must be longer than 5")
               .required("👉 Please enter your password"),
           })}
-          onSubmit={(values) => {
-            dispatch(userLogin(values));
+          onSubmit={(values, { setFieldError, resetForm }) => {
+            dispatch(userLogin(values, setFieldError));
+            resetForm();
           }}
         >
           <Form className={classes.card}>

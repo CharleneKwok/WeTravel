@@ -1,6 +1,6 @@
 import React from "react";
 import classes from "./Input.module.scss";
-import { useField } from "formik";
+import { ErrorMessage, useField } from "formik";
 
 const Input = (props) => {
   const [field, meta] = useField({ name: props.id, type: props.type });
@@ -18,9 +18,9 @@ const Input = (props) => {
         value={field.value || ""}
         {...field}
       />
-      {meta.touched && meta.error ? (
-        <p className={classes.error}>{meta.error}</p>
-      ) : null}
+      <ErrorMessage name={props.id}>
+        {(msg) => <p className={classes.error}>{msg}</p>}
+      </ErrorMessage>
     </div>
   );
 };
