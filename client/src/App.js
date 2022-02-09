@@ -20,7 +20,6 @@ function App() {
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"));
     if (user) {
-      console.log("🚀 ~ user", user);
       const decodedToken = decode(user.token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         dispatch(userLogout(decodedToken.id));
@@ -49,7 +48,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/setting" element={<Setting />} />
+        <Route path="/settings" element={<Setting />} />
         <Route path="*" element={<p>this page doesn't exist.</p>} />
       </Routes>
       {/* )} */}

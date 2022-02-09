@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import LinkButton from "../UI/LinkButton";
 import classes from "./Nav.module.scss";
 import SideNav from "./SideNav";
@@ -31,7 +31,9 @@ const Nav = () => {
           <div className={classes.user}>
             <Avatar
               className={classes.avatar}
-              onClick={() => setOpenWindow(true)}
+              onClick={(e) => {
+                setOpenWindow((prev) => !prev);
+              }}
             />
             {openWindow && (
               <Window

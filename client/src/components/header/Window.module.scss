@@ -9,6 +9,24 @@
   right: 15px;
   transition: all 500ms ease;
 
-  h3 {
+  h4 {
+    padding: 0 10px;
+    word-break: break-all;
+    text-align: center;
+  }
+
+  button {
+    cursor: pointer;
+    width: 100%;
+    background-color: transparent;
+    border: 0px;
+    border-top: $border;
+    padding: 10px;
+    font-family: inherit;
+    letter-spacing: 1px;
+    transition: all 500ms ease;
+    &:hover {
+      transform: scale(1.05);
+    }
   }
 }
