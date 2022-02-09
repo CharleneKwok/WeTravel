@@ -13,7 +13,7 @@ export const checkSignUp = async (req, res, next) => {
   const oldUser = await User.findOne({ email: email });
 
   if (oldUser) {
-    return res.status(409).send("User already exists");
+    return res.status(409).send("Email already exists");
   }
   await User.find({})
     .sort({ _id: -1 })

@@ -14,18 +14,12 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
-  const loginError = useSelector((state) => state.errMsg);
-  const [err, setErr] = useState("");
 
   useEffect(() => {
     if (isLogin) {
       navigate("/");
     }
   }, [isLogin, navigate]);
-
-  // useEffect(() => {
-  //   setErr(loginError.message);
-  // }, [loginError]);
 
   const googleSuccess = async (res) => {
     console.log(res);
@@ -55,7 +49,6 @@ const Login = () => {
           })}
           onSubmit={(values, { setFieldError, resetForm }) => {
             dispatch(userLogin(values, setFieldError));
-            resetForm();
           }}
         >
           <Form className={classes.card}>

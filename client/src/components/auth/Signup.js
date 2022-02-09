@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Nav from "../header/Nav";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import classes from "./form.module.scss";
 import { useNavigate } from "react-router-dom";
 import Input from "../UI/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { userSignup } from "../../store/auth-actions";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const isLogin = useSelector((state) => state.auth.isLogin);
+
+  useEffect(() => {
+    if (isLogin) {
+      navigate("/");
+    }
+  }, [isLogin, navigate]);
+
   return (
     <>
       <Nav />
@@ -33,9 +44,8 @@ const Signup = () => {
               .oneOf([Yup.ref("signUpPwd"), null], "👉 Passwords must match")
               .required("👉 Please enter your password again"),
           })}
-          onSubmit={(values) => {
-            console.log(values);
-            navigate("/profile");
+          onSubmit={(values, { setFieldError, resetForm }) => {
+            dispatch(userSignup(values, setFieldError));
           }}
         >
           <Form className={classes.card}>

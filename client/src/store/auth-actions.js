@@ -38,10 +38,23 @@ export const userLogout = (id) => async (dispatch) => {
   }
 };
 
-export const userSignup = (user) => async (dispatch) => {
-  // try {
-  //   const user
-  // }
+export const userSignup = (user, setFieldError) => async (dispatch) => {
+  try {
+    // username, email, password, avatar
+    const resp = await sendSignUp({
+      username: user.signupUsername,
+      email: user.signupEmail,
+      password: user.signUpPwd,
+      avatar: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
+    });
+    dispatch(authActions.login({ user: resp.data.user }));
+  } catch ({ response }) {
+    if (response.status === 409) {
+      setFieldError("signupEmail", response.data);
+    } else {
+      console.log("signup error ", response);
+    }
+  }
 };
 
 // after reload the website, get the user info and login again through token
