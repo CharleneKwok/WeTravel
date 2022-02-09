@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 // add new user to db
 export const signup = async (req, res) => {
-  const { username, email, password, uId } = req.body;
+  const { username, email, password, avatar, uId } = req.body;
 
   // encrypt password
   const encryptedPwd = await bcrypt.hash(password, 12);
@@ -15,6 +15,7 @@ export const signup = async (req, res) => {
     username: username,
     email: email.toLowerCase(),
     password: encryptedPwd,
+    avatar: avatar,
     token: jwt.sign({ id: uId, email: email }, process.env.TOKEN_KEY, {
       expiresIn: "2h",
     }),
@@ -53,12 +54,23 @@ export const login = async (req, res) => {
 
 // logout
 export const logout = async (req, res) => {
-  const { email } = req.body;
-  const user = await User.findOne({ email: email });
+  const { id } = req.body;
+  const user = await User.findOne({ id: id });
   if (!user) {
     return res.status(404).send("User not found");
   }
   user.token = "";
   await user.save();
   res.status(200).send("Logout success");
+};
+
+// get user info
+export const getUser = async (req, res) => {
+  console.log("🚀 ~ req.params", req.params);
+  const { id } = req.params;
+  const user = await User.findOne({ id: +id });
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  res.status(200).json({ user });
 };

@@ -1,0 +1,14 @@
+@import "../../variables/variables";
+
+.container {
+  @include card(200px, auto);
+  @include flex-center(column);
+  border-radius: 10px;
+  position: absolute;
+  background-color: $nav-white;
+  right: 15px;
+  transition: all 500ms ease;
+
+  h3 {
+  }
+}

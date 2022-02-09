@@ -5,12 +5,15 @@ import SideNav from "./SideNav";
 import MenuIcon from "../../assets/MenuIcon";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import Avatar from "./Avatar.js";
+import Window from "./Window";
 
 const Nav = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
   const [openSideNav, setOpenSideNav] = useState(false);
+  const [openWindow, setOpenWindow] = useState(false);
+
   const closeSideNavHandler = () => {
     setOpenSideNav(false);
   };
@@ -25,9 +28,18 @@ const Nav = () => {
           <LinkButton to="/profile" text="PROFILE" />
         </nav>
         {user.isLogin ? (
-          <button className={classes.login} onClick={() => navigate("/login")}>
-            LOGOUT
-          </button>
+          <div className={classes.user}>
+            <Avatar
+              className={classes.avatar}
+              onClick={() => setOpenWindow(true)}
+            />
+            {openWindow && (
+              <Window
+                className={classes.window}
+                onClose={() => setOpenWindow(false)}
+              />
+            )}
+          </div>
         ) : (
           <button className={classes.login} onClick={() => navigate("/login")}>
             LOGIN
