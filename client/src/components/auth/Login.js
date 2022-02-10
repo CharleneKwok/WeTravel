@@ -26,7 +26,6 @@ const Login = () => {
   };
 
   const googleFailure = async (err) => {
-    alert(err.details);
     console.log("faliure");
   };
 
