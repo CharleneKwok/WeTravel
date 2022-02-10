@@ -7,7 +7,7 @@ export const signup = async (req, res) => {
   const { username, email, password, avatar, uId } = req.body;
 
   // encrypt password
-  const encryptedPwd = await bcrypt.hash(password, 12);
+  const encryptedPwd = await bcrypt.hash(password, +process.env.BCRYPT_SALT);
 
   // send to db
   const user = await User.create({

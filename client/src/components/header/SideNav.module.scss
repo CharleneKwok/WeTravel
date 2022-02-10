@@ -2,7 +2,8 @@
 
 .side-nav {
   display: grid;
-  grid-template-rows: 100px 70px 70px 70px 70px 70px;
+  grid-template-rows: 120px 70px 70px 70px 70px 70px;
+
   row-gap: 50px;
   width: 200px;
   height: 100%;
@@ -25,8 +26,6 @@
   }
   .avatar {
     place-self: center;
-    width: 30%;
-    height: auto;
     margin: auto;
   }
   h4 {
