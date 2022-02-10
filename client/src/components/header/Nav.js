@@ -1,15 +1,15 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import LinkButton from "../UI/LinkButton";
 import classes from "./Nav.module.scss";
 import SideNav from "./SideNav";
 import MenuIcon from "../../assets/MenuIcon";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 import Avatar from "./Avatar.js";
 import Window from "./Window";
 
 const Nav = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const user = useSelector((state) => state.auth);
   const [openSideNav, setOpenSideNav] = useState(false);
   const [openWindow, setOpenWindow] = useState(false);
@@ -21,7 +21,7 @@ const Nav = () => {
   return (
     <div>
       <header className={classes.header}>
-        <h1 onClick={() => navigate("/")}>WeTravel</h1>
+        <h1 onClick={() => history.push("/")}>WeTravel</h1>
         <nav>
           <LinkButton to="/" text="MAIN" />
           <LinkButton to="/explore" text="EXPLORE" />
@@ -43,7 +43,10 @@ const Nav = () => {
             )}
           </div>
         ) : (
-          <button className={classes.login} onClick={() => navigate("/login")}>
+          <button
+            className={classes.login}
+            onClick={() => history.push("/login")}
+          >
             LOGIN
           </button>
         )}

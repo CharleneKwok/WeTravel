@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import classes from "./App.module.scss";
 import open from "./assets/037.png";
 import Main from "./components/main/Main";
-import { Routes, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Explore from "./components/explore/Explore";
 import Profile from "./components/profile/Profile";
 import Login from "./components/auth/Login";
@@ -42,15 +42,29 @@ function App() {
           </div>
         </div>
       ) : ( */}
-      <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/explore" element={<Explore />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/settings" element={<Setting />} />
-        <Route path="*" element={<p>this page doesn't exist.</p>} />
-      </Routes>
+      <Switch>
+        <Route path="/" exact>
+          <Main />
+        </Route>
+        <Route path="/explore" exact>
+          <Explore />
+        </Route>
+        <Route path="/profile" exact>
+          <Profile />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
+        </Route>
+        <Route path="/signup" exact>
+          <Signup />
+        </Route>
+        <Route path="/settings" exact>
+          <Setting />
+        </Route>
+        <Route path="*">
+          <p>this page doesn't exist.</p>
+        </Route>
+      </Switch>
       {/* )} */}
     </Fragment>
   );

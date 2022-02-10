@@ -5,21 +5,21 @@ import classes from "./form.module.scss";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import google from "../../assets/Google.svg";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../../store/auth-actions";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
 
   useEffect(() => {
     if (isLogin) {
-      navigate("/");
+      history.push("/");
     }
-  }, [isLogin, navigate]);
+  }, [isLogin, history]);
 
   const googleSuccess = async (res) => {
     console.log(res);
@@ -57,7 +57,7 @@ const Login = () => {
             <Input id="loginPwd" text="Password" type="password" />
             <a href="/">Forgotten password?</a>
             <button type="submit">LOGIN</button>
-            <button onClick={() => navigate("/signup")}>SIGNUP</button>
+            <button onClick={() => history.push("/signup")}>SIGNUP</button>
             <GoogleLogin
               render={(props) => (
                 <button

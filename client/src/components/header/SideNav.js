@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./SideNav.module.scss";
 import LinkButton from "../UI/LinkButton";
 import Backdrop from "./Backdrop";
-import { useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar.js";
 import { userLogout } from "../../store/auth-actions";
@@ -10,12 +10,12 @@ import { userLogout } from "../../store/auth-actions";
 const SideNav = (props) => {
   const user = useSelector((state) => state.auth);
   const info = user.user;
-  const navigate = useNavigate();
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
     dispatch(userLogout(info.id));
-    navigate("/");
+    history.push("/");
   };
 
   return (
@@ -26,9 +26,7 @@ const SideNav = (props) => {
         {!user.isLogin ? (
           <button
             className={classes["login-btn"]}
-            onClick={() => {
-              navigate("/login");
-            }}
+            onClick={() => history.push("/login")}
           >
             LOGIN
           </button>

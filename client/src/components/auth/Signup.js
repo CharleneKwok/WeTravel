@@ -1,23 +1,33 @@
 import React, { useEffect } from "react";
 import Nav from "../header/Nav";
-import { Formik, Form } from "formik";
+import { Formik, Form, useFormikContext } from "formik";
 import * as Yup from "yup";
 import classes from "./form.module.scss";
-import { useNavigate } from "react-router-dom";
+import { useHistory, Prompt } from "react-router-dom";
 import Input from "../UI/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../../store/auth-actions";
 
 const Signup = () => {
-  const navigate = useNavigate();
+  const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
 
   useEffect(() => {
     if (isLogin) {
-      navigate("/");
+      history.push("/");
     }
-  }, [isLogin, navigate]);
+  }, [isLogin, history]);
+
+  const PromptIfDirty = () => {
+    const formik = useFormikContext();
+    return (
+      <Prompt
+        when={formik.dirty}
+        message="Are you sure you want to leave? You have with unsaved changes."
+      />
+    );
+  };
 
   return (
     <>
@@ -44,12 +54,13 @@ const Signup = () => {
               .oneOf([Yup.ref("signUpPwd"), null], "👉 Passwords must match")
               .required("👉 Please enter your password again"),
           })}
-          onSubmit={(values, { setFieldError, resetForm }) => {
+          onSubmit={(values, { setFieldError }) => {
             dispatch(userSignup(values, setFieldError));
           }}
         >
           <Form className={classes.card}>
             <h1>Signup</h1>
+            <PromptIfDirty />
             <Input id="signupUsername" text="Username" type="text" />
             <Input id="signupEmail" text="Email" type="email" />
             <Input id="signUpPwd" text="Password" type="password" />
