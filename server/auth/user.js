@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const user = new mongoose.Schema({
   uId: Number,
+  google: Boolean,
   username: {
     type: String,
     required: true,
@@ -12,7 +13,7 @@ const user = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    default: "",
   },
   avatar: String,
   token: String,

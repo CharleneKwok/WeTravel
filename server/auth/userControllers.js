@@ -12,6 +12,7 @@ export const signup = async (req, res) => {
   // send to db
   const user = await User.create({
     uId: uId,
+    google: false,
     username: username,
     email: email.toLowerCase(),
     password: encryptedPwd,
@@ -30,6 +31,10 @@ export const login = async (req, res) => {
   const user = await User.findOne({ email: email });
   if (!user) {
     return res.status(404).send("User not found");
+  }
+
+  if (user.google && !user.password) {
+    return res.status(400).send("Please sign in with Google");
   }
 
   bcrypt.compare(password, user.password, async (err, result) => {
@@ -73,4 +78,30 @@ export const getUser = async (req, res) => {
     return res.status(404).send("User not found");
   }
   res.status(200).json({ user });
+};
+
+// Google login
+// middleware =>
+// put it into user db as new user if it is the first time
+// once use google login, then the user cannot signup with the same email
+export const googleLogin = async (req, res) => {
+  const { username, email, token, uId, avatar } = req.body;
+  const user = await User.findOne({ uId: uId });
+  if (user) {
+    // user exists in db
+    user.token = token;
+    await user.save();
+    return res.status(200).json({ user });
+  } else {
+    const newUser = await User.create({
+      uId: uId,
+      email: email,
+      username: username,
+      token: token,
+      google: true,
+      avatar: avatar,
+    });
+    await newUser.save();
+    return res.status(200).json({ user: newUser });
+  }
 };

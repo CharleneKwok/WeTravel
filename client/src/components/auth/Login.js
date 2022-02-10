@@ -8,7 +8,7 @@ import google from "../../assets/Google.svg";
 import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogin } from "../../store/auth-actions";
+import { userGoogleLogin, userLogin } from "../../store/auth-actions";
 
 const Login = () => {
   const history = useHistory();
@@ -22,11 +22,11 @@ const Login = () => {
   }, [isLogin, history]);
 
   const googleSuccess = async (res) => {
-    console.log(res);
+    dispatch(userGoogleLogin(res.profileObj, res.tokenId));
   };
 
   const googleFailure = async (err) => {
-    console.log(err);
+    alert(err.details);
     console.log("faliure");
   };
 

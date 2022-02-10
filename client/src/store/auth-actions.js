@@ -5,6 +5,7 @@ import {
   sendSignUp,
   sendLogout,
   sendGetUser,
+  sendGoogleLogin,
 } from "../components/api/auth-api";
 
 export const userLogin = (user, setFieldError) => async (dispatch) => {
@@ -28,13 +29,8 @@ export const userLogout = (id) => async (dispatch) => {
   try {
     await sendLogout({ id });
     dispatch(authActions.logout());
-  } catch ({ response }) {
-    dispatch(
-      errActions.showNotification({
-        status: response.status,
-        message: response.data,
-      })
-    );
+  } catch (err) {
+    console.log(err);
   }
 };
 
@@ -63,12 +59,22 @@ export const getUser = (id) => async (dispatch) => {
     const resp = await sendGetUser(id);
     console.log("🚀 ~ resp", resp);
     dispatch(authActions.login({ user: resp.data.user }));
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+export const userGoogleLogin = (user, token) => async (dispatch) => {
+  try {
+    const sendData = {
+      username: user.givenName,
+      email: user.email,
+      token: token,
+      avatar: user.imageUrl,
+    };
+    const resp = await sendGoogleLogin(sendData);
+    dispatch(authActions.login({ user: resp.data.user }));
   } catch ({ response }) {
-    dispatch(
-      errActions.showNotification({
-        status: response.status,
-        message: response.data,
-      })
-    );
+    alert(response.data);
   }
 };

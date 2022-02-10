@@ -14,11 +14,8 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isLogin = false;
-      state.user = [];
+      state.user = {};
       localStorage.removeItem("profile");
-    },
-    autoLogin(state) {
-      state.isLogin = true;
     },
   },
 });

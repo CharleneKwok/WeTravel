@@ -23,7 +23,7 @@ const Signup = () => {
     const formik = useFormikContext();
     return (
       <Prompt
-        when={formik.dirty}
+        when={formik.dirty && formik.submitCount === 0}
         message="Are you sure you want to leave? You have with unsaved changes."
       />
     );
@@ -61,8 +61,8 @@ const Signup = () => {
           <Form className={classes.card}>
             <h1>Signup</h1>
             <PromptIfDirty />
-            <Input id="signupUsername" text="Username" type="text" />
             <Input id="signupEmail" text="Email" type="email" />
+            <Input id="signupUsername" text="Username" type="text" />
             <Input id="signUpPwd" text="Password" type="password" />
             <Input id="signUpPwd2" text="Confirm Password" type="password" />
             <button>SIGNUP</button>
