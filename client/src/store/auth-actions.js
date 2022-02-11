@@ -6,7 +6,10 @@ import {
   sendLogout,
   sendGetUser,
   sendGoogleLogin,
-} from "../components/api/auth-api";
+  sendResetPwdEmail,
+  resetPwd,
+} from "../api/auth-api";
+import { pwdActions } from "./pwd-slice";
 
 export const userLogin = (user, setFieldError) => async (dispatch) => {
   try {
@@ -53,7 +56,6 @@ export const userSignup = (user, setFieldError) => async (dispatch) => {
   }
 };
 
-// after reload the website, get the user info and login again through token
 export const getUser = (id) => async (dispatch) => {
   try {
     const resp = await sendGetUser(id);
@@ -76,5 +78,23 @@ export const userGoogleLogin = (user, token) => async (dispatch) => {
     dispatch(authActions.login({ user: resp.data.user }));
   } catch ({ response }) {
     alert(response.data);
+  }
+};
+
+// send password reset email
+export const userResetPwdEmail = (value, setFieldError) => async (dispatch) => {
+  try {
+    dispatch(pwdActions.emailStatus());
+    const resp = await sendResetPwdEmail({ email: value.resetPwdEmail });
+    if (resp.status === 200) {
+      dispatch(pwdActions.emailStatus());
+      console.log("sent");
+    }
+  } catch ({ response }) {
+    if (response.status === 500) {
+      setFieldError("resetPwdEmail", "System error");
+    } else {
+      setFieldError("resetPwdEmail", response.data);
+    }
   }
 };

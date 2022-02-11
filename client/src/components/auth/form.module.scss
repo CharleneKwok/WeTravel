@@ -1,11 +1,5 @@
 @import "../../variables/variables";
 
-.container {
-  width: 100vw;
-  height: 100vh;
-  @include flex-center();
-}
-
 .card {
   @include card(650px, auto);
   margin: auto;
@@ -22,6 +16,21 @@
   button {
     @include button(100%);
     margin: 10px 0;
+
+    &:disabled {
+      cursor: not-allowed;
+      letter-spacing: 0;
+      color: black;
+      &:hover {
+        background-color: transparent;
+        transform: scale(1);
+        color: black;
+        border: 1px solid black;
+        letter-spacing: 0;
+        box-shadow: none;
+        font-weight: 400;
+      }
+    }
   }
 }
 
@@ -32,4 +41,13 @@
   p {
     margin-left: 10px;
   }
+}
+
+.reset-pwd__link {
+  margin: 20px 0;
+}
+
+// PwdReset
+.reset-pwd__msg {
+  color: rgba(0, 128, 0, 0.694);
 }

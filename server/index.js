@@ -14,7 +14,7 @@ dotenv.config();
 
 // routes
 app.use("/user", userRoutes);
-app.use("/password-reset", pwdResetRoutes);
+app.use("/pwdReset", pwdResetRoutes);
 
 const CONNECTION = process.env.CONNECTION_URL;
 const PORT = 5001;

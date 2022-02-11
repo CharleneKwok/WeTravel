@@ -12,6 +12,7 @@ import decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { getUser, userLogin, userLogout } from "./store/auth-actions";
 import { authActions } from "./store/auth-slice";
+import PwdReset from "./components/auth/PwdReset";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -57,6 +58,9 @@ function App() {
         </Route>
         <Route path="/signup" exact>
           <Signup />
+        </Route>
+        <Route path="/pwd-reset" exact>
+          <PwdReset />
         </Route>
         <Route path="/settings" exact>
           <Setting />

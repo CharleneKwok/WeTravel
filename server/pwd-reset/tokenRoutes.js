@@ -1,8 +1,9 @@
 import express from "express";
-import { requestPwdReset } from "./tokenControllers.js";
+import { requestPwdReset, resetPwd } from "./tokenControllers.js";
 
 const router = express.Router();
 
-router.route("/").post(requestPwdReset);
+router.route("/").post(resetPwd);
+router.route("/sendmail").post(requestPwdReset);
 
 export default router;
