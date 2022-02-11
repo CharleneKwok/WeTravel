@@ -4,7 +4,7 @@ import path from "path";
 import handlebars from "handlebars";
 import { fileURLToPath } from "url";
 
-const sendEmail = (email, data) => {
+const sendEmail = (email, data, res) => {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -25,7 +25,12 @@ const sendEmail = (email, data) => {
       subject: "WeTravel--Password reset request",
       html: compiledTemplate(data),
     };
-    transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        return res.status(500).send(err.response);
+      }
+      return res.status(200).send("Email sent");
+    });
   } catch (err) {
     console.log(err);
   }

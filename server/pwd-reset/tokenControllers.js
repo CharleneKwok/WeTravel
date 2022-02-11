@@ -26,13 +26,12 @@ export const requestPwdReset = async (req, res) => {
   });
   await pwdToken.save();
   // sendEmail
-  try {
-    sendEmail(email, {
+  sendEmail(
+    email,
+    {
       name: user.username,
       link: `${process.env.WEB_URL}/pwdReset?token=${hashToken}&id=${user._id}`,
-    });
-    return res.status(200).send("Email sent!");
-  } catch (err) {
-    console.log(err);
-  }
+    },
+    res
+  );
 };
