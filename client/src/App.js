@@ -14,6 +14,7 @@ import { getUser, userLogin, userLogout } from "./store/auth-actions";
 import { authActions } from "./store/auth-slice";
 import PwdReset from "./components/auth/PwdReset";
 import ForgotPwd from "./components/auth/ForgotPwd";
+import NotExist from "./components/404pages/NotExist";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -52,9 +53,7 @@ function App() {
         <Route path="/signup" exact component={Signup} />
         <Route path="/pwd-reset" component={ForgotPwd} exact />
         <Route path="/settings" exact component={Setting} />
-        <Route path="*">
-          <p>this page doesn't exist.</p>
-        </Route>
+        <Route path="*" component={NotExist} />
       </Switch>
       {/* )} */}
     </Fragment>

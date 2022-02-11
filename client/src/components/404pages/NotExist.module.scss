@@ -1,0 +1,19 @@
+@import "../../variables/variables";
+
+.container {
+  @include flex-center(column);
+  background-color: #ffe4ea;
+  width: 100vw;
+  height: 100vh;
+  img {
+    width: 25%;
+  }
+  p {
+    margin: 0 20%;
+  }
+  @media (max-width: 900px) {
+    img {
+      width: 50%;
+    }
+  }
+}
