@@ -1,51 +1,74 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import Nav from "../header/Nav";
 import FormPage from "../UI/FormPage";
 import Input from "../UI/Input";
 import classes from "./form.module.scss";
 import * as Yup from "yup";
-import { useDispatch, useSelector } from "react-redux";
-import { userResetPwdEmail } from "../../store/auth-actions";
+import { useHistory, useLocation } from "react-router-dom";
+import { resetPwd } from "../../api/auth-api";
 
 const PwdReset = () => {
-  const dispatch = useDispatch();
-  const isSending = useSelector((state) => state.pwdReset.isSending);
-  const message = useSelector((state) => state.pwdReset.message);
-  const [checkIsSending, setCheckIsSending] = useState(false);
-  const [submit, setSubmit] = useState(false);
+  const location = useLocation();
+  const history = useHistory();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
+  const id = queryParams.get("id");
+  const [resetErr, setResetErr] = useState(null);
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const email = localStorage.getItem("resetEmail");
 
   useEffect(() => {
-    if (submit) {
-      setCheckIsSending(isSending);
+    if (resetSuccess) {
+      const goBack = setTimeout(() => {
+        localStorage.removeItem("resetEmail");
+        history.push("/login");
+      }, 5000);
+      return () => clearTimeout(goBack);
     }
-  }, [submit, isSending]);
+  }, [resetSuccess, history]);
 
   return (
     <FormPage>
       <Formik
         initialValues={{
-          resetPwdEmail: "",
+          newPwd: "",
+          newPwd2: "",
         }}
         validationSchema={Yup.object({
-          resetPwdEmail: Yup.string()
-            .email("👉 Invalid email address")
+          newPwd: Yup.string()
+            .min(6, "👉 Password must be longer than 5")
+            .required("👉 Please enter your Email address"),
+          newPwd2: Yup.string()
+            .oneOf([Yup.ref("newPwd"), null], "👉 Passwords must match")
             .required("👉 Please enter your Email address"),
         })}
-        onSubmit={(value, { setFieldError }) => {
-          setSubmit(true);
-          dispatch(userResetPwdEmail(value, setFieldError));
+        onSubmit={async (value) => {
+          try {
+            const data = {
+              token: token,
+              id: id,
+              password: value.newPwd,
+            };
+            await resetPwd(data);
+            setResetSuccess(true);
+          } catch ({ response }) {
+            setResetErr(response.data);
+          }
         }}
       >
         <Form className={classes.card}>
-          <h1>Forgot password</h1>
-          <Input id="resetPwdEmail" text="Email" type="email" />
-          {submit && !checkIsSending && (
-            <p className={classes["reset-pwd__msg"]}>{message}</p>
+          <h1>Reset password</h1>
+          <h3>👉 {email}</h3>
+          <Input id="newPwd" text="Password" type="password" />
+          <Input id="newPwd2" text="Confirm Password" type="password" />
+          {resetErr && <p className={classes["reset-pwd__err"]}>{resetErr}</p>}
+          {resetSuccess ? (
+            <p className={classes["reset-pwd__msg"]}>
+              Password reset successful! Jump back to login page now
+            </p>
+          ) : (
+            <button type="submit">Reset Password</button>
           )}
-          <button type="submit" disabled={checkIsSending}>
-            {checkIsSending ? message : "Reset Password"}
-          </button>
         </Form>
       </Formik>
     </FormPage>

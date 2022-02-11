@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { getUser, userLogin, userLogout } from "./store/auth-actions";
 import { authActions } from "./store/auth-slice";
 import PwdReset from "./components/auth/PwdReset";
+import ForgotPwd from "./components/auth/ForgotPwd";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -44,27 +45,13 @@ function App() {
         </div>
       ) : ( */}
       <Switch>
-        <Route path="/" exact>
-          <Main />
-        </Route>
-        <Route path="/explore" exact>
-          <Explore />
-        </Route>
-        <Route path="/profile" exact>
-          <Profile />
-        </Route>
-        <Route path="/login" exact>
-          <Login />
-        </Route>
-        <Route path="/signup" exact>
-          <Signup />
-        </Route>
-        <Route path="/pwd-reset" exact>
-          <PwdReset />
-        </Route>
-        <Route path="/settings" exact>
-          <Setting />
-        </Route>
+        <Route path="/" exact component={Main} />
+        <Route path="/explore" exact component={Explore} />
+        <Route path="/profile" exact component={Profile} />
+        <Route path="/login" exact component={Login} />
+        <Route path="/signup" exact component={Signup} />
+        <Route path="/pwd-reset" component={ForgotPwd} exact />
+        <Route path="/settings" exact component={Setting} />
         <Route path="*">
           <p>this page doesn't exist.</p>
         </Route>

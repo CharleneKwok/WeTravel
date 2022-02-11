@@ -16,7 +16,8 @@ export const requestPwdReset = async (req, res) => {
   // reset it again
   const token = await PwdToken.findOne({ userId: user._id });
   if (token) await token.deleteOne();
-  // create a new random token
+  // create a new random token, send the plain token to frontend
+  // store the hash one to db
   const resetToken = crypto.randomBytes(32).toString("hex");
   const hashToken = await bcrypt.hash(resetToken, +process.env.BCRYPT_SALT);
 
@@ -30,7 +31,7 @@ export const requestPwdReset = async (req, res) => {
     email,
     {
       name: user.username,
-      link: `${process.env.WEB_URL}/pwdReset?token=${hashToken}&id=${user._id}`,
+      link: `${process.env.WEB_URL}pwd-reset?token=${resetToken}&id=${user._id}`,
     },
     res
   );
@@ -43,7 +44,7 @@ export const resetPwd = async (req, res) => {
   if (!userToken) {
     return res
       .status(404)
-      .send("Link was expired. Please request password reset again.");
+      .send("Please request password reset again and get the new link.");
   }
 
   if (!token || !id || !password) {
@@ -56,10 +57,10 @@ export const resetPwd = async (req, res) => {
     }
     if (result) {
       const user = await User.findOne({ _id: id });
-      const newPwd = await bcrypt.hash(password, process.env.BCRYPT_SALT);
+      const newPwd = await bcrypt.hash(password, +process.env.BCRYPT_SALT);
       user.password = newPwd;
       await user.save();
-      console.log(user);
+      await userToken.deleteOne();
       return res.status(200).send("Password was reset");
     } else {
       // not match

@@ -88,7 +88,7 @@ export const userResetPwdEmail = (value, setFieldError) => async (dispatch) => {
     const resp = await sendResetPwdEmail({ email: value.resetPwdEmail });
     if (resp.status === 200) {
       dispatch(pwdActions.emailStatus());
-      console.log("sent");
+      localStorage.setItem("resetEmail", value.resetPwdEmail);
     }
   } catch ({ response }) {
     if (response.status === 500) {
