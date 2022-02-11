@@ -1,6 +1,7 @@
 # WeTravel
-MERN project 
 
-Tech stack: React, Nodejs, Expressjs, Mongodb, Sass
+MERN project
 
-Status: Finish auth part and still building....
+Tech stack: React, Redux, Nodejs, Expressjs, Mongodb, Sass
+
+Status: Finished auth part and still building....
