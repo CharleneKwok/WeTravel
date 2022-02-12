@@ -23,7 +23,7 @@ const Nav = () => {
       <header className={classes.header}>
         <h1 onClick={() => history.push("/")}>WeTravel</h1>
         <nav>
-          <LinkButton to="/" text="MAIN" />
+          <LinkButton to="/home" text="HOME" />
           <LinkButton to="/explore" text="EXPLORE" />
           <LinkButton to="/profile" text="PROFILE" />
         </nav>

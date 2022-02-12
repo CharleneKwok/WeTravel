@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import classes from "./App.module.scss";
 import open from "./assets/037.png";
-import Main from "./components/main/Main";
+import Main from "./components/home/Main";
 import { Switch, Route } from "react-router-dom";
 import Explore from "./components/explore/Explore";
 import Profile from "./components/profile/Profile";
@@ -15,6 +15,7 @@ import { authActions } from "./store/auth-slice";
 import PwdReset from "./components/auth/PwdReset";
 import ForgotPwd from "./components/auth/ForgotPwd";
 import NotExist from "./components/404pages/NotExist";
+import Open from "./components/openPage/Open";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -46,7 +47,8 @@ function App() {
         </div>
       ) : ( */}
       <Switch>
-        <Route path="/" exact component={Main} />
+        <Route path="/" exact component={Open} />
+        <Route path="/home" exact component={Main} />
         <Route path="/explore" exact component={Explore} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/login" exact component={Login} />

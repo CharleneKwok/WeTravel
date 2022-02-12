@@ -6,8 +6,8 @@ const LinkButton = (props) => {
   return (
     <NavLink
       to={props.to}
-      className={(navData) =>
-        navData.isActive ? classes[`link-active`] : classes.link
+      className={(isActive) =>
+        isActive ? classes[`link-active`] : classes.link
       }
     >
       <span />
