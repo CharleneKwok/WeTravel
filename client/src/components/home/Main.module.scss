@@ -1,0 +1,24 @@
+.main {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: "list map";
+  margin-top: 100px;
+  padding: 0 40px;
+}
+
+.list {
+  grid-area: list;
+}
+
+.map {
+  grid-area: map;
+}
+
+@media (max-width: 1000px) {
+  .main {
+    grid-template-columns: 100%;
+    grid-template-rows: 400px auto;
+    grid-template-areas: "map" "list";
+    padding: 0 20px;
+  }
+}

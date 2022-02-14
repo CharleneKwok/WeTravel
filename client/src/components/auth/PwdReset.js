@@ -1,6 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import FormPage from "../UI/FormPage";
+import Page from "../UI/Page";
 import Input from "../UI/Input";
 import classes from "./form.module.scss";
 import * as Yup from "yup";
@@ -28,7 +28,7 @@ const PwdReset = () => {
   }, [resetSuccess, history]);
 
   return (
-    <FormPage>
+    <Page className={classes.page}>
       <Formik
         initialValues={{
           newPwd: "",
@@ -71,7 +71,7 @@ const PwdReset = () => {
           )}
         </Form>
       </Formik>
-    </FormPage>
+    </Page>
   );
 };
 

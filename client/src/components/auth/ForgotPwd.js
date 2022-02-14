@@ -1,7 +1,6 @@
 import { Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
-import Nav from "../header/Nav";
-import FormPage from "../UI/FormPage";
+import Page from "../UI/Page";
 import Input from "../UI/Input";
 import classes from "./form.module.scss";
 import * as Yup from "yup";
@@ -26,7 +25,7 @@ const ForgotPwd = () => {
   }, [submit, isSending]);
 
   return (
-    <FormPage>
+    <Page className={classes.page}>
       {!queryParams ? (
         <Formik
           initialValues={{
@@ -56,7 +55,7 @@ const ForgotPwd = () => {
       ) : (
         <PwdReset />
       )}
-    </FormPage>
+    </Page>
   );
 };
 

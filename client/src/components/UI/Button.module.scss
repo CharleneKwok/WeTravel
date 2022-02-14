@@ -1,0 +1,31 @@
+@import "../../variables/variables";
+
+.onFocus {
+  font-weight: 700;
+  letter-spacing: 1px;
+  img {
+    opacity: 0.8;
+  }
+}
+
+.btn {
+  @include flex-center(column);
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 0px;
+  cursor: pointer;
+  transition: all 500ms ease;
+  width: 200px;
+  img {
+    transition: all 500ms ease;
+    margin: 0;
+    width: 60%;
+    opacity: 0;
+  }
+  &:hover,
+  &:active,
+  &:focus {
+    @extend .onFocus;
+  }
+}

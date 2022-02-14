@@ -1,12 +1,14 @@
 import React from "react";
 import Nav from "../header/Nav";
-import classes from "./FormPage.module.scss";
+import classes from "./Page.module.scss";
 
 const FormPage = (props) => {
   return (
     <>
       <Nav />
-      <div className={classes.container}>{props.children}</div>
+      <div className={`${classes.container} ${props.className}`}>
+        {props.children}
+      </div>
     </>
   );
 };

@@ -8,7 +8,7 @@ import { Link, useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 import { userGoogleLogin, userLogin } from "../../store/auth-actions";
-import FormPage from "../UI/FormPage";
+import Page from "../UI/Page";
 
 const Login = () => {
   const history = useHistory();
@@ -30,7 +30,7 @@ const Login = () => {
   };
 
   return (
-    <FormPage>
+    <Page className={classes.page}>
       <Formik
         initialValues={{
           loginEmail: "",
@@ -75,7 +75,7 @@ const Login = () => {
           />
         </Form>
       </Formik>
-    </FormPage>
+    </Page>
   );
 };
 

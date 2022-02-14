@@ -6,7 +6,7 @@ import { useHistory, Prompt } from "react-router-dom";
 import Input from "../UI/Input";
 import { useDispatch, useSelector } from "react-redux";
 import { userSignup } from "../../store/auth-actions";
-import FormPage from "../UI/FormPage";
+import Page from "../UI/Page";
 
 const Signup = () => {
   const history = useHistory();
@@ -30,7 +30,7 @@ const Signup = () => {
   };
 
   return (
-    <FormPage>
+    <Page className={classes.page}>
       <Formik
         initialValues={{
           signupUsername: "",
@@ -66,7 +66,7 @@ const Signup = () => {
           <button>SIGNUP</button>
         </Form>
       </Formik>
-    </FormPage>
+    </Page>
   );
 };
 

@@ -1,0 +1,9 @@
+@import "../../variables/variables";
+
+.container {
+  // display: flex;
+}
+
+.btns {
+  @include flex-center();
+}
