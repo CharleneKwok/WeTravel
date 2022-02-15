@@ -1,0 +1,157 @@
+@import "../../variables/variables";
+
+.container {
+  @include card("100%", "30%");
+  margin-top: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.image-container {
+  transition: all 500ms ease;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  img {
+    transition: all ease 500ms;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}
+
+.info {
+  padding: 10px;
+  display: grid;
+  row-gap: 10px;
+  grid-template-rows: auto auto auto auto;
+  grid-template-columns: 78% auto;
+  grid-template-areas: "name price" "rating ." "address ." "arrow arrow";
+  transition: all 500ms ease;
+
+  h2 {
+    grid-area: name;
+    margin: 0 10px;
+  }
+  p {
+    margin: 0;
+  }
+}
+
+.rating {
+  grid-area: rating;
+  @include flex-center();
+  justify-content: start;
+
+  p {
+    display: inline-block;
+    margin: 0 10px;
+  }
+}
+
+.star {
+  display: inline-block;
+}
+
+.address {
+  display: flex;
+  grid-area: address;
+  p {
+    display: inline-block;
+  }
+}
+.svg {
+  display: inline-block;
+  margin-right: 3px;
+}
+
+.price {
+  grid-area: price;
+  align-self: center;
+  justify-self: center;
+}
+
+.down-arrow {
+  @include flex-center();
+  width: 100%;
+  height: 40px;
+  cursor: pointer;
+  grid-area: arrow;
+  transition: all ease 500ms;
+}
+
+.hide-details {
+  display: none;
+  + .down-arrow {
+    &:hover {
+      animation: moveDown 1s ease forwards 0s 3;
+    }
+  }
+}
+
+.more-details + .down-arrow {
+  transform: rotate(180deg) !important;
+}
+
+.more-details {
+  display: grid;
+  row-gap: 20px;
+  padding: 10px;
+  p {
+    margin: 0;
+    margin-left: 10px;
+  }
+}
+
+.btn {
+  @include button();
+  text-decoration: none;
+  color: black;
+  margin: 7px;
+  padding: 8px;
+  &:hover {
+    letter-spacing: 1px;
+  }
+}
+
+.middle {
+  @include flex-center();
+  justify-content: start;
+}
+
+.cuisine {
+  border: 1px solid black;
+}
+
+.cuisine-list button {
+  font-family: inherit;
+  background-color: rgba(204, 204, 204, 0.178);
+  padding: 7px;
+  border-radius: 30px;
+  margin: 3px 10px;
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}

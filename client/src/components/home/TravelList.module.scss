@@ -1,9 +1,22 @@
 @import "../../variables/variables";
 
 .container {
-  // display: flex;
 }
 
 .btns {
   @include flex-center();
+  padding-bottom: 15px;
+}
+
+.list {
+  padding: 0 70px;
+  height: 750px;
+  overflow: scroll;
+}
+
+.loader-container {
+  @include card("100%", "30%");
+  margin-top: 20px;
+  margin-bottom: 30px;
+  overflow: hidden;
 }

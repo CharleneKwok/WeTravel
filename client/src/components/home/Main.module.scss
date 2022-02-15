@@ -12,6 +12,8 @@
 
 .map {
   grid-area: map;
+  border-radius: 30px;
+  overflow: hidden;
 }
 
 @media (max-width: 1000px) {

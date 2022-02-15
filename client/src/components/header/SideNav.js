@@ -36,7 +36,7 @@ const SideNav = (props) => {
             <h4>Hi! {info.username}</h4>
           </div>
         )}
-        <LinkButton to="/" text="MAIN" />
+        <LinkButton to="/home" text="HOME" />
         <LinkButton to="/explore" text="EXPLORE" />
         <LinkButton to="/profile" text="PROFILE" />
         <LinkButton to="/settings" text="SETTING" />

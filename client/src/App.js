@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import classes from "./App.module.scss";
 import open from "./assets/037.png";
 import Main from "./components/home/Main";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Explore from "./components/explore/Explore";
 import Profile from "./components/profile/Profile";
 import Login from "./components/auth/Login";
@@ -48,7 +48,12 @@ function App() {
       ) : ( */}
       <Switch>
         <Route path="/" exact component={Open} />
-        <Route path="/home" exact component={Main} />
+        <Route path="/home" exact component={Main}>
+          <Redirect to="/home/restaurants" />
+        </Route>
+        <Route path="/home/restaurants" component={Main} />
+        <Route path="/home/hotels" component={Main} />
+        <Route path="/home/attractions" component={Main} />
         <Route path="/explore" exact component={Explore} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/login" exact component={Login} />
