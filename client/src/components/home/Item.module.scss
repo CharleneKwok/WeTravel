@@ -45,7 +45,8 @@
 
 .rating {
   grid-area: rating;
-  @include flex-center();
+  display: flex;
+  align-items: center;
   justify-content: start;
 
   p {

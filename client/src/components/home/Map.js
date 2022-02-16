@@ -4,11 +4,13 @@ import GoogleMapReact from "google-map-react";
 import { useDispatch, useSelector } from "react-redux";
 import { listActions } from "../../store/list-slice";
 import MapLoader from "../UI/MapLoader";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import SvgIcon from "@mui/material/SvgIcon";
 
 const Map = (props) => {
   const [center, setCenter] = useState({});
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const list = useSelector((state) => state.mainList.list);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -25,7 +27,7 @@ const Map = (props) => {
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
         defaultCenter={center}
         center={center}
-        defaultZoom={14}
+        defaultZoom={17}
         // need ne and sw
         onChange={({ bounds }) => {
           dispatch(
@@ -36,7 +38,21 @@ const Map = (props) => {
           );
         }}
         // onChildClick={(e) => console.log(e)}
-      ></GoogleMapReact>
+      >
+        {list?.map((item, i) => (
+          <div
+            className={classes.location}
+            key={`map_marker_${i}_${item.location_id}`}
+            lat={item.latitude}
+            lng={item.longitude}
+          >
+            <SvgIcon className={classes.hover}>
+              <LocationOnIcon />
+            </SvgIcon>
+            <p className={classes.card}>{item.name}</p>
+          </div>
+        ))}
+      </GoogleMapReact>
     </div>
   );
 };
