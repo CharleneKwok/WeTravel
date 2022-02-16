@@ -1,9 +1,12 @@
+// in charge of the whole home page layout
 .main {
   display: grid;
   grid-template-columns: 40% 60%;
   grid-template-areas: "list map";
   margin-top: 100px;
   padding: 0 40px;
+  row-gap: 30px;
+  column-gap: 30px;
 }
 
 .list {
@@ -16,7 +19,7 @@
   overflow: hidden;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1300px) {
   .main {
     grid-template-columns: 100%;
     grid-template-rows: 400px auto;

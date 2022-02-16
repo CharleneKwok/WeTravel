@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./Item.module.scss";
 import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
@@ -7,12 +7,14 @@ import SvgIcon from "@mui/material/SvgIcon";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import PhoneIcon from "@mui/icons-material/Phone";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
+import Aos from "aos";
+import "aos/dist/aos.css";
 
-const Item = ({ info }) => {
+const ShowInfo = ({ info }) => {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className={classes.container}>
+    <>
       <div className={classes["image-container"]}>
         <img
           src={
@@ -126,7 +128,29 @@ const Item = ({ info }) => {
           <KeyboardArrowDownIcon />
         </SvgIcon>
       </div>
-    </div>
+    </>
+  );
+};
+
+const Item = ({ info }) => {
+  const innerWidth = window.innerWidth;
+
+  useEffect(() => {
+    Aos.init({ duration: 700 });
+  }, []);
+
+  return (
+    <>
+      {innerWidth > 1300 ? (
+        <div className={classes.container}>
+          <ShowInfo info={info} />
+        </div>
+      ) : (
+        <div className={classes.container} data-aos="zoom-in">
+          <ShowInfo info={info} />
+        </div>
+      )}
+    </>
   );
 };
 

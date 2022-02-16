@@ -6,15 +6,19 @@
 
 .location {
   cursor: pointer;
-  animation: dropdown 500ms ease-in-out 1s forwards;
+  animation: dropdown 500ms ease-in-out forwards;
   // transition: all ease 500ms;
   opacity: 0;
-  position: absolute;
+  position: relative;
   z-index: 1;
+  &:hover {
+    z-index: 2;
+  }
 }
 
 @keyframes dropdown {
   0% {
+    opacity: 0;
     transform: translateY(-200px);
   }
   100% {
@@ -24,22 +28,25 @@
 }
 
 .hover:hover {
+  color: #ccc;
   transform: scale(1.2);
-  z-index: 2;
 }
 
 .card {
+  font-weight: 600;
+  @include card(100px, auto);
+  text-align: center;
+  padding: 10px 13px;
+  position: absolute;
+  z-index: 1;
+  top: -70px;
+  left: -35px;
+  background-color: white;
   display: none;
 }
 
 .location:hover .card {
-  font-weight: 600;
   display: block;
-  @include card(auto, 30px);
-  @include flex-center();
-  padding: 30px;
   position: absolute;
-  top: -80px;
-  left: -25px;
-  background-color: white;
+  z-index: 3;
 }

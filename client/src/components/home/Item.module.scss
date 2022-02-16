@@ -1,7 +1,8 @@
 @import "../../variables/variables";
 
+// in charge of each item
 .container {
-  @include card("100%", "30%");
+  @include card("100%", "100%");
   margin-top: 20px;
   margin-bottom: 30px;
   display: flex;
@@ -140,16 +141,6 @@
 @keyframes moveDown {
   0% {
     transform: translateY(-10px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes moveUp {
-  0% {
-    transform: translateY(10px);
   }
 
   100% {
