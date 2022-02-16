@@ -17,15 +17,15 @@ const TravelList = (props) => {
   const location = useLocation();
   const items = getList.list.filter((item) => item?.name);
 
-  // useEffect(() => {
-  //   if (location.pathname.includes("restaurants")) {
-  //     dispatch(getRestaurants(getList.swLocation, getList.neLocation));
-  //   } else if (location.pathname.includes("hotels")) {
-  //     dispatch(getHotels(getList.swLocation, getList.neLocation));
-  //   } else if (location.pathname.includes("attractions")) {
-  //     dispatch(getAttractions(getList.swLocation, getList.neLocation));
-  //   }
-  // }, [getList.swLocation, getList.neLocation, location.pathname, dispatch]);
+  useEffect(() => {
+    if (location.pathname.includes("restaurants")) {
+      dispatch(getRestaurants(getList.swLocation, getList.neLocation));
+    } else if (location.pathname.includes("hotels")) {
+      dispatch(getHotels(getList.swLocation, getList.neLocation));
+    } else if (location.pathname.includes("attractions")) {
+      dispatch(getAttractions(getList.swLocation, getList.neLocation));
+    }
+  }, [getList.swLocation, getList.neLocation, location.pathname, dispatch]);
 
   return (
     <div className={`${classes.container} ${props.className}`}>

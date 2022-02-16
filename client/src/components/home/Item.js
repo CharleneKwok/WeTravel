@@ -84,38 +84,36 @@ const ShowInfo = ({ info }) => {
             <p>{award.display_name}</p>
           </div>
         ))}
-        <div>
-          {info.web_url && (
-            <a
-              href={info.web_url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={classes.btn}
-            >
-              Trip Advisor
-            </a>
-          )}
-          {info.website && (
-            <a
-              href={info.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={classes.btn}
-            >
-              Website
-            </a>
-          )}
-          {info.write_review && (
-            <a
-              href={info.write_review}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={classes.btn}
-            >
-              Write Review
-            </a>
-          )}
-        </div>
+        {info.web_url && (
+          <a
+            href={info.web_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.btn}
+          >
+            Trip Advisor
+          </a>
+        )}
+        {info.website && (
+          <a
+            href={info.website}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.btn}
+          >
+            Website
+          </a>
+        )}
+        {info.write_review && (
+          <a
+            href={info.write_review}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.btn}
+          >
+            Write Review
+          </a>
+        )}
       </div>
       <div
         className={classes["down-arrow"]}

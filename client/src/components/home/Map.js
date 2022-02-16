@@ -6,6 +6,7 @@ import { listActions } from "../../store/list-slice";
 import MapLoader from "../UI/MapLoader";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import SvgIcon from "@mui/material/SvgIcon";
+import Marker from "./Marker";
 
 const Map = (props) => {
   const [center, setCenter] = useState({});
@@ -40,17 +41,13 @@ const Map = (props) => {
         // onChildClick={(e) => console.log(e)}
       >
         {list?.map((item, i) => (
-          <div
-            className={classes.location}
+          <Marker
+            i={i}
+            item={item}
             key={`map_marker_${i}_${item.location_id}`}
             lat={item.latitude}
             lng={item.longitude}
-          >
-            <SvgIcon className={classes.hover}>
-              <LocationOnIcon />
-            </SvgIcon>
-            <p className={classes.card}>{item.name}</p>
-          </div>
+          />
         ))}
       </GoogleMapReact>
     </div>

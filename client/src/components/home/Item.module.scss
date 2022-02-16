@@ -2,7 +2,7 @@
 
 // in charge of each item
 .container {
-  @include card("100%", "100%");
+  @include card(100%, fit-content);
   margin-top: 20px;
   margin-bottom: 30px;
   display: flex;
@@ -32,7 +32,7 @@
   row-gap: 10px;
   grid-template-rows: auto auto auto auto;
   grid-template-columns: 78% auto;
-  grid-template-areas: "name price" "rating ." "address ." "arrow arrow";
+  grid-template-areas: "name price" "rating ." "address address" "arrow arrow";
   transition: all 500ms ease;
 
   h2 {
@@ -81,7 +81,7 @@
 .down-arrow {
   @include flex-center();
   width: 100%;
-  height: 40px;
+  height: 70px;
   cursor: pointer;
   grid-area: arrow;
   transition: all ease 500ms;
@@ -102,7 +102,8 @@
 
 .more-details {
   display: grid;
-  row-gap: 20px;
+  grid-auto-rows: auto;
+  row-gap: 10px;
   padding: 10px;
   p {
     margin: 0;

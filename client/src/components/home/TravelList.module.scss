@@ -9,9 +9,19 @@
   height: 750px;
   overflow: scroll;
   margin: 0 50px;
+  padding: 15px;
   @media (max-width: 1300px) {
+    overflow: visible;
+    justify-content: center;
+    column-gap: 30px;
     height: auto;
-    overflow: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 440px);
+    @media (max-width: 500px) {
+      grid-template-columns: 100%;
+      column-gap: 0;
+      margin: 0;
+    }
   }
 }
 
