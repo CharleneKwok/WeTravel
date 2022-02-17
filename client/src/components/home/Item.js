@@ -131,7 +131,6 @@ const ShowInfo = ({ info }) => {
 };
 
 const Item = ({ info, refProps, selected }) => {
-  console.log("🚀 ~ refProps", refProps);
   const innerWidth = window.innerWidth;
 
   if (selected) {

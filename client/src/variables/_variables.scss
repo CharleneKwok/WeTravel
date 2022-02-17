@@ -43,3 +43,19 @@ $border: 1px solid #ccc;
     transform: scale(1.05);
   }
 }
+
+@mixin card-button($width: auto) {
+  cursor: pointer;
+  padding: 2px;
+  color: black;
+  border: 0;
+  border-bottom: 1px black solid;
+  background-color: transparent;
+  margin: 0 10px;
+  font-family: inherit;
+  transition: all ease 400ms;
+  &:hover {
+    transform: scale(1.02);
+    font-weight: 700;
+  }
+}
