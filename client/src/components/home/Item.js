@@ -24,7 +24,7 @@ const ShowInfo = ({ info }) => {
           alt="location"
         />
       </div>
-      <div className={classes.info}>
+      <article className={classes.info}>
         <h2>{info.name}</h2>
         {info?.rating && (
           <div className={classes.rating}>
@@ -47,9 +47,9 @@ const ShowInfo = ({ info }) => {
           <p>{info.address || info.location_string}</p>
         </div>
         <p className={classes.price}>{info.price || info.price_level}</p>
-      </div>
+      </article>
       {/* more details */}
-      <div
+      <article
         className={showMore ? classes["more-details"] : classes["hide-details"]}
       >
         {info?.cuisine && (
@@ -114,7 +114,7 @@ const ShowInfo = ({ info }) => {
             Write Review
           </a>
         )}
-      </div>
+      </article>
       <div
         className={classes["down-arrow"]}
         onClick={() => setShowMore((prev) => !prev)}
@@ -130,8 +130,13 @@ const ShowInfo = ({ info }) => {
   );
 };
 
-const Item = ({ info }) => {
+const Item = ({ info, refProps, selected }) => {
+  console.log("🚀 ~ refProps", refProps);
   const innerWidth = window.innerWidth;
+
+  if (selected) {
+    refProps?.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   useEffect(() => {
     Aos.init({ duration: 700 });
@@ -140,11 +145,11 @@ const Item = ({ info }) => {
   return (
     <>
       {innerWidth > 1300 ? (
-        <div className={classes.container}>
+        <div className={classes.container} ref={refProps}>
           <ShowInfo info={info} />
         </div>
       ) : (
-        <div className={classes.container} data-aos="zoom-in">
+        <div className={classes.container} data-aos="zoom-in" ref={refProps}>
           <ShowInfo info={info} />
         </div>
       )}

@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Map.module.scss";
+import classes from "./Main.module.scss";
 import SvgIcon from "@mui/material/SvgIcon";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 

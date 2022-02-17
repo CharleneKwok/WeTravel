@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import Button from "../UI/Button";
 import classes from "./TravelList.module.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,7 @@ const TravelList = (props) => {
   const getList = useSelector((state) => state.mainList);
   const location = useLocation();
   const items = getList.list.filter((item) => item?.name);
+  const [itemsRefs, setItemsRefs] = useState([]);
 
   useEffect(() => {
     if (location.pathname.includes("restaurants")) {
@@ -25,6 +26,10 @@ const TravelList = (props) => {
     } else if (location.pathname.includes("attractions")) {
       dispatch(getAttractions(getList.swLocation, getList.neLocation));
     }
+    const refs = Array(items?.length)
+      .fill()
+      .map((_, i) => itemsRefs[i] || createRef());
+    setItemsRefs(refs);
   }, [getList.swLocation, getList.neLocation, location.pathname, dispatch]);
 
   return (
@@ -36,7 +41,14 @@ const TravelList = (props) => {
       </div>
       <div className={classes.list}>
         {!getList.isLoading ? (
-          items.map((item, i) => <Item info={item} key={i} />)
+          items.map((item, i) => (
+            <Item
+              info={item}
+              key={i}
+              refProps={itemsRefs[i]}
+              selected={+props.childClick === i}
+            />
+          ))
         ) : (
           <>
             <div className={classes["loader-container"]}>
