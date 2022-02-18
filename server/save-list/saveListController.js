@@ -15,7 +15,7 @@ export const getSaveList = async (req, res) => {
 };
 
 //  add item into list
-// {location_id, name, address, tripAdvisor, image, type}
+// {location_id, name, address, tripAdvisor, image, location_type}
 export const addItemToList = async (req, res) => {
   const {
     userId,
@@ -26,18 +26,11 @@ export const addItemToList = async (req, res) => {
     image,
     location_type,
   } = req.body;
-  if (
-    !location_id ||
-    !name ||
-    !address ||
-    !tripAdvisor ||
-    !image ||
-    !location_type
-  )
+  if (!location_id || !name || !address || !image || !location_type)
     return res
       .status(400)
       .send(
-        "Not enough info to add location to list.(location_id, name, address, tripAdvisor link, image)"
+        "Not enough info to add location to list.(location_id, name, address, tripAdvisor link, image,location_type)"
       );
 
   const userSaveList = await SaveList.findOne({ userId: userId });

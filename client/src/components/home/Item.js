@@ -24,11 +24,13 @@ const ShowInfo = ({ info, type }) => {
         const data = {
           location_id: info.location_id,
           name: info.name,
-          address: info.address || "",
+          address: info.address || info.location_string,
           tripAdvisor: info.web_url || "",
           image: info.image,
           location_type: type,
         };
+        console.log("🚀 ~ data", data);
+
         await addToSaveList(data);
       } else {
         await deleteItemOnList(info.location_id);

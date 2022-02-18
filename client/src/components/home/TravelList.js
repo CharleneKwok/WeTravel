@@ -48,9 +48,9 @@ const TravelList = (props) => {
           items.map((item, i) => (
             <Item
               info={item}
-              key={i}
+              key={item.location_id}
               refProps={itemsRefs[i]}
-              selected={+props.childClick === i}
+              selected={+props.childClick === +item.location_id}
               type={type}
             />
           ))

@@ -97,7 +97,7 @@ const Main = () => {
               <Marker
                 i={i}
                 item={item}
-                key={i}
+                key={item.location_id}
                 lat={item.latitude}
                 lng={item.longitude}
               />

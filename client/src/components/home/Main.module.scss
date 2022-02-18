@@ -55,7 +55,6 @@
 .location {
   cursor: pointer;
   animation: dropdown 500ms ease-in-out forwards;
-  // transition: all ease 500ms;
   opacity: 0;
   position: relative;
   z-index: 1;
@@ -82,15 +81,16 @@
 
 .card {
   font-weight: 600;
-  @include card(100px, auto);
+  @include card(auto, auto);
   text-align: center;
   padding: 10px 13px;
   position: absolute;
   z-index: 1;
-  top: -70px;
-  left: -35px;
+  top: -50px;
+  left: -40px;
   background-color: white;
   display: none;
+  white-space: nowrap;
 }
 
 .location:hover .card {
