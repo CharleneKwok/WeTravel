@@ -3,7 +3,6 @@ import { attractions, hotels, restaurants } from "../api/mainList-api";
 import { listActions } from "./list-slice";
 
 const getNewPlaces = async (type, resp) => {
-  const saveList = await getSaveList();
   if (resp.data.data) {
     let placesData = resp.data.data.filter((item) => item?.name);
     placesData = resp.data.data.filter((item) => +item.location_id !== 0);
@@ -33,20 +32,23 @@ const getNewPlaces = async (type, resp) => {
       };
       newPlaces.push(newData);
     });
+    if (localStorage.getItem("profile")) {
+      const saveList = await getSaveList();
 
-    if (saveList) {
-      const list = saveList.data?.saveList.filter(
-        (l) => l.location_type === type
-      );
-      list.forEach((place) => {
-        const foundIdx = newPlaces.findIndex(
-          (location) => +location.location_id === +place.location_id
+      if (saveList) {
+        const list = saveList.data?.saveList.filter(
+          (l) => l.location_type === type
         );
-        if (foundIdx >= 0) {
-          const location = newPlaces[foundIdx];
-          location.saveToList = true;
-        }
-      });
+        list.forEach((place) => {
+          const foundIdx = newPlaces.findIndex(
+            (location) => +location.location_id === +place.location_id
+          );
+          if (foundIdx >= 0) {
+            const location = newPlaces[foundIdx];
+            location.saveToList = true;
+          }
+        });
+      }
     }
     return newPlaces;
   }

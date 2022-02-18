@@ -21,6 +21,7 @@ const ShowInfo = ({ info, type }) => {
   const [showMore, setShowMore] = useState(false);
   const [save, setSave] = useState(info.saveToList);
   const [open, setOpen] = useState(false);
+  const user = localStorage.getItem("profile");
 
   const addItemHandler = async () => {
     setOpen(true);
@@ -70,20 +71,24 @@ const ShowInfo = ({ info, type }) => {
         <img src={info.image} alt="location" />
       </div>
       <article className={classes.info}>
-        <div
-          className={classes.bookmark}
-          title="Save this location"
-          onClick={addItemHandler}
-        >
-          {save ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-        </div>
-        <Snackbar
-          open={open}
-          autoHideDuration={2000}
-          onClose={handleClose}
-          message={save ? "🎊 Location saved" : "👋 Removed"}
-          action={action}
-        />
+        {user && (
+          <>
+            <div
+              className={classes.bookmark}
+              title="Save this location"
+              onClick={addItemHandler}
+            >
+              {save ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+            </div>
+            <Snackbar
+              open={open}
+              autoHideDuration={2000}
+              onClose={handleClose}
+              message={save ? "🎊 Location saved" : "👋 Removed"}
+              action={action}
+            />
+          </>
+        )}
         <h2>{info.name}</h2>
         <div className={classes.rating}>
           <Stack spacing={1} className={classes.star}>
