@@ -9,6 +9,8 @@ import PhoneIcon from "@mui/icons-material/Phone";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
 import Aos from "aos";
 import "aos/dist/aos.css";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import BookmarkIcon from "@mui/icons-material/Bookmark";
 
 const ShowInfo = ({ info }) => {
   const [showMore, setShowMore] = useState(false);

@@ -55,3 +55,19 @@ const { email } = req.body;
 
 - `status = 500` system error
   send email failed
+
+## /saveList
+
+### /saveList/
+
+- get
+
+  - body: {token}
+
+- post
+  - body: {token, location_id, name, address, tripAdvisor, image}
+
+### /saveList/:location_id
+
+- delete
+  - body: {token}

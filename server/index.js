@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import userRoutes from "./auth/userRoutes.js";
 import pwdResetRoutes from "./pwd-reset/tokenRoutes.js";
+import saveListRoutes from "./save-list/saveListRoutes.js";
 
 const app = express();
 
@@ -15,6 +16,7 @@ dotenv.config();
 // routes
 app.use("/user", userRoutes);
 app.use("/pwdReset", pwdResetRoutes);
+app.use("/saveList", saveListRoutes);
 
 const CONNECTION = process.env.CONNECTION_URL;
 const PORT = 5001;

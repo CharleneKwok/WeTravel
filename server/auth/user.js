@@ -24,7 +24,6 @@ const user = new mongoose.Schema({
     type: Date,
     default: new Date(),
   },
-  // posts: []
 });
 
 export default mongoose.model("User", user);
