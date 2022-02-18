@@ -35,6 +35,7 @@ const ShowInfo = ({ info, type }) => {
           image: info.image,
           location_type: type,
         };
+        console.log("🚀 ~ data", data);
 
         await addToSaveList(data);
       } else {
@@ -82,24 +83,22 @@ const ShowInfo = ({ info, type }) => {
           open={open}
           autoHideDuration={2000}
           onClose={handleClose}
-          message={save ? "🎊 Location saved" : "Removed"}
+          message={save ? "🎊 Location saved" : "👋 Removed"}
           action={action}
         />
         <h2>{info.name}</h2>
-        {info?.rating && (
-          <div className={classes.rating}>
-            <Stack spacing={1} className={classes.star}>
-              <Rating
-                name="half-rating-read"
-                defaultValue={0}
-                value={info?.rating ? +info.rating : 0}
-                precision={0.5}
-                readOnly
-              />
-            </Stack>
-            <p>{info.rating}</p>
-          </div>
-        )}
+        <div className={classes.rating}>
+          <Stack spacing={1} className={classes.star}>
+            <Rating
+              name="half-rating-read"
+              defaultValue={0}
+              value={info?.rating ? +info.rating : 0}
+              precision={0.5}
+              readOnly
+            />
+          </Stack>
+          <p>{info.rating || "No Rating"}</p>
+        </div>
         <div className={classes.address}>
           <SvgIcon color="disabled" className={classes.svg}>
             <FmdGoodIcon />
