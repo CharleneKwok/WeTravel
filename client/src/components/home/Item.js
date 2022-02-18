@@ -12,12 +12,18 @@ import "aos/dist/aos.css";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
 import { addToSaveList, deleteItemOnList } from "../../api/feature-api";
+import Button from "@mui/material/Button";
+import Snackbar from "@mui/material/Snackbar";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const ShowInfo = ({ info, type }) => {
   const [showMore, setShowMore] = useState(false);
   const [save, setSave] = useState(info.saveToList);
+  const [open, setOpen] = useState(false);
 
   const addItemHandler = async () => {
+    setOpen(true);
     setSave((prev) => !prev);
     try {
       if (!save) {
@@ -29,7 +35,6 @@ const ShowInfo = ({ info, type }) => {
           image: info.image,
           location_type: type,
         };
-        console.log("🚀 ~ data", data);
 
         await addToSaveList(data);
       } else {
@@ -40,22 +45,47 @@ const ShowInfo = ({ info, type }) => {
     }
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
   return (
     <>
       <div className={classes["image-container"]}>
         <img src={info.image} alt="location" />
       </div>
       <article className={classes.info}>
-        <h2>
-          <div
-            className={classes.bookmark}
-            title="Save this location"
-            onClick={addItemHandler}
-          >
-            {save ? <BookmarkIcon /> : <BookmarkBorderIcon />}
-          </div>
-          {info.name}
-        </h2>
+        <div
+          className={classes.bookmark}
+          title="Save this location"
+          onClick={addItemHandler}
+        >
+          {save ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+        </div>
+        <Snackbar
+          open={open}
+          autoHideDuration={2000}
+          onClose={handleClose}
+          message={save ? "🎊 Location saved" : "Removed"}
+          action={action}
+        />
+        <h2>{info.name}</h2>
         {info?.rating && (
           <div className={classes.rating}>
             <Stack spacing={1} className={classes.star}>

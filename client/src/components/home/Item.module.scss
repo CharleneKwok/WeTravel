@@ -46,10 +46,10 @@
 }
 
 .bookmark {
-  position: relative;
-  top: 5px;
   display: inline-block;
   cursor: pointer;
+  justify-self: center;
+  color: #90b4ce;
 }
 
 .rating {
