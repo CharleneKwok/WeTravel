@@ -11,23 +11,49 @@ import Aos from "aos";
 import "aos/dist/aos.css";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
+import { addToSaveList, deleteItemOnList } from "../../api/feature-api";
 
-const ShowInfo = ({ info }) => {
+const ShowInfo = ({ info, type }) => {
   const [showMore, setShowMore] = useState(false);
+  const [save, setSave] = useState(info.saveToList);
+
+  const addItemHandler = async () => {
+    setSave((prev) => !prev);
+    try {
+      if (!save) {
+        const data = {
+          location_id: info.location_id,
+          name: info.name,
+          address: info.address || "",
+          tripAdvisor: info.web_url || "",
+          image: info.image,
+          location_type: type,
+        };
+        await addToSaveList(data);
+      } else {
+        await deleteItemOnList(info.location_id);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <>
       <div className={classes["image-container"]}>
-        <img
-          src={
-            info.photo?.images.original.url ||
-            "https://images.unsplash.com/photo-1514933651103-005eec06c04b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
-          }
-          alt="location"
-        />
+        <img src={info.image} alt="location" />
       </div>
       <article className={classes.info}>
-        <h2>{info.name}</h2>
+        <h2>
+          <div
+            className={classes.bookmark}
+            title="Save this location"
+            onClick={addItemHandler}
+          >
+            {save ? <BookmarkIcon /> : <BookmarkBorderIcon />}
+          </div>
+          {info.name}
+        </h2>
         {info?.rating && (
           <div className={classes.rating}>
             <Stack spacing={1} className={classes.star}>
@@ -132,7 +158,7 @@ const ShowInfo = ({ info }) => {
   );
 };
 
-const Item = ({ info, refProps, selected }) => {
+const Item = ({ info, refProps, selected, type }) => {
   const innerWidth = window.innerWidth;
 
   if (selected) {
@@ -147,11 +173,11 @@ const Item = ({ info, refProps, selected }) => {
     <>
       {innerWidth > 1300 ? (
         <div className={classes.container} ref={refProps}>
-          <ShowInfo info={info} />
+          <ShowInfo info={info} type={type} />
         </div>
       ) : (
         <div className={classes.container} data-aos="zoom-in" ref={refProps}>
-          <ShowInfo info={info} />
+          <ShowInfo info={info} type={type} />
         </div>
       )}
     </>

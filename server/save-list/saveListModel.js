@@ -8,6 +8,10 @@ const saveList = new mongoose.Schema({
   },
   saveList: [
     {
+      location_type: {
+        type: String,
+        required: true,
+      },
       location_id: {
         type: Number,
         required: true,

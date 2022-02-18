@@ -23,7 +23,7 @@ function App() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"));
-    console.log("🚀 ~ user.token", user.token);
+    console.log("🚀 ~ user.token", user?.token);
     if (user) {
       const decodedToken = decode(user.token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {

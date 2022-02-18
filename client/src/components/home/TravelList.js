@@ -15,22 +15,26 @@ const TravelList = (props) => {
   const dispatch = useDispatch();
   const getList = useSelector((state) => state.mainList);
   const location = useLocation();
-  const items = getList.list.filter((item) => item?.name);
+  const items = getList.list;
   const [itemsRefs, setItemsRefs] = useState([]);
+  const [type, setType] = useState(null);
 
-  // useEffect(() => {
-  //   if (location.pathname.includes("restaurants")) {
-  //     dispatch(getRestaurants(getList.swLocation, getList.neLocation));
-  //   } else if (location.pathname.includes("hotels")) {
-  //     dispatch(getHotels(getList.swLocation, getList.neLocation));
-  //   } else if (location.pathname.includes("attractions")) {
-  //     dispatch(getAttractions(getList.swLocation, getList.neLocation));
-  //   }
-  //   const refs = Array(items?.length)
-  //     .fill()
-  //     .map((_, i) => createRef());
-  //   setItemsRefs(refs);
-  // }, [getList.swLocation, location.pathname, dispatch]);
+  useEffect(() => {
+    if (location.pathname.includes("restaurants")) {
+      dispatch(getRestaurants(getList.swLocation, getList.neLocation));
+      setType("restaurants");
+    } else if (location.pathname.includes("hotels")) {
+      dispatch(getHotels(getList.swLocation, getList.neLocation));
+      setType("hotels");
+    } else if (location.pathname.includes("attractions")) {
+      dispatch(getAttractions(getList.swLocation, getList.neLocation));
+      setType("attractions");
+    }
+    const refs = Array(items?.length)
+      .fill()
+      .map((_, i) => createRef());
+    setItemsRefs(refs);
+  }, [getList.swLocation, location.pathname, dispatch]);
 
   return (
     <div className={`${classes.container} ${props.className}`}>
@@ -47,6 +51,7 @@ const TravelList = (props) => {
               key={i}
               refProps={itemsRefs[i]}
               selected={+props.childClick === i}
+              type={type}
             />
           ))
         ) : (

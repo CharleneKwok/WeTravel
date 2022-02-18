@@ -37,11 +37,19 @@
 
   h2 {
     grid-area: name;
-    margin: 0 10px;
+    margin: 0 3px;
+    align-self: center;
   }
   p {
     margin: 0;
   }
+}
+
+.bookmark {
+  position: relative;
+  top: 5px;
+  display: inline-block;
+  cursor: pointer;
 }
 
 .rating {
