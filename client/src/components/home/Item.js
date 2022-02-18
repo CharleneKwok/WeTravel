@@ -35,8 +35,6 @@ const ShowInfo = ({ info, type }) => {
           image: info.image,
           location_type: type,
         };
-        console.log("🚀 ~ data", data);
-
         await addToSaveList(data);
       } else {
         await deleteItemOnList(info.location_id);
