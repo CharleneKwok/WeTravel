@@ -1,7 +1,7 @@
 @mixin line-through($width: 0) {
   content: " ";
   position: absolute;
-  top: 60%;
+  top: 50%;
   left: 0;
   width: $width;
   height: 1.5px;

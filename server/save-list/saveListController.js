@@ -42,6 +42,7 @@ export const addItemToList = async (req, res) => {
     image,
     location_type,
   };
+  console.log(item);
   if (!userSaveList) {
     // no saving list then create new one
     const list = await SaveList.create({

@@ -9,6 +9,10 @@
   height: 400px;
   box-shadow: $box-shadow;
   position: relative;
+  + section {
+    @include flex-center(column);
+    margin-top: 40px;
+  }
 }
 
 .user_info {
@@ -49,4 +53,28 @@
 .user_info--bio {
   grid-area: des;
   margin: 10px 10px;
+}
+
+.buttons {
+  @include flex-center();
+}
+.searchIcon {
+  margin-top: 20px;
+  margin-right: 10px;
+}
+
+.filter {
+  display: flex;
+  width: 20%;
+  margin: 40px 0;
+  align-items: center;
+}
+
+.collection {
+  display: grid;
+  width: 80%;
+  grid-template-columns: repeat(auto-fill, 400px);
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 20px;
 }

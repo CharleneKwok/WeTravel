@@ -34,7 +34,7 @@ const TravelList = (props) => {
       .fill()
       .map((_, i) => createRef());
     setItemsRefs(refs);
-  }, [getList.swLocation, location.pathname, dispatch]);
+  }, [getList.swLocation, location.pathname]);
 
   return (
     <div className={`${classes.container} ${props.className}`}>
