@@ -32,8 +32,9 @@ const getNewPlaces = async (type, resp) => {
       };
       newPlaces.push(newData);
     });
-    if (localStorage.getItem("profile")) {
-      const saveList = await getSaveList();
+    const user = JSON.parse(localStorage.getItem("profile"));
+    if (user) {
+      const saveList = await getSaveList(user._id);
 
       if (saveList) {
         const list = saveList.data?.saveList.filter(

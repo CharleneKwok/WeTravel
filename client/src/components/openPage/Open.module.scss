@@ -3,7 +3,7 @@
 .container {
   @include flex-center(column);
   background: linear-gradient(rgba(0, 0, 0, 0.392) 10%, transparent),
-    url(../../assets/start.jpg);
+    url("https://images.unsplash.com/photo-1435783099294-283725c37230?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2128&q=80");
   background-position: center;
   width: 100vw;
   height: 100vh;

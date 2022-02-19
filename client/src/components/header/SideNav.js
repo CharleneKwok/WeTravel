@@ -38,7 +38,7 @@ const SideNav = (props) => {
         )}
         <LinkButton to="/home" text="HOME" />
         <LinkButton to="/explore" text="EXPLORE" />
-        <LinkButton to="/profile" text="PROFILE" />
+        <LinkButton to="/space" text="SPACE" />
         <LinkButton to="/settings" text="SETTING" />
         {user.isLogin && <button onClick={logoutHandler}>LOGOUT</button>}
       </div>

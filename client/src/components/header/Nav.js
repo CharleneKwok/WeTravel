@@ -25,7 +25,7 @@ const Nav = () => {
         <nav>
           <LinkButton to="/home" text="HOME" />
           <LinkButton to="/explore" text="EXPLORE" />
-          <LinkButton to="/profile" text="PROFILE" />
+          <LinkButton to="/space" text="SPACE" />
         </nav>
         {user.isLogin ? (
           <div className={classes.user}>

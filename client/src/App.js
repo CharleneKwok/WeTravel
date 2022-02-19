@@ -4,7 +4,6 @@ import open from "./assets/037.png";
 import Main from "./components/home/Main";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Explore from "./components/explore/Explore";
-import Profile from "./components/profile/Profile";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import Setting from "./components/setting/Setting";
@@ -16,6 +15,7 @@ import PwdReset from "./components/auth/PwdReset";
 import ForgotPwd from "./components/auth/ForgotPwd";
 import NotExist from "./components/404pages/NotExist";
 import Open from "./components/openPage/Open";
+import Space from "./components/space/Space";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -56,7 +56,11 @@ function App() {
         <Route path="/home/hotels" component={Main} />
         <Route path="/home/attractions" component={Main} />
         <Route path="/explore" exact component={Explore} />
-        <Route path="/profile" exact component={Profile} />
+        <Route path="/space" exact component={Space}>
+          <Redirect to="/space/collection" />
+        </Route>
+        <Route path="/space/collection" component={Space} />
+        <Route path="/space/posts" component={Space} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/pwd-reset" component={ForgotPwd} exact />

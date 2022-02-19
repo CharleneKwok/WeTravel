@@ -21,7 +21,7 @@ const ShowInfo = ({ info, type }) => {
   const [showMore, setShowMore] = useState(false);
   const [save, setSave] = useState(info.saveToList);
   const [open, setOpen] = useState(false);
-  const user = localStorage.getItem("profile");
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   const addItemHandler = async () => {
     setOpen(true);
@@ -29,6 +29,7 @@ const ShowInfo = ({ info, type }) => {
     try {
       if (!save) {
         const data = {
+          userId: user._id,
           location_id: info.location_id,
           name: info.name,
           address: info.address || info.location_string,

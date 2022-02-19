@@ -3,7 +3,7 @@ import SaveList from "./saveListModel.js";
 
 // get list through user token
 export const getSaveList = async (req, res) => {
-  const { userId, type } = req.body;
+  const { userId } = req.params;
   // check if id exists
   const saveList = await SaveList.findOne({ userId: userId });
 
@@ -15,7 +15,7 @@ export const getSaveList = async (req, res) => {
 };
 
 //  add item into list
-// {location_id, name, address, tripAdvisor, image, location_type}
+// {location_id, name, address, tripAdvisor, image, location_type, user_Id}
 export const addItemToList = async (req, res) => {
   const {
     userId,
@@ -30,7 +30,7 @@ export const addItemToList = async (req, res) => {
     return res
       .status(400)
       .send(
-        "Not enough info to add location to list.(location_id, name, address, tripAdvisor link, image,location_type)"
+        "Not enough info to add location to list.(userId,location_id, name, address, tripAdvisor link, image,location_type)"
       );
 
   const userSaveList = await SaveList.findOne({ userId: userId });
@@ -58,10 +58,9 @@ export const addItemToList = async (req, res) => {
 
 // delete item
 export const deleteItem = async (req, res) => {
-  const { userId } = req.body;
+  const { loginId } = req.body;
   const { location_id } = req.params;
-  console.log("🚀 ~ location_id", location_id);
-  const userSaveList = await SaveList.findOne({ userId: userId });
+  const userSaveList = await SaveList.findOne({ userId: loginId });
   userSaveList.saveList = userSaveList.saveList.filter(
     (place) => +place.location_id !== +location_id
   );
