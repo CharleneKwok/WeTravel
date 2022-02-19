@@ -65,9 +65,16 @@
 
 .filter {
   display: flex;
-  width: 20%;
+  width: 80%;
   margin: 40px 0;
+  padding: 0 30px;
+  justify-content: space-around;
   align-items: center;
+}
+
+.search {
+  display: flex;
+  width: 400px;
 }
 
 .collection {

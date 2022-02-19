@@ -9,21 +9,37 @@ import classes from "./Space.module.scss";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 const Space = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
-  const [collection, setCollection] = useState({});
+  const [collection, setCollection] = useState([]);
   const [remove, setRemove] = useState(false);
   const location = useLocation();
   const isCollection = location.pathname.includes("collection");
   const history = useHistory();
   const [select, setSelect] = useState("");
   const [refs, setRefs] = useState([]);
+  const currYear = new Date().getFullYear();
+  const [year, setYear] = useState(currYear);
+  const [allYears, setAllYears] = useState([]);
+
+  const handleChange = (event) => {
+    setYear(event.target.value);
+  };
 
   useEffect(() => {
     if (!localStorage.getItem("profile")) {
       history.push("/login");
     }
+    let newYears = [];
+    for (let y = currYear; y >= 2019; y--) {
+      newYears.push(y);
+    }
+    setAllYears(newYears);
   }, []);
 
   const removeItem = async (id) => {
@@ -34,22 +50,26 @@ const Space = () => {
       console.log(err);
     }
   };
+  useEffect(() => {
+    const allRefs = Array(collection.length)
+      .fill()
+      .map((_, i) => createRef());
+    setRefs(allRefs);
+  }, [collection]);
 
   useEffect(() => {
     const getCollection = async () => {
       const resp = await getSaveList(user._id);
-      setCollection(resp.data.saveList);
-      setRemove(false);
+      const filterCollects = resp.data.saveList.filter(
+        (item) => +item.createdAt.split("-")[0] === +year
+      );
+      setCollection(filterCollects);
     };
     if (user) {
       getCollection();
-      const allRefs = Array(collection.length)
-        .fill()
-        .map((_, i) => createRef());
-      setRefs(allRefs);
-      console.log(refs);
+      setRemove(false);
     }
-  }, [remove]);
+  }, [remove, year]);
 
   const defaultProps = {
     options: collection,
@@ -81,23 +101,44 @@ const Space = () => {
                 {collection.length > 0 ? (
                   <>
                     <div className={classes.filter}>
-                      <SearchIcon className={classes.searchIcon} />
-                      <Autocomplete
-                        {...defaultProps}
-                        onChange={(event, newValue) =>
-                          setSelect(newValue?.location_id)
-                        }
-                        id="blur-on-select"
-                        blurOnSelect
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label="Search Location"
-                            variant="standard"
-                          />
-                        )}
-                        fullWidth
-                      />
+                      <div className={classes.search}>
+                        <SearchIcon className={classes.searchIcon} />
+                        <Autocomplete
+                          {...defaultProps}
+                          onChange={(event, newValue) =>
+                            setSelect(newValue?.location_id)
+                          }
+                          id="blur-on-select"
+                          blurOnSelect
+                          renderInput={(params) => (
+                            <TextField
+                              {...params}
+                              label="Search Location"
+                              variant="standard"
+                            />
+                          )}
+                          fullWidth
+                        />
+                      </div>
+                      <FormControl sx={{ m: 1, minWidth: 100 }}>
+                        <InputLabel id="demo-simple-select-autowidth-label">
+                          Year
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-autowidth-label"
+                          id="demo-simple-select-autowidth"
+                          value={year}
+                          onChange={handleChange}
+                          autoWidth
+                          label="year"
+                        >
+                          {allYears?.map((year, i) => (
+                            <MenuItem value={year} key={`year_${i}`}>
+                              <em>{year}</em>
+                            </MenuItem>
+                          ))}
+                        </Select>
+                      </FormControl>
                     </div>
                     <div className={classes.collection}>
                       {collection.map((item, i) => (

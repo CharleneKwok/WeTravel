@@ -7,7 +7,6 @@ import "aos/dist/aos.css";
 
 const CollectionCard = ({ item, onRemove, refProp, selected }) => {
   if (selected) {
-    console.log("🚀 ~ refProp", refProp);
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   }
 
@@ -24,13 +23,13 @@ const CollectionCard = ({ item, onRemove, refProp, selected }) => {
       <img src={item.image} alt={"save item"} />
       <article>
         <h2>{item.name}</h2>
+        <p> Created At: {item.createdAt.split("T")[0]}</p>
         <div className={classes.address}>
           <SvgIcon color="disabled" className={classes.svg}>
             <FmdGoodIcon />
           </SvgIcon>
           <p>{item.address}</p>
         </div>
-        <p> Created At: {item.createdAt}</p>
         <div className={classes.btns}>
           <a href={item.tripAdvisor} target="_blank" rel="noopener noreferrer">
             Trip Advisor
