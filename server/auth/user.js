@@ -36,6 +36,14 @@ const user = new mongoose.Schema({
     type: String,
     default: "light",
   },
+  following: {
+    type: [String],
+    default: [],
+  },
+  followers: {
+    type: [String],
+    default: [],
+  },
 });
 
 export default mongoose.model("User", user);
