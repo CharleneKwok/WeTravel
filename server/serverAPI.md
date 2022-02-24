@@ -49,6 +49,8 @@
 
 - body : wholeAppearance
 
+## space
+
 ### put `/user/follow`
 
 - body: followName
