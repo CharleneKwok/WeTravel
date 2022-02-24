@@ -102,7 +102,6 @@ export const googleLogin = async (req, res) => {
       nums = nums.filter((i) => i);
       const maxNum = Math.max(...nums) + 1;
       name = username + "_" + maxNum;
-      console.log("🚀 ~ username", name);
     }
     const newUser = await User.create({
       email: email,
@@ -114,4 +113,44 @@ export const googleLogin = async (req, res) => {
     await newUser.save();
     return res.status(200).json({ user: newUser });
   }
+};
+
+// change username
+export const changeUsername = async (req, res) => {
+  const { username, user } = req.body;
+  user.username = username;
+  await user.save();
+  return res.status(200).json(user);
+};
+
+// change avatar
+export const changeAvatar = async (req, res) => {
+  const { avatar, user } = req.body;
+  user.avatar = avatar;
+  await user.save();
+  return res.status(200).json(user);
+};
+
+// add bio
+export const changeBio = async (req, res) => {
+  const { bio, user } = req.body;
+  user.bio = bio;
+  await user.save();
+  return res.status(200).json(user);
+};
+
+// change map appearance
+export const changeMapAppearance = async (req, res) => {
+  const { mapAppearance, user } = req.body;
+  user.mapAppearance = mapAppearance;
+  await user.save();
+  return res.status(200).json(user);
+};
+
+// change whole page(dark mode/light mode)
+export const changeWholeAppearance = async (req, res) => {
+  const { wholeAppearance, user } = req.body;
+  user.wholeAppearance = wholeAppearance;
+  await user.save();
+  return res.status(200).json(user);
 };

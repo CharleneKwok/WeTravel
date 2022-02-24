@@ -2,31 +2,52 @@
 
 ## /user
 
-### post `/signup`
+### post `/user/signup`
 
 - `status = 400` Bad Request
   Username cannot be empty/Invalid email address/Password cannot be empty
 - `status = 409` Conflict
   Email already exists
 
-### post `/login`
+### post `/user/login`
 
 - `status = 404` Not Found
   User not found
 - `status = 400`
   Please sign in with Google/Wrong Password. Please try again.
 
-### post `/google/login`
+### post `/user/google/login`
 
-### post `/logout`
+### post `/user/logout`
+
+- `status = 404` Not Found
+  User not found
+
+### get `/user/:_id` (get user info)
 
 - `status = 404` Not Found
   User not found
 
-### get `/:id` (get user info)
+### put `/user/settings/username`
 
-- `status = 404` Not Found
-  User not found
+- header token
+- body : username
+
+### put `/user/settings/avatar`
+
+- body : avatar
+
+### put `/user/settings/bio`
+
+- body : bio
+
+### put `/user/settings/map`
+
+- body : mapAppearance
+
+### put `/user/settings/whole`
+
+- body : wholeAppearance
 
 ## /pwdReset
 

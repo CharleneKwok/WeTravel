@@ -20,10 +20,21 @@ const user = new mongoose.Schema({
   },
   avatar: String,
   token: String,
-  bio: String,
+  bio: {
+    type: String,
+    default: "",
+  },
   createdAt: {
     type: Date,
     default: new Date(),
+  },
+  mapAppearance: {
+    type: String,
+    default: "basic",
+  },
+  wholeAppearance: {
+    type: String,
+    default: "light",
   },
 });
 
