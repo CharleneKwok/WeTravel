@@ -4,20 +4,19 @@ import jwt from "jsonwebtoken";
 
 // add new user to db
 export const signup = async (req, res) => {
-  const { username, email, password, avatar, uId } = req.body;
+  const { username, email, password, avatar } = req.body;
 
   // encrypt password
   const encryptedPwd = await bcrypt.hash(password, +process.env.BCRYPT_SALT);
 
   // send to db
   const user = await User.create({
-    uId: uId,
     google: false,
     username: username,
     email: email.toLowerCase(),
     password: encryptedPwd,
     avatar: avatar,
-    token: jwt.sign({ id: uId, email: email }, process.env.TOKEN_KEY, {
+    token: jwt.sign({ email: email }, process.env.TOKEN_KEY, {
       expiresIn: "2h",
     }),
   });
@@ -33,6 +32,7 @@ export const login = async (req, res) => {
     return res.status(404).send("User not found");
   }
 
+  // used to login with google and no setup password
   if (user.google && !user.password) {
     return res.status(400).send("Please sign in with Google");
   }
@@ -46,7 +46,7 @@ export const login = async (req, res) => {
         { id: user.uId, email: email },
         process.env.TOKEN_KEY,
         {
-          expiresIn: "7h",
+          expiresIn: "2h",
         }
       );
       await user.save();
@@ -60,7 +60,7 @@ export const login = async (req, res) => {
 // logout
 export const logout = async (req, res) => {
   const { id } = req.body;
-  const user = await User.findOne({ id: id });
+  const user = await User.findOne({ _id: id });
   if (!user) {
     return res.status(404).send("User not found");
   }
@@ -71,9 +71,8 @@ export const logout = async (req, res) => {
 
 // get user info
 export const getUser = async (req, res) => {
-  console.log("🚀 ~ req.params", req.params);
   const { id } = req.params;
-  const user = await User.findOne({ id: +id });
+  const user = await User.findOne({ _id: id });
   if (!user) {
     return res.status(404).send("User not found");
   }
@@ -85,18 +84,29 @@ export const getUser = async (req, res) => {
 // put it into user db as new user if it is the first time
 // once use google login, then the user cannot signup with the same email
 export const googleLogin = async (req, res) => {
-  const { username, email, token, uId, avatar } = req.body;
-  const user = await User.findOne({ uId: uId });
+  const { username, email, token, avatar } = req.body;
+  const user = await User.findOne({ email: email });
   if (user) {
     // user exists in db
     user.token = token;
     await user.save();
     return res.status(200).json({ user });
   } else {
+    let name = username;
+    // if username exists then add number behind the name
+    const checkUsername = await User.find({
+      username: { $regex: username, $options: "i" },
+    });
+    if (checkUsername) {
+      let nums = checkUsername.map((i) => +i.username.split("_")[1]);
+      nums = nums.filter((i) => i);
+      const maxNum = Math.max(...nums) + 1;
+      name = username + "_" + maxNum;
+      console.log("🚀 ~ username", name);
+    }
     const newUser = await User.create({
-      uId: uId,
       email: email,
-      username: username,
+      username: name,
       token: token,
       google: true,
       avatar: avatar,

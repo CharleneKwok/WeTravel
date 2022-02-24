@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
 const user = new mongoose.Schema({
-  uId: Number,
   google: Boolean,
   username: {
     type: String,
     required: true,
     trim: true,
+    unique: true,
   },
   email: {
     type: String,
@@ -20,6 +20,7 @@ const user = new mongoose.Schema({
   },
   avatar: String,
   token: String,
+  bio: String,
   createdAt: {
     type: Date,
     default: new Date(),

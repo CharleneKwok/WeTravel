@@ -36,7 +36,7 @@ const Space = () => {
       history.push("/login");
     }
     let newYears = [];
-    for (let y = currYear; y >= 2019; y--) {
+    for (let y = currYear; y >= 2018; y--) {
       newYears.push(y);
     }
     setAllYears(newYears);
@@ -98,60 +98,58 @@ const Space = () => {
             </div>
             {isCollection && (
               <>
-                {collection.length > 0 ? (
-                  <>
-                    <div className={classes.filter}>
-                      <div className={classes.search}>
-                        <SearchIcon className={classes.searchIcon} />
-                        <Autocomplete
-                          {...defaultProps}
-                          onChange={(event, newValue) =>
-                            setSelect(newValue?.location_id)
-                          }
-                          id="blur-on-select"
-                          blurOnSelect
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              label="Search Location"
-                              variant="standard"
-                            />
-                          )}
-                          fullWidth
+                <div className={classes.filter}>
+                  <div className={classes.search}>
+                    <SearchIcon className={classes.searchIcon} />
+                    <Autocomplete
+                      {...defaultProps}
+                      onChange={(event, newValue) =>
+                        setSelect(newValue?.location_id)
+                      }
+                      id="blur-on-select"
+                      blurOnSelect
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          label="Search Location"
+                          variant="standard"
                         />
-                      </div>
-                      <FormControl sx={{ m: 1, minWidth: 100 }}>
-                        <InputLabel id="demo-simple-select-autowidth-label">
-                          Year
-                        </InputLabel>
-                        <Select
-                          labelId="demo-simple-select-autowidth-label"
-                          id="demo-simple-select-autowidth"
-                          value={year}
-                          onChange={handleChange}
-                          autoWidth
-                          label="year"
-                        >
-                          {allYears?.map((year, i) => (
-                            <MenuItem value={year} key={`year_${i}`}>
-                              <em>{year}</em>
-                            </MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                    </div>
-                    <div className={classes.collection}>
-                      {collection.map((item, i) => (
-                        <CollectionCard
-                          key={+item.location_id}
-                          item={item}
-                          onRemove={removeItem}
-                          refProp={refs[i]}
-                          selected={+select === +item.location_id}
-                        />
+                      )}
+                      fullWidth
+                    />
+                  </div>
+                  <FormControl sx={{ m: 1, minWidth: 100 }}>
+                    <InputLabel id="demo-simple-select-autowidth-label">
+                      Year
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-autowidth-label"
+                      id="demo-simple-select-autowidth"
+                      value={year}
+                      onChange={handleChange}
+                      autoWidth
+                      label="year"
+                    >
+                      {allYears?.map((year, i) => (
+                        <MenuItem value={year} key={`year_${i}`}>
+                          <em>{year}</em>
+                        </MenuItem>
                       ))}
-                    </div>
-                  </>
+                    </Select>
+                  </FormControl>
+                </div>
+                {collection.length > 0 ? (
+                  <div className={classes.collection}>
+                    {collection.map((item, i) => (
+                      <CollectionCard
+                        key={+item.location_id}
+                        item={item}
+                        onRemove={removeItem}
+                        refProp={refs[i]}
+                        selected={+select === +item.location_id}
+                      />
+                    ))}
+                  </div>
                 ) : (
                   <p>Cannot find any saved location</p>
                 )}

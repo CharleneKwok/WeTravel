@@ -15,12 +15,13 @@ export const checkSignUp = async (req, res, next) => {
   if (oldUser) {
     return res.status(409).send("Email already exists");
   }
-  await User.find({})
-    .sort({ _id: -1 })
-    .limit(1)
-    .then((lastUser) => {
-      req.body.uId = lastUser[0] ? lastUser[0].uId + 1 : 0;
-    });
+
+  const checkUsername = await User.findOne({ username: username });
+
+  if (checkUsername) {
+    return res.status(409).send("Username already exists");
+  }
+
   next();
 };
 
@@ -34,15 +35,7 @@ export const checkGoogle = async (req, res, next) => {
     await oldUser.save();
   }
   // put user into the db
-  if (!oldUser) {
-    await User.find({})
-      .sort({ _id: -1 })
-      .limit(1)
-      .then((lastUser) => {
-        req.body.uId = lastUser[0] ? lastUser[0].uId + 1 : 0;
-      });
-  } else {
-    req.body.uId = oldUser.uId;
+  if (oldUser) {
     req.body.avatar = oldUser.avatar;
     req.body.username = oldUser.username;
   }

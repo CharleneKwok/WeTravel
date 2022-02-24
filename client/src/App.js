@@ -23,6 +23,7 @@ function App() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"));
+    console.log("🚀 ~ user", user);
     console.log("🚀 ~ user.token", user?.token);
     if (user) {
       const decodedToken = decode(user.token);
@@ -35,7 +36,7 @@ function App() {
     // setTimeout(() => {
     //   setOpenPage(false);
     // }, 2600);
-  }, []);
+  });
 
   return (
     <Fragment>

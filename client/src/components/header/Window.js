@@ -9,7 +9,7 @@ const Window = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const name = useSelector((state) => state.auth.user.username);
-  const id = useSelector((state) => state.auth.user.id);
+  const id = useSelector((state) => state.auth.user._id);
 
   const handleClick = useCallback(
     (e) => {
@@ -37,7 +37,7 @@ const Window = (props) => {
   return (
     <div className={`${props.className} ${classes.container}`} ref={ref}>
       <h4>Hi! {name}</h4>
-      <button onClick={() => history.push("/setting")}>⚙️ Settings</button>
+      <button onClick={() => history.push("/settings")}>⚙️ Settings</button>
       <button onClick={logoutHandler}>👋 Logout</button>
     </div>
   );
