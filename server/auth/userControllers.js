@@ -97,7 +97,7 @@ export const googleLogin = async (req, res) => {
     const checkUsername = await User.find({
       username: { $regex: username, $options: "i" },
     });
-    if (checkUsername) {
+    if (checkUsername.length > 0) {
       let nums = checkUsername.map((i) => +i.username.split("_")[1]);
       nums = nums.filter((i) => i);
       const maxNum = Math.max(...nums) + 1;
