@@ -13,6 +13,8 @@ import {
   changeWholeAppearance,
   followUser,
   unfollowUser,
+  getFollowingList,
+  getFollwersList,
 } from "./userControllers.js";
 import { checkSignUp, checkGoogle } from "./userMiddle.js";
 
@@ -32,5 +34,8 @@ router.route("/settings/whole").put(checkUserToken, changeWholeAppearance);
 
 router.route("/follow").put(checkUserToken, followUser);
 router.route("/unfollow").put(checkUserToken, unfollowUser);
+
+router.route("/following/:userId").get(checkUserToken, getFollowingList);
+router.route("/followers/:userId").get(checkUserToken, getFollwersList);
 
 export default router;

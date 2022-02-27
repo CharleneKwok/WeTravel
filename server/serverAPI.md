@@ -51,13 +51,29 @@
 
 ### put `/user/follow`
 
-- body: followName
+- body: followId
 
 ### put `/user/unfollow`
 
-- body: unfollowName
+- body: unfollowId
 
 ## /post
+
+### post `/post/`
+
+### delete `/post/`
+
+### get `/post/`
+
+### get `/post/randomPosts`
+
+### put `/post/like/:postId`
+
+### put `/post/unlike/:postId`
+
+### post/get `/post/comment/:postId`
+
+### post/get `/post/reply/:commentId`
 
 ## /pwdReset
 

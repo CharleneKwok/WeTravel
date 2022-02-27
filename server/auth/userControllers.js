@@ -173,7 +173,7 @@ export const followUser = async (req, res) => {
   const followers = followUser.followers;
   followers.push(user._id);
   await followUser.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Follow successful!");
 };
 
 export const unfollowUser = async (req, res) => {
@@ -197,5 +197,37 @@ export const unfollowUser = async (req, res) => {
   followers = followers.filter((id) => id.toString() !== user._id.toString());
   unfollowUser.followers = followers;
   await unfollowUser.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Unfollow successful!");
+};
+
+// get user's following list with username
+export const getFollowingList = async (req, res) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  const followingWithName = user.following.map(async (followingUserId) => {
+    const followingUser = await User.findById(followingUserId);
+    return { username: followingUser.username, userId: followingUserId };
+  });
+  Promise.all(followingWithName).then((following) => {
+    return res.status(200).json(following);
+  });
+};
+
+// get user's followers list with username
+export const getFollwersList = async (req, res) => {
+  const { userId } = req.params;
+  const user = await User.findById(userId);
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+  const followersWithName = user.followers.map(async (followerUserId) => {
+    const followerUser = await User.findById(followerUserId);
+    return { username: followerUser.username, userId: followerUserId };
+  });
+  Promise.all(followersWithName).then((followers) => {
+    return res.status(200).json(followers);
+  });
 };
