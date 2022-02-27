@@ -37,11 +37,23 @@ const user = new mongoose.Schema({
     default: "light",
   },
   following: {
-    type: [String],
+    type: [
+      {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "User",
+      },
+    ],
     default: [],
   },
   followers: {
-    type: [String],
+    type: [
+      [
+        {
+          type: mongoose.SchemaTypes.ObjectId,
+          ref: "User",
+        },
+      ],
+    ],
     default: [],
   },
 });

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import userRoutes from "./auth/userRoutes.js";
 import pwdResetRoutes from "./pwd-reset/tokenRoutes.js";
 import saveListRoutes from "./save-list/saveListRoutes.js";
+import postsRoutes from "./posts/postsRoutes.js";
 
 const app = express();
 
@@ -17,6 +18,7 @@ dotenv.config();
 app.use("/user", userRoutes);
 app.use("/pwdReset", pwdResetRoutes);
 app.use("/saveList", saveListRoutes);
+app.use("/post", postsRoutes);
 
 const CONNECTION = process.env.CONNECTION_URL;
 const PORT = 5001;

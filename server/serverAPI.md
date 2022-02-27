@@ -23,7 +23,7 @@
 - `status = 404` Not Found
   User not found
 
-### get `/user/:username` (get user info)
+### get `/user/:userId` (get user info)
 
 - `status = 404` Not Found
   User not found
@@ -49,8 +49,6 @@
 
 - body : wholeAppearance
 
-## space
-
 ### put `/user/follow`
 
 - body: followName
@@ -58,6 +56,8 @@
 ### put `/user/unfollow`
 
 - body: unfollowName
+
+## /post
 
 ## /pwdReset
 

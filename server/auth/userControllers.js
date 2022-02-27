@@ -71,8 +71,8 @@ export const logout = async (req, res) => {
 
 // get user info
 export const getUser = async (req, res) => {
-  const { username } = req.params;
-  const user = await User.findOne({ username: username });
+  const { userId } = req.params;
+  const user = await User.findOne({ _id: userId });
   if (!user) {
     return res.status(404).send("User not found");
   }
@@ -156,45 +156,45 @@ export const changeWholeAppearance = async (req, res) => {
 };
 
 export const followUser = async (req, res) => {
-  const { followName, user } = req.body;
-  const followUser = await User.findOne({ username: followName });
+  const { followId, user } = req.body;
+  const followUser = await User.findById(followId);
   if (!followUser) {
     return res.status(404).send("User not found");
   }
   const followingList = user.following;
   // check if user have followed this user
-  if (followingList.includes(followName)) {
-    return res.status(400).send("User already followed");
+  if (followingList.includes(followId)) {
+    return res.status(400).send("User already followed " + followUser.username);
   }
-  followingList.push(followName);
+  followingList.push(followId);
   user.following = followingList;
   await user.save();
   // add current user as follower
   const followers = followUser.followers;
-  followers.push(user.username);
+  followers.push(user._id);
   await followUser.save();
   return res.status(200).json(user);
 };
 
 export const unfollowUser = async (req, res) => {
-  const { unfollowName, user } = req.body;
-  const unfollowUser = await User.findOne({ username: unfollowName });
+  const { unfollowId, user } = req.body;
+  const unfollowUser = await User.findById(unfollowId);
   if (!unfollowUser) {
     return res.status(404).send("User not found");
   }
   // check if user has followed this user
   let followingList = user.following;
-  if (!followingList.includes(unfollowName)) {
-    return res.status(400).send("User did not follow " + unfollowName);
+  if (!followingList.includes(unfollowId)) {
+    return res.status(400).send("User did not follow " + unfollowUser.username);
   }
   // remove unfollowname from the following
-  followingList = followingList.filter((name) => name !== unfollowName);
+  followingList = followingList.filter((id) => id.toString() !== unfollowId);
   user.following = followingList;
   await user.save();
 
   // remove follower from unfollowUser
   let followers = unfollowUser.followers;
-  followers = followers.filter((name) => name !== user.username);
+  followers = followers.filter((id) => id.toString() !== user._id.toString());
   unfollowUser.followers = followers;
   await unfollowUser.save();
   return res.status(200).json(user);

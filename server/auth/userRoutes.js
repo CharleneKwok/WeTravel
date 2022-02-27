@@ -22,7 +22,7 @@ router.route("/signup").post(checkSignUp, signup);
 router.route("/login").post(login);
 router.route("/google/login").post(checkGoogle, googleLogin);
 router.route("/logout").post(logout);
-router.route("/:username").get(getUser);
+router.route("/:userId").get(getUser);
 
 router.route("/settings/username").put(checkUserToken, changeUsername);
 router.route("/settings/avatar").put(checkUserToken, changeAvatar);
