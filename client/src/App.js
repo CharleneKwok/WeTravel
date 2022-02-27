@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from "react";
 import classes from "./App.module.scss";
 import open from "./assets/037.png";
 import Main from "./components/home/Main";
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Explore from "./components/explore/Explore";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
@@ -26,8 +26,9 @@ function App() {
     console.log("🚀 ~ user", user);
     if (user) {
       const decodedToken = decode(user.token);
+      console.log("🚀 ~ decodedToken", decodedToken);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
-        dispatch(userLogout(decodedToken.id));
+        dispatch(userLogout(decodedToken.email));
       } else {
         dispatch(authActions.login({ user: user }));
       }

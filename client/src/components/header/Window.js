@@ -9,7 +9,7 @@ const Window = (props) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const name = useSelector((state) => state.auth.user.username);
-  const id = useSelector((state) => state.auth.user._id);
+  const email = useSelector((state) => state.auth.user.email);
 
   const handleClick = useCallback(
     (e) => {
@@ -22,7 +22,7 @@ const Window = (props) => {
   );
 
   const logoutHandler = () => {
-    dispatch(userLogout(id));
+    dispatch(userLogout(email));
     history.push("/");
   };
 

@@ -89,7 +89,7 @@ const Space = () => {
                 <p>Following: {user.following.length}</p>
               </div>
               <p className={classes["user_info--bio"]}>
-                bio: {user.bio || "None"}
+                bio: <input type="text" value={user.bio || "None"} />
               </p>
             </div>
           </div>

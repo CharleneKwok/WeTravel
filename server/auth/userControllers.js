@@ -42,13 +42,9 @@ export const login = async (req, res) => {
       throw new Error(err.message);
     }
     if (result) {
-      user.token = jwt.sign(
-        { id: user.uId, email: email },
-        process.env.TOKEN_KEY,
-        {
-          expiresIn: "2h",
-        }
-      );
+      user.token = jwt.sign({ email: email }, process.env.TOKEN_KEY, {
+        expiresIn: "2h",
+      });
       await user.save();
       return res.status(200).json({ user });
     } else {
@@ -59,8 +55,8 @@ export const login = async (req, res) => {
 
 // logout
 export const logout = async (req, res) => {
-  const { id } = req.body;
-  const user = await User.findOne({ _id: id });
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
   if (!user) {
     return res.status(404).send("User not found");
   }

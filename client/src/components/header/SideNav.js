@@ -14,7 +14,7 @@ const SideNav = (props) => {
   const dispatch = useDispatch();
 
   const logoutHandler = () => {
-    dispatch(userLogout(info.id));
+    dispatch(userLogout(info.email));
     history.push("/");
   };
 

@@ -28,9 +28,9 @@ export const userLogin = (user, setFieldError) => async (dispatch) => {
   }
 };
 
-export const userLogout = (id) => async (dispatch) => {
+export const userLogout = (email) => async (dispatch) => {
   try {
-    await sendLogout({ id });
+    await sendLogout({ email });
     dispatch(authActions.logout());
   } catch (err) {
     console.log(err);
