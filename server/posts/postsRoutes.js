@@ -10,6 +10,7 @@ import {
   replyComment,
   unlikePost,
   getReplies,
+  getRandomPosts,
 } from "./postsController.js";
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router
   .post(checkUserToken, addPost)
   .delete(checkUserToken, deletePost)
   .get(checkUserToken, getPosts);
-router.route("/randomPosts").get(checkUserToken);
+router.route("/randomPosts").get(checkUserToken, getRandomPosts);
 router.route("/like/:postId").put(checkUserToken, likePost);
 router.route("/unlike/:postId").put(checkUserToken, unlikePost);
 router
