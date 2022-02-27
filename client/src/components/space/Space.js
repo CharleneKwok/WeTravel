@@ -1,6 +1,10 @@
 import React, { createRef, useEffect, useState } from "react";
 import { useHistory, useLocation } from "react-router-dom";
-import { deleteItemOnList, getSaveList } from "../../api/feature-api";
+import {
+  changeBio,
+  deleteItemOnList,
+  getSaveList,
+} from "../../api/feature-api";
 import Avatar from "../header/Avatar";
 import Button from "../UI/Button";
 import Page from "../UI/Page";
@@ -26,6 +30,7 @@ const Space = () => {
   const currYear = new Date().getFullYear();
   const [year, setYear] = useState(currYear);
   const [allYears, setAllYears] = useState([]);
+  const [bio, setBio] = useState(user?.bio);
 
   const handleChange = (event) => {
     setYear(event.target.value);
@@ -76,6 +81,18 @@ const Space = () => {
     getOptionLabel: (option) => option.name,
   };
 
+  const changeBioHandler = async () => {
+    try {
+      await changeBio({ bio: bio });
+      user.bio = bio;
+      localStorage.setItem("profile", user);
+      console.log("🚀 ~ user", user);
+      console.log("change");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Page>
       {user && (
@@ -89,7 +106,13 @@ const Space = () => {
                 <p>Following: {user.following.length}</p>
               </div>
               <p className={classes["user_info--bio"]}>
-                bio: <input type="text" value={user.bio || "None"} />
+                bio:
+                <input
+                  type="text"
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  onBlur={changeBioHandler}
+                />
               </p>
             </div>
           </div>

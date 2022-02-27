@@ -2,6 +2,17 @@ import User from "./user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+const getInfo = (user) => ({
+  bio: user.bio,
+  username: user.username,
+  _id: user._id,
+  avatar: user.avatar,
+  email: user.email,
+  following: user.following.length,
+  followers: user.followers.length,
+  token: user.token,
+});
+
 // add new user to db
 export const signup = async (req, res) => {
   const { username, email, password, avatar } = req.body;
@@ -11,23 +22,28 @@ export const signup = async (req, res) => {
 
   // send to db
   const user = await User.create({
+    avatar: avatar,
+    token: jwt.sign({ email: email.toLowerCase() }, process.env.TOKEN_KEY, {
+      expiresIn: "2h",
+    }),
     google: false,
     username: username,
     email: email.toLowerCase(),
     password: encryptedPwd,
-    avatar: avatar,
-    token: jwt.sign({ email: email }, process.env.TOKEN_KEY, {
-      expiresIn: "2h",
-    }),
   });
   await user.save();
-  return res.status(200).json({ user });
+  return res.status(200).json({
+    ...getInfo(user),
+    wholeAppearance: user.wholeAppearance,
+    mapAppearance: user.mapAppearance,
+    google: user.google,
+  });
 };
 
 // login
 export const login = async (req, res) => {
   const { email, password } = req.body;
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email: email.toLowerCase() });
   if (!user) {
     return res.status(404).send("User not found");
   }
@@ -42,11 +58,20 @@ export const login = async (req, res) => {
       throw new Error(err.message);
     }
     if (result) {
-      user.token = jwt.sign({ email: email }, process.env.TOKEN_KEY, {
-        expiresIn: "2h",
-      });
+      user.token = jwt.sign(
+        { email: email.toLowerCase() },
+        process.env.TOKEN_KEY,
+        {
+          expiresIn: "2h",
+        }
+      );
       await user.save();
-      return res.status(200).json({ user });
+      return res.status(200).json({
+        wholeAppearance: user.wholeAppearance,
+        mapAppearance: user.mapAppearance,
+        google: user.google,
+        ...getInfo(user),
+      });
     } else {
       return res.status(400).send("Wrong Password. Please try again.");
     }
@@ -72,7 +97,9 @@ export const getUser = async (req, res) => {
   if (!user) {
     return res.status(404).send("User not found");
   }
-  res.status(200).json({ user });
+  res.status(200).json({
+    ...getInfo(user),
+  });
 };
 
 // Google login
@@ -86,7 +113,7 @@ export const googleLogin = async (req, res) => {
     // user exists in db
     user.token = token;
     await user.save();
-    return res.status(200).json({ user });
+    return res.status(200).json({ ...getInfo(user), google: user.google });
   } else {
     let name = username;
     // if username exists then add number behind the name
@@ -96,6 +123,9 @@ export const googleLogin = async (req, res) => {
     if (checkUsername.length > 0) {
       let nums = checkUsername.map((i) => +i.username.split("_")[1]);
       nums = nums.filter((i) => i);
+      if (nums.length === 0) {
+        nums.push(0);
+      }
       const maxNum = Math.max(...nums) + 1;
       name = username + "_" + maxNum;
     }
@@ -107,7 +137,9 @@ export const googleLogin = async (req, res) => {
       avatar: avatar,
     });
     await newUser.save();
-    return res.status(200).json({ user: newUser });
+    return res
+      .status(200)
+      .json({ ...getInfo(newUser), google: newUser.google });
   }
 };
 
@@ -116,7 +148,7 @@ export const changeUsername = async (req, res) => {
   const { username, user } = req.body;
   user.username = username;
   await user.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Change username successful!");
 };
 
 // change avatar
@@ -124,7 +156,7 @@ export const changeAvatar = async (req, res) => {
   const { avatar, user } = req.body;
   user.avatar = avatar;
   await user.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Change avatar successful!");
 };
 
 // add bio
@@ -132,7 +164,7 @@ export const changeBio = async (req, res) => {
   const { bio, user } = req.body;
   user.bio = bio;
   await user.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Change bio successful!");
 };
 
 // change map appearance
@@ -140,7 +172,7 @@ export const changeMapAppearance = async (req, res) => {
   const { mapAppearance, user } = req.body;
   user.mapAppearance = mapAppearance;
   await user.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Change map appearance successful!");
 };
 
 // change whole page(dark mode/light mode)
@@ -148,7 +180,7 @@ export const changeWholeAppearance = async (req, res) => {
   const { wholeAppearance, user } = req.body;
   user.wholeAppearance = wholeAppearance;
   await user.save();
-  return res.status(200).json(user);
+  return res.status(200).send("Change web appearance successful!");
 };
 
 export const followUser = async (req, res) => {

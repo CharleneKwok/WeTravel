@@ -15,3 +15,6 @@ export const getSaveList = (id) => API.get(`/saveList/${id}`);
 export const addToSaveList = (data) => API.post("/saveList", data);
 export const deleteItemOnList = (location_id) =>
   API.delete(`/saveList/${location_id}`);
+
+// for user info setting
+export const changeBio = (bio) => API.put("/user/settings/bio", bio);

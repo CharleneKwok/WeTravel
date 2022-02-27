@@ -26,7 +26,6 @@ function App() {
     console.log("🚀 ~ user", user);
     if (user) {
       const decodedToken = decode(user.token);
-      console.log("🚀 ~ decodedToken", decodedToken);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
         dispatch(userLogout(decodedToken.email));
       } else {
