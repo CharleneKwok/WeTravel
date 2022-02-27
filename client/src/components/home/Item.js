@@ -15,12 +15,14 @@ import { addToSaveList, deleteItemOnList } from "../../api/feature-api";
 import Snackbar from "@mui/material/Snackbar";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+import { useSelector } from "react-redux";
 
 const ShowInfo = ({ info, type }) => {
   const [showMore, setShowMore] = useState(false);
   const [save, setSave] = useState(info.saveToList);
   const [open, setOpen] = useState(false);
   const user = JSON.parse(localStorage.getItem("profile"));
+  const isLogin = useSelector((state) => state.auth.isLogin);
 
   const addItemHandler = async () => {
     setOpen(true);
@@ -71,7 +73,7 @@ const ShowInfo = ({ info, type }) => {
         <img src={info.image} alt="location" />
       </div>
       <article className={classes.info}>
-        {user && (
+        {isLogin && (
           <>
             <div
               className={classes.bookmark}

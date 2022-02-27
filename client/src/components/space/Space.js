@@ -17,6 +17,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useSelector } from "react-redux";
 
 const Space = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -31,15 +32,17 @@ const Space = () => {
   const [year, setYear] = useState(currYear);
   const [allYears, setAllYears] = useState([]);
   const [bio, setBio] = useState(user?.bio);
+  const [showInput, setShowInput] = useState(false);
+  const isLogin = useSelector((state) => state.auth.isLogin);
 
   const handleChange = (event) => {
     setYear(event.target.value);
   };
 
+  if (!isLogin) {
+    history.push("/login");
+  }
   useEffect(() => {
-    if (!localStorage.getItem("profile")) {
-      history.push("/login");
-    }
     let newYears = [];
     for (let y = currYear; y >= 2018; y--) {
       newYears.push(y);
@@ -85,9 +88,8 @@ const Space = () => {
     try {
       await changeBio({ bio: bio });
       user.bio = bio;
-      localStorage.setItem("profile", user);
-      console.log("🚀 ~ user", user);
-      console.log("change");
+      localStorage.setItem("profile", JSON.stringify(user));
+      setShowInput(false);
     } catch (err) {
       console.log(err);
     }
@@ -102,18 +104,28 @@ const Space = () => {
               <Avatar className={classes["user_info--avatar"]} />
               <h2>{user.username}</h2>
               <div className={classes["user_info--follow"]}>
-                <p>Followers: {user.followers.length}</p>
-                <p>Following: {user.following.length}</p>
+                <p>Followers: {user.followers}</p>
+                <p>Following: {user.following}</p>
               </div>
-              <p className={classes["user_info--bio"]}>
+              <div className={classes["user_info--bio"]}>
                 bio:
-                <input
-                  type="text"
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  onBlur={changeBioHandler}
-                />
-              </p>
+                {!showInput ? (
+                  <p
+                    onClick={() => setShowInput(true)}
+                    title="Click to change your bio"
+                  >
+                    {bio}
+                  </p>
+                ) : (
+                  <input
+                    type="text"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    onBlur={changeBioHandler}
+                    maxLength="80"
+                  />
+                )}
+              </div>
             </div>
           </div>
           <section>

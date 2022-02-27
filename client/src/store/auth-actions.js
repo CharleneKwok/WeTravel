@@ -18,7 +18,7 @@ export const userLogin = (user, setFieldError) => async (dispatch) => {
       password: user.loginPwd,
     };
     const resp = await sendLogin(sendData);
-    dispatch(authActions.login({ user: resp.data.user }));
+    dispatch(authActions.login({ user: resp.data }));
   } catch ({ response }) {
     if (response.status === 400) {
       setFieldError("loginPwd", response.data);
@@ -46,7 +46,7 @@ export const userSignup = (user, setFieldError) => async (dispatch) => {
       password: user.signUpPwd,
       avatar: "https://cdn-icons-png.flaticon.com/512/149/149071.png",
     });
-    dispatch(authActions.login({ user: resp.data.user }));
+    dispatch(authActions.login({ user: resp.data }));
   } catch ({ response }) {
     if (response.status === 409) {
       setFieldError("signupEmail", response.data);
@@ -60,7 +60,7 @@ export const getUser = (id) => async (dispatch) => {
   try {
     const resp = await sendGetUser(id);
     console.log("🚀 ~ resp", resp);
-    dispatch(authActions.login({ user: resp.data.user }));
+    dispatch(authActions.login({ user: resp.data }));
   } catch (err) {
     console.log(err);
   }
@@ -75,7 +75,7 @@ export const userGoogleLogin = (user, token) => async (dispatch) => {
       avatar: user.imageUrl,
     };
     const resp = await sendGoogleLogin(sendData);
-    dispatch(authActions.login({ user: resp.data.user }));
+    dispatch(authActions.login({ user: resp.data }));
   } catch ({ response }) {
     alert(response.data);
   }
