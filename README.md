@@ -4,4 +4,7 @@ MERN project
 
 Tech stack: React, Redux, Nodejs, Expressjs, Mongodb, Sass
 
-Status: Finished auth and home page
+Status:
+
+- backend: finished
+- frontend: home and space pages
