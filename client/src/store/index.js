@@ -3,6 +3,7 @@ import authReducer from "./auth-slice";
 import errReducer from "./err-slice";
 import pwdReducer from "./pwd-slice";
 import listReducer from "./list-slice";
+import settingReducer from "./setting-slice";
 
 const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const store = configureStore({
     errMsg: errReducer,
     pwdReset: pwdReducer,
     mainList: listReducer,
+    settings: settingReducer,
   },
 });
 

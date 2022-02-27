@@ -1,0 +1,27 @@
+@import "../../variables/variables";
+
+.container {
+  @include card(auto, 600px);
+  position: fixed;
+  top: 12vh;
+  left: 0;
+  right: 0;
+  margin: auto;
+  max-width: 50%;
+  min-width: auto;
+  height: 700px;
+  background-color: white;
+  z-index: 100;
+  animation: showSetting 500ms ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes showSetting {
+  0% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

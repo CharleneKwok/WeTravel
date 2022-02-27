@@ -1,11 +1,11 @@
 import React from "react";
 import Nav from "../header/Nav";
+import Page from "../UI/Page";
 import classes from "./Open.module.scss";
 
 const Open = () => {
   return (
-    <>
-      <Nav />
+    <Page>
       <div className={classes.container}>
         <h1>Welcome To WeTravel</h1>
         <p>
@@ -13,7 +13,7 @@ const Open = () => {
           can see other user's posts to explore the world. Come and join us now!
         </p>
       </div>
-    </>
+    </Page>
   );
 };
 

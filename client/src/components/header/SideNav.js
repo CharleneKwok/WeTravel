@@ -1,7 +1,7 @@
 import React from "react";
 import classes from "./SideNav.module.scss";
 import LinkButton from "../UI/LinkButton";
-import Backdrop from "./Backdrop";
+import Backdrop from "../UI/Backdrop";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar.js";
@@ -19,31 +19,35 @@ const SideNav = (props) => {
   };
 
   return (
-    <div className={props.className}>
-      <div
-        className={`${classes["side-nav"]} ${props.onOpen ? classes.open : ""}`}
-      >
-        {!user.isLogin ? (
-          <button
-            className={classes["login-btn"]}
-            onClick={() => history.push("/login")}
-          >
-            LOGIN
-          </button>
-        ) : (
-          <div className={classes.top}>
-            <Avatar className={classes.avatar} />
-            <h4>Hi! {info.username}</h4>
-          </div>
-        )}
-        <LinkButton to="/home" text="HOME" />
-        <LinkButton to="/explore" text="EXPLORE" />
-        <LinkButton to="/space" text="SPACE" />
-        <LinkButton to="/settings" text="SETTING" />
-        {user.isLogin && <button onClick={logoutHandler}>LOGOUT</button>}
+    <>
+      {props.onOpen && <Backdrop onClick={props.onClose} isNav={true} />}
+      <div className={props.className}>
+        <div
+          className={`${classes["side-nav"]} ${
+            props.onOpen ? classes.open : ""
+          }`}
+        >
+          {!user.isLogin ? (
+            <button
+              className={classes["login-btn"]}
+              onClick={() => history.push("/login")}
+            >
+              LOGIN
+            </button>
+          ) : (
+            <div className={classes.top}>
+              <Avatar className={classes.avatar} />
+              <h4>Hi! {info.username}</h4>
+            </div>
+          )}
+          <LinkButton to="/home" text="HOME" />
+          <LinkButton to="/explore" text="EXPLORE" />
+          <LinkButton to="/space" text="SPACE" />
+          <LinkButton to="/settings" text="SETTING" />
+          {user.isLogin && <button onClick={logoutHandler}>LOGOUT</button>}
+        </div>
       </div>
-      {props.onOpen && <Backdrop onClick={props.onClose} />}
-    </div>
+    </>
   );
 };
 

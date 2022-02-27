@@ -2,6 +2,8 @@ import React, { useCallback, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { userLogout } from "../../store/auth-actions";
+import { settingActions } from "../../store/setting-slice";
+import Setting from "../setting/Setting";
 import classes from "./Window.module.scss";
 
 const Window = (props) => {
@@ -10,10 +12,11 @@ const Window = (props) => {
   const dispatch = useDispatch();
   const name = useSelector((state) => state.auth.user.username);
   const email = useSelector((state) => state.auth.user.email);
+  const isOpenSettings = useSelector((state) => state.settings.openSettings);
 
   const handleClick = useCallback(
     (e) => {
-      if (ref.current.contains(e.target)) {
+      if (ref?.current?.contains(e.target)) {
         return;
       }
       props.onClose();
@@ -27,6 +30,12 @@ const Window = (props) => {
   };
 
   useEffect(() => {
+    if (isOpenSettings) {
+      props.onClose();
+    }
+  }, [isOpenSettings]);
+
+  useEffect(() => {
     document.addEventListener("mousedown", handleClick);
 
     return () => {
@@ -37,7 +46,9 @@ const Window = (props) => {
   return (
     <div className={`${props.className} ${classes.container}`} ref={ref}>
       <h4>Hi! {name}</h4>
-      <button onClick={() => history.push("/settings")}>⚙️ Settings</button>
+      <button onClick={() => dispatch(settingActions.setOpenSettings())}>
+        ⚙️ Settings
+      </button>
       <button onClick={logoutHandler}>👋 Logout</button>
     </div>
   );

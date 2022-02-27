@@ -39,9 +39,12 @@ const Space = () => {
     setYear(event.target.value);
   };
 
-  if (!isLogin) {
-    history.push("/login");
-  }
+  useEffect(() => {
+    if (!isLogin) {
+      history.push("/login");
+    }
+  }, [isLogin, history]);
+
   useEffect(() => {
     let newYears = [];
     for (let y = currYear; y >= 2018; y--) {
@@ -58,6 +61,7 @@ const Space = () => {
       console.log(err);
     }
   };
+
   useEffect(() => {
     const allRefs = Array(collection.length)
       .fill()
