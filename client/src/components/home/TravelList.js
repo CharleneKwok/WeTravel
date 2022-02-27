@@ -20,6 +20,13 @@ const TravelList = (props) => {
   const [type, setType] = useState(null);
 
   useEffect(() => {
+    const refs = Array(items?.length)
+      .fill()
+      .map((_, i) => createRef());
+    setItemsRefs(refs);
+  }, [items]);
+
+  useEffect(() => {
     if (location.pathname.includes("restaurants")) {
       dispatch(getRestaurants(getList.swLocation, getList.neLocation));
       setType("restaurants");
@@ -30,10 +37,6 @@ const TravelList = (props) => {
       dispatch(getAttractions(getList.swLocation, getList.neLocation));
       setType("attractions");
     }
-    const refs = Array(items?.length)
-      .fill()
-      .map((_, i) => createRef());
-    setItemsRefs(refs);
   }, [getList.swLocation, location.pathname]);
 
   return (

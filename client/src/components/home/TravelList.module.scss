@@ -8,9 +8,9 @@
 .list {
   height: 750px;
   overflow: scroll;
-  margin: 0 50px;
+  margin: 0 60px;
   padding: 15px;
-  @media (max-width: 1300px) {
+  @media (max-width: 1400px) {
     overflow: visible;
     justify-content: center;
     column-gap: 30px;

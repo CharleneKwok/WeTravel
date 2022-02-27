@@ -85,10 +85,12 @@ const Space = () => {
               <Avatar className={classes["user_info--avatar"]} />
               <h2>{user.username}</h2>
               <div className={classes["user_info--follow"]}>
-                <p>Followers: 0</p>
-                <p>Following: 0</p>
+                <p>Followers: {user.followers.length}</p>
+                <p>Following: {user.following.length}</p>
               </div>
-              <p className={classes["user_info--bio"]}>bio: Love everything!</p>
+              <p className={classes["user_info--bio"]}>
+                bio: {user.bio || "None"}
+              </p>
             </div>
           </div>
           <section>

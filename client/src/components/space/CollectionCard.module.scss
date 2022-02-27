@@ -9,12 +9,18 @@
     height: 300px;
   }
   article {
+    h2 {
+      margin-top: 0;
+    }
     margin: 15px 10px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 170px 100px;
   }
 }
+
 .address {
   display: flex;
-  grid-area: address;
   min-height: 70px;
   max-height: auto;
   p {
@@ -22,6 +28,17 @@
     margin: 0;
   }
 }
+
+.time {
+  display: flex;
+  margin-top: 3px;
+  align-items: center;
+  p {
+    display: inline-block;
+    margin: 0;
+  }
+}
+
 .svg {
   display: inline-block;
   margin-right: 3px;
@@ -30,6 +47,7 @@
 .btns {
   @include flex-center();
   justify-content: space-around;
+  align-items: flex-end;
   margin: 10px;
   a {
     @include card-button();

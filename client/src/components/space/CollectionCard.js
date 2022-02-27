@@ -2,6 +2,7 @@ import { SvgIcon } from "@mui/material";
 import React, { useEffect } from "react";
 import classes from "./CollectionCard.module.scss";
 import FmdGoodIcon from "@mui/icons-material/FmdGood";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import Aos from "aos";
 import "aos/dist/aos.css";
 
@@ -22,13 +23,20 @@ const CollectionCard = ({ item, onRemove, refProp, selected }) => {
     <div ref={refProp} className={classes.container} data-aos="flip-left">
       <img src={item.image} alt={"save item"} />
       <article>
-        <h2>{item.name}</h2>
-        <p> Created At: {item.createdAt.split("T")[0]}</p>
-        <div className={classes.address}>
-          <SvgIcon color="disabled" className={classes.svg}>
-            <FmdGoodIcon />
-          </SvgIcon>
-          <p>{item.address}</p>
+        <div>
+          <h2>{item.name}</h2>
+          <div className={classes.address}>
+            <SvgIcon color="disabled" className={classes.svg}>
+              <FmdGoodIcon />
+            </SvgIcon>
+            <p>{item.address}</p>
+          </div>
+          <div className={classes.time}>
+            <SvgIcon color="disabled" className={classes.svg}>
+              <AccessTimeIcon />
+            </SvgIcon>
+            <p> Created At: {item.createdAt.split("T")[0]}</p>
+          </div>
         </div>
         <div className={classes.btns}>
           <a href={item.tripAdvisor} target="_blank" rel="noopener noreferrer">
