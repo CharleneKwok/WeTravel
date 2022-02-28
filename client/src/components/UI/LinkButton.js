@@ -3,14 +3,24 @@ import { NavLink } from "react-router-dom";
 import classes from "./LinkButton.module.scss";
 
 const LinkButton = (props) => {
-  return (
-    <NavLink
-      to={props.to}
-      className={(isActive) =>
-        isActive ? classes[`link-active`] : classes.link
+  const navClasses = (isActive) => {
+    if (isActive) {
+      if (props.darkMode) {
+        const allClasses = `${classes[`link-active`]} ${classes["dark-mode"]}`;
+        return allClasses;
       }
-      title={props.text}
-    >
+      return classes[`link-active`];
+    } else {
+      if (props.darkMode) {
+        const allClasses = `${classes.link} ${classes["dark-mode"]}`;
+        return allClasses;
+      }
+      return classes.link;
+    }
+  };
+
+  return (
+    <NavLink to={props.to} className={navClasses} title={props.text}>
       <span />
       {props.text}
     </NavLink>

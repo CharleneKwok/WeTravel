@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import Avatar from "./Avatar.js";
 import Window from "./Window";
 
-const Nav = () => {
+const Nav = (props) => {
   const history = useHistory();
   const user = useSelector((state) => state.auth);
   const [openSideNav, setOpenSideNav] = useState(false);
@@ -20,12 +20,16 @@ const Nav = () => {
 
   return (
     <div>
-      <header className={classes.header}>
+      <header
+        className={`${classes.header} ${
+          props.darkMode ? classes["dark-mode"] : ""
+        }`}
+      >
         <h1 onClick={() => history.push("/")}>WeTravel</h1>
         <nav>
-          <LinkButton to="/home" text="HOME" />
-          <LinkButton to="/explore" text="EXPLORE" />
-          <LinkButton to="/space" text="SPACE" />
+          <LinkButton to="/home" text="HOME" darkMode={props.darkMode} />
+          <LinkButton to="/explore" text="EXPLORE" darkMode={props.darkMode} />
+          <LinkButton to="/space" text="SPACE" darkMode={props.darkMode} />
         </nav>
         {user.isLogin ? (
           <div className={classes.user}>
