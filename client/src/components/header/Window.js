@@ -7,11 +7,10 @@ import Setting from "../setting/Setting";
 import classes from "./Window.module.scss";
 
 const Window = (props) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
   const ref = useRef();
   const history = useHistory();
   const dispatch = useDispatch();
-  const name = useSelector((state) => state.auth.user.username);
-  const email = useSelector((state) => state.auth.user.email);
   const isOpenSettings = useSelector((state) => state.settings.openSettings);
 
   const handleClick = useCallback(
@@ -25,7 +24,7 @@ const Window = (props) => {
   );
 
   const logoutHandler = () => {
-    dispatch(userLogout(email));
+    dispatch(userLogout(user.email));
     history.push("/");
   };
 
@@ -45,7 +44,7 @@ const Window = (props) => {
 
   return (
     <div className={`${props.className} ${classes.container}`} ref={ref}>
-      <h4>Hi! {name}</h4>
+      <h4>Hi! {user.username}</h4>
       <button onClick={() => dispatch(settingActions.setOpenSettings())}>
         ⚙️ Settings
       </button>

@@ -17,7 +17,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { settingActions } from "../../store/setting-slice";
 
 const Space = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -25,7 +26,6 @@ const Space = () => {
   const [remove, setRemove] = useState(false);
   const location = useLocation();
   const isCollection = location.pathname.includes("collection");
-  const history = useHistory();
   const [select, setSelect] = useState("");
   const [refs, setRefs] = useState([]);
   const currYear = new Date().getFullYear();
@@ -34,16 +34,20 @@ const Space = () => {
   const [bio, setBio] = useState(user?.bio);
   const [showInput, setShowInput] = useState(false);
   const isLogin = useSelector((state) => state.auth.isLogin);
+  const history = useHistory();
+
+  useEffect(() => {
+    if (!isLogin) {
+      const interval = setTimeout(() => {
+        history.push("/login");
+      }, 500);
+      return () => clearTimeout(interval);
+    }
+  }, [isLogin]);
 
   const handleChange = (event) => {
     setYear(event.target.value);
   };
-
-  useEffect(() => {
-    if (!isLogin) {
-      history.push("/login");
-    }
-  }, [isLogin, history]);
 
   useEffect(() => {
     let newYears = [];

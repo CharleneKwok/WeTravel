@@ -1,0 +1,45 @@
+@import "../../variables/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  button {
+    @include black-button(fit-content);
+    margin: 3px;
+  }
+  p {
+    margin: 0;
+    margin-left: 13px;
+    display: inline-block;
+  }
+  h3 {
+    display: inline-block;
+  }
+  input {
+    height: 40px;
+    border: $border;
+    border-radius: 20px;
+    margin-right: 10px;
+    padding: 10px;
+    font-family: inherit;
+  }
+}
+
+.avatar-change {
+  @include flex-center(column);
+  width: 40%;
+  justify-self: center;
+  align-self: center;
+}
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  margin: 10px 0;
+}
+
+.pwd-notice {
+  margin: 0px 13px 13px 3px !important;
+  font-style: italic;
+  font-size: 0.7rem;
+}

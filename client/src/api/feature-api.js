@@ -18,3 +18,10 @@ export const deleteItemOnList = (location_id) =>
 
 // for user info setting
 export const changeBio = (bio) => API.put("/user/settings/bio", bio);
+export const changeAvatar = (avatar) =>
+  API.put("/user/settings/avatar", avatar);
+export const changeUsername = (username) =>
+  API.put("/user/settings/username", username);
+export const changeMap = (map) => API.put("/user/settings/map", map);
+export const changeWholeApp = (wholeAppearance) =>
+  API.put("/user/settings/whole", wholeAppearance);

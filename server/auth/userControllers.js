@@ -146,6 +146,10 @@ export const googleLogin = async (req, res) => {
 // change username
 export const changeUsername = async (req, res) => {
   const { username, user } = req.body;
+  const userList = await User.find({ username: username });
+  if (userList.length === 1 && user.username !== username) {
+    return res.status(400).send("Username already exists");
+  }
   user.username = username;
   await user.save();
   return res.status(200).send("Change username successful!");

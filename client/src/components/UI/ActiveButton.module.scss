@@ -1,0 +1,35 @@
+@import "../../variables/variables";
+
+.btn-container {
+  width: 200px;
+  @include flex-center(column);
+  margin: 10px;
+  img {
+    width: 70%;
+    opacity: 0;
+    transition: all 500ms ease;
+  }
+}
+
+.btn {
+  background-color: transparent;
+  border: 0;
+  font-family: inherit;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 500ms ease;
+  font-weight: 500;
+  &:hover,
+  &:active {
+    letter-spacing: 3px;
+    font-weight: 700;
+  }
+}
+
+.btn__hover {
+  letter-spacing: 3px;
+  font-weight: 700;
+  + img {
+    opacity: 1;
+  }
+}

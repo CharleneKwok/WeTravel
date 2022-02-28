@@ -22,6 +22,7 @@ $border: 1px solid #ccc;
   box-shadow: $box-shadow;
   border: $border;
 }
+
 @mixin button($width: auto) {
   background-color: transparent;
   border: 1px solid black;
@@ -57,5 +58,28 @@ $border: 1px solid #ccc;
   &:hover {
     transform: scale(1.02);
     font-weight: 700;
+  }
+}
+
+@mixin black-button($width: auto) {
+  background-color: transparent;
+  border: 1px solid $nav-white;
+  background-color: #272343;
+  border-radius: 20px;
+  padding: 10px;
+  cursor: pointer;
+  transition: all 700ms ease;
+  width: $width;
+  height: auto;
+  text-align: center;
+  color: $nav-white;
+  font-family: inherit;
+  font-size: 0.8rem;
+  &:hover {
+    letter-spacing: 1px;
+    border: 1px solid $nav-white;
+    box-shadow: $box-shadow;
+    font-weight: 600;
+    transform: scale(1.01);
   }
 }

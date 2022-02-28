@@ -21,14 +21,14 @@ const PwdReset = () => {
     if (resetSuccess) {
       const goBack = setTimeout(() => {
         localStorage.removeItem("resetEmail");
-        history.push("/login");
-      }, 5000);
+        history.push("/space");
+      }, 3000);
       return () => clearTimeout(goBack);
     }
   }, [resetSuccess, history]);
 
   return (
-    <Page className={classes.page}>
+    <div className={classes.page}>
       <Formik
         initialValues={{
           newPwd: "",
@@ -63,15 +63,13 @@ const PwdReset = () => {
           <Input id="newPwd2" text="Confirm Password" type="password" />
           {resetErr && <p className={classes["reset-pwd__err"]}>{resetErr}</p>}
           {resetSuccess ? (
-            <p className={classes["reset-pwd__msg"]}>
-              Password reset successful! Jump back to login page now
-            </p>
+            <p className={classes["reset-pwd__msg"]}>Successful!</p>
           ) : (
-            <button type="submit">Reset Password</button>
+            <button type="submit">Confirm</button>
           )}
         </Form>
       </Formik>
-    </Page>
+    </div>
   );
 };
 
