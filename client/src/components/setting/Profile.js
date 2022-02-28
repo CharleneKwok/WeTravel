@@ -5,6 +5,7 @@ import Avatar from "../header/Avatar";
 import classes from "./Profile.module.scss";
 import Snackbar from "@mui/material/Snackbar";
 import { sendResetPwdEmail } from "../../api/auth-api";
+import AvatarChange from "./AvatarChange";
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -12,11 +13,15 @@ const Profile = () => {
   const [openBar, setOpenBar] = useState(false);
   const [openPwdSentBar, setOpenPwdSentBar] = useState(false);
   const [nameUpdateMsg, setNameUpdateMsg] = useState("");
+  const [avatarChange, setAvatarChange] = useState(false);
 
   const usernameReset = async (e) => {
     e.preventDefault();
+    if (user.username === username) {
+      setOpenBar(false);
+      return;
+    }
     try {
-      if (user.username === username) return;
       await changeUsername({ username: username });
       console.log("update");
       user.username = username;
@@ -57,47 +62,55 @@ const Profile = () => {
 
   return (
     <>
-      <div className={classes.container}>
-        <div className={classes["avatar-change"]}>
-          <Avatar className={classes.avatar} />
-          <button>Change Avatar</button>
-        </div>
-        <div>
-          <h3>EMAIL : </h3>
-          <p>{user.email}</p>
-        </div>
-        <h3>USERNAME : </h3>
-        <form onSubmit={usernameReset}>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            maxLength={20}
+      {avatarChange ? (
+        <AvatarChange />
+      ) : (
+        <>
+          <div className={classes.container}>
+            <div className={classes["avatar-change"]}>
+              <Avatar className={classes.avatar} />
+              <button onClick={() => setAvatarChange(true)}>
+                Change Avatar
+              </button>
+            </div>
+            <div>
+              <h3>EMAIL : </h3>
+              <p>{user.email}</p>
+            </div>
+            <h3>USERNAME : </h3>
+            <form onSubmit={usernameReset}>
+              <input
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                maxLength={20}
+              />
+              <button type="submit" onClick={() => setOpenBar(true)}>
+                Update
+              </button>
+            </form>
+            <h3>PASSWORD :</h3>
+            <p className={classes["pwd-notice"]}>
+              Here you can <b>reset your password</b>. If you use{" "}
+              <b>Google login</b> and no password, then you can add password to
+              your account.
+            </p>
+            <button onClick={pwdReset}>Send Verification Email</button>
+          </div>
+          <Snackbar
+            open={openBar}
+            autoHideDuration={3000}
+            onClose={handleClose}
+            message={nameUpdateMsg}
           />
-          <button type="submit" onClick={() => setOpenBar(true)}>
-            Update
-          </button>
-        </form>
-        <h3>PASSWORD :</h3>
-        <p className={classes["pwd-notice"]}>
-          Here you can <b>reset your password</b>. If you use{" "}
-          <b>Google login</b> and no password, then you can add password to your
-          account.
-        </p>
-        <button onClick={pwdReset}>Send Verification Email</button>
-      </div>
-      <Snackbar
-        open={openBar}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        message={nameUpdateMsg}
-      />
-      <Snackbar
-        open={openPwdSentBar}
-        autoHideDuration={3000}
-        onClose={handlePwdResetClose}
-        message="🎉 Email sent!"
-      />
+          <Snackbar
+            open={openPwdSentBar}
+            autoHideDuration={3000}
+            onClose={handlePwdResetClose}
+            message="🎉 Email sent!"
+          />
+        </>
+      )}
     </>
   );
 };

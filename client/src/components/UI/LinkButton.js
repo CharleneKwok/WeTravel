@@ -9,6 +9,7 @@ const LinkButton = (props) => {
       className={(isActive) =>
         isActive ? classes[`link-active`] : classes.link
       }
+      title={props.text}
     >
       <span />
       {props.text}
