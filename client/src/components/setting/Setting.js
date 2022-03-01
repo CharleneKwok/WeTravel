@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { settingActions } from "../../store/setting-slice";
-import Nav from "../header/Nav";
 import ActiveButton from "../UI/ActiveButton";
 import Backdrop from "../UI/Backdrop";
 import Appearance from "./Appearance";

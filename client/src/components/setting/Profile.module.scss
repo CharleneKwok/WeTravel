@@ -43,3 +43,11 @@
   font-style: italic;
   font-size: 0.7rem;
 }
+
+input[type="file"] {
+  display: none;
+}
+
+.upload-file {
+  @include black-button();
+}

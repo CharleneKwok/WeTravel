@@ -1,0 +1,41 @@
+@import "../../variables/variables";
+
+.container {
+  height: 680px;
+  overflow: scroll;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: auto 2fr auto;
+  grid-template-areas: "avatar file" "upload upload" ". btns";
+  button {
+    @include black-button();
+    margin: 10px;
+  }
+}
+
+.image {
+  grid-area: upload;
+}
+
+.btns {
+  grid-area: btns;
+  justify-self: end;
+}
+
+.cancel {
+  background-color: white !important;
+  color: black !important;
+  border: $border !important;
+}
+
+.avatar {
+  width: 150px;
+  height: 150px;
+  justify-self: end;
+  margin: 10px;
+}
+
+.avatar-sm {
+  align-self: end;
+  margin-bottom: 30px;
+}

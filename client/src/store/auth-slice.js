@@ -17,6 +17,18 @@ const authSlice = createSlice({
       state.user = {};
       localStorage.removeItem("profile");
     },
+    changeUsername(state, action) {
+      state.user.username = action.payload.username;
+      localStorage.setItem("profile", JSON.stringify(state.user));
+    },
+    changeAvatar(state, action) {
+      state.user.avatar = action.payload.avatar;
+      localStorage.setItem("profile", JSON.stringify(state.user));
+    },
+    changeBio(state, action) {
+      state.user.bio = action.payload.bio;
+      localStorage.setItem("profile", JSON.stringify(state.user));
+    },
   },
 });
 

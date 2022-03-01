@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeUsername } from "../../api/feature-api";
 import Avatar from "../header/Avatar";
 import classes from "./Profile.module.scss";
 import Snackbar from "@mui/material/Snackbar";
 import { sendResetPwdEmail } from "../../api/auth-api";
 import AvatarChange from "./AvatarChange";
+import { authActions } from "../../store/auth-slice";
 
 const Profile = () => {
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -14,6 +15,8 @@ const Profile = () => {
   const [openPwdSentBar, setOpenPwdSentBar] = useState(false);
   const [nameUpdateMsg, setNameUpdateMsg] = useState("");
   const [avatarChange, setAvatarChange] = useState(false);
+  const [imageToCrop, setImageToCrop] = useState(undefined);
+  const dispatch = useDispatch();
 
   const usernameReset = async (e) => {
     e.preventDefault();
@@ -24,8 +27,7 @@ const Profile = () => {
     try {
       await changeUsername({ username: username });
       console.log("update");
-      user.username = username;
-      localStorage.setItem("profile", JSON.stringify(user));
+      dispatch(authActions.changeUsername({ username: username }));
       setNameUpdateMsg("🎉 Username Update successful!");
       setOpenBar(true);
     } catch (err) {
@@ -60,18 +62,37 @@ const Profile = () => {
     }
   };
 
+  const onUploadFile = (event) => {
+    if (event.target.files && event.target.files.length > 0) {
+      const reader = new FileReader();
+
+      reader.addEventListener("load", () => setImageToCrop(reader.result));
+
+      reader.readAsDataURL(event.target.files[0]);
+      setAvatarChange(true);
+    }
+  };
+
+  const cancelChangeAvatar = () => {
+    setAvatarChange(false);
+  };
+
   return (
     <>
       {avatarChange ? (
-        <AvatarChange />
+        <AvatarChange
+          imageToCrop={imageToCrop}
+          cancelChangeAvatar={cancelChangeAvatar}
+        />
       ) : (
         <>
           <div className={classes.container}>
             <div className={classes["avatar-change"]}>
               <Avatar className={classes.avatar} />
-              <button onClick={() => setAvatarChange(true)}>
-                Change Avatar
-              </button>
+              <label className={classes["upload-file"]}>
+                Upload Photo
+                <input type="file" onChange={onUploadFile} />
+              </label>
             </div>
             <div>
               <h3>EMAIL : </h3>

@@ -24,7 +24,6 @@ function App() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("profile"));
-    console.log("🚀 ~ user", user);
     if (user) {
       const decodedToken = decode(user.token);
       if (decodedToken.exp * 1000 < new Date().getTime()) {
@@ -65,7 +64,7 @@ function App() {
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/pwd-reset" component={ForgotPwd} exact />
-        <Route path="*" component={NotExist} />
+        {/* <Route path="*" component={NotExist} /> */}
       </Switch>
       {/* )} */}
     </Fragment>

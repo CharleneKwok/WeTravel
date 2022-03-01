@@ -9,7 +9,6 @@ import classes from "./Page.module.scss";
 const Page = (props) => {
   const isOpenSettings = useSelector((state) => state.settings.openSettings);
   const location = useLocation();
-  console.log("🚀 ~ location", location);
 
   return (
     <>

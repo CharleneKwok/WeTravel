@@ -19,9 +19,11 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { settingActions } from "../../store/setting-slice";
+import { authActions } from "../../store/auth-slice";
 
 const Space = () => {
-  const user = JSON.parse(localStorage.getItem("profile"));
+  const checkUserUpdate = useSelector((state) => state.auth.user);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("profile")));
   const [collection, setCollection] = useState([]);
   const [remove, setRemove] = useState(false);
   const location = useLocation();
@@ -35,6 +37,11 @@ const Space = () => {
   const [showInput, setShowInput] = useState(false);
   const isLogin = useSelector((state) => state.auth.isLogin);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [checkUserUpdate]);
 
   useEffect(() => {
     if (!isLogin) {
@@ -81,9 +88,13 @@ const Space = () => {
       );
       setCollection(filterCollects);
     };
-    if (user) {
-      getCollection();
-      setRemove(false);
+    try {
+      if (user) {
+        getCollection();
+        setRemove(false);
+      }
+    } catch (err) {
+      console.log(err);
     }
   }, [remove, year]);
 
@@ -95,8 +106,7 @@ const Space = () => {
   const changeBioHandler = async () => {
     try {
       await changeBio({ bio: bio });
-      user.bio = bio;
-      localStorage.setItem("profile", JSON.stringify(user));
+      dispatch(authActions.changeBio);
       setShowInput(false);
     } catch (err) {
       console.log(err);

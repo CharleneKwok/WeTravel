@@ -9,7 +9,12 @@ const Avatar = (props) => {
       className={`${props.className} ${classes.container}`}
       onClick={props.onClick}
     >
-      <img src={avatar} alt="avatar" width="100%" height="100%" />
+      <img
+        src={props.src ? props.src : avatar}
+        alt="avatar"
+        width="100%"
+        height="100%"
+      />
     </div>
   );
 };
