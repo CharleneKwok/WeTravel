@@ -6,7 +6,7 @@
   display: grid;
   grid-template-columns: 1.4fr 1fr;
   grid-template-rows: auto 2fr auto;
-  grid-template-areas: "avatar file" "upload upload" ". btns";
+  grid-template-areas: "avatar file" "upload upload" "btns btns";
   button {
     @include black-button();
     margin: 10px;

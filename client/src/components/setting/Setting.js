@@ -7,6 +7,7 @@ import Backdrop from "../UI/Backdrop";
 import Appearance from "./Appearance";
 import Profile from "./Profile";
 import classes from "./Setting.module.scss";
+import CloseIcon from "@mui/icons-material/Close";
 
 const Setting = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -31,6 +32,10 @@ const Setting = () => {
         isNav={false}
       />
       <div className={classes.container}>
+        <CloseIcon
+          className={classes["close-icon"]}
+          onClick={() => dispatch(settingActions.setOpenSettings())}
+        />
         <nav>
           <ActiveButton text="PROFILE" />
           <ActiveButton text="APPEARANCE" />

@@ -4,7 +4,7 @@ import "react-image-crop/dist/ReactCrop.css";
 
 const ImageCropper = (props) => {
   const { imageToCrop, onImageCropped } = props;
-
+  const [imageRef, setImageRef] = useState();
   const [cropConfig, setCropConfig] = useState(
     // default crop config
     {
@@ -14,14 +14,9 @@ const ImageCropper = (props) => {
     }
   );
 
-  const [imageRef, setImageRef] = useState();
-
-  const cropImage = async (crop) => {
+  const cropImage = (crop) => {
     if (imageRef && crop.width && crop.height) {
-      const croppedImage = await getCroppedImage(imageRef, crop);
-
-      // calling the props function to expose
-      // croppedImage to the parent component
+      const croppedImage = getCroppedImage(imageRef, crop);
       onImageCropped(croppedImage);
     }
   };

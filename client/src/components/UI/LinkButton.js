@@ -20,7 +20,12 @@ const LinkButton = (props) => {
   };
 
   return (
-    <NavLink to={props.to} className={navClasses} title={props.text}>
+    <NavLink
+      to={props.to}
+      className={navClasses}
+      title={props.text}
+      onClick={props.onClick}
+    >
       <span />
       {props.text}
     </NavLink>

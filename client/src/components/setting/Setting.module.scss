@@ -24,11 +24,29 @@
     border-right: $border;
     height: 60%;
     margin: 100px 0;
+    @media (max-width: 600px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 0;
+      border-bottom: $border;
+    }
   }
   section {
     flex: 3;
     padding: 20px;
   }
+  @media (max-width: 600px) {
+    top: 23px;
+    flex-direction: column;
+    height: auto;
+  }
+}
+
+.close-icon {
+  position: relative;
+  top: 10px;
+  left: 10px;
+  cursor: pointer;
 }
 
 @keyframes showSetting {

@@ -20,11 +20,10 @@ const AvatarChange = ({ imageToCrop, cancelChangeAvatar }) => {
         dispatch(authActions.changeAvatar({ avatar: croppedImage }));
         cancelChangeAvatar();
       }
-    } catch (err) {
-      console.log(err);
-      if (err.response.status === 401) {
-        history.push("/login");
+    } catch ({ response }) {
+      if (response.status === 401) {
         dispatch(settingActions.setOpenSettings());
+        history.push("/login");
       }
     }
   };

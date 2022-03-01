@@ -44,3 +44,8 @@
 .open {
   transform: translateX(0);
 }
+
+.btns {
+  @include flex-center(column);
+  gap: 13px;
+}

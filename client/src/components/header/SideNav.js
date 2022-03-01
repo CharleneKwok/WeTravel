@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Avatar from "./Avatar.js";
 import { userLogout } from "../../store/auth-actions";
+import { settingActions } from "../../store/setting-slice";
 
 const SideNav = (props) => {
   const user = useSelector((state) => state.auth);
@@ -43,8 +44,17 @@ const SideNav = (props) => {
           <LinkButton to="/home" text="HOME" />
           <LinkButton to="/explore" text="EXPLORE" />
           <LinkButton to="/space" text="SPACE" />
-          <LinkButton to="/settings" text="SETTING" />
-          {user.isLogin && <button onClick={logoutHandler}>LOGOUT</button>}
+          <div className={classes.btns}>
+            <button
+              onClick={() => {
+                dispatch(settingActions.setOpenSettings());
+                props.onClose();
+              }}
+            >
+              SETTINGS
+            </button>
+            {user.isLogin && <button onClick={logoutHandler}>LOGOUT</button>}
+          </div>
         </div>
       </div>
     </>
