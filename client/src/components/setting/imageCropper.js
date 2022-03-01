@@ -16,21 +16,17 @@ const ImageCropper = (props) => {
 
   const [imageRef, setImageRef] = useState();
 
-  async function cropImage(crop) {
+  const cropImage = async (crop) => {
     if (imageRef && crop.width && crop.height) {
-      const croppedImage = await getCroppedImage(
-        imageRef,
-        crop,
-        "croppedImage.jpeg" // destination filename
-      );
+      const croppedImage = await getCroppedImage(imageRef, crop);
 
       // calling the props function to expose
       // croppedImage to the parent component
       onImageCropped(croppedImage);
     }
-  }
+  };
 
-  function getCroppedImage(sourceImage, cropConfig, fileName) {
+  const getCroppedImage = (sourceImage, cropConfig) => {
     // creating the cropped image from the source image
     const canvas = document.createElement("canvas");
     const scaleX = sourceImage.naturalWidth / sourceImage.width;
@@ -50,34 +46,21 @@ const ImageCropper = (props) => {
       cropConfig.width,
       cropConfig.height
     );
-
-    return new Promise((resolve, reject) => {
-      canvas.toBlob((blob) => {
-        // returning an error
-        if (!blob) {
-          reject(new Error("Canvas is empty"));
-          return;
-        }
-
-        blob.name = fileName;
-        // creating a Object URL representing the Blob object given
-        const croppedImageUrl = window.URL.createObjectURL(blob);
-
-        resolve(croppedImageUrl);
-      }, "image/jpeg");
-    });
-  }
+    return canvas.toDataURL("image/jpeg");
+  };
 
   return (
-    <ReactCrop
-      src={imageToCrop}
-      crop={cropConfig}
-      ruleOfThirds
-      onImageLoaded={(imageRef) => setImageRef(imageRef)}
-      onComplete={(cropConfig) => cropImage(cropConfig)}
-      onChange={(cropConfig) => setCropConfig(cropConfig)}
-      crossorigin="anonymous" // to avoid CORS-related problems
-    />
+    <>
+      <ReactCrop
+        src={imageToCrop}
+        crop={cropConfig}
+        ruleOfThirds
+        onImageLoaded={(imageRef) => setImageRef(imageRef)}
+        onComplete={(cropConfig) => cropImage(cropConfig)}
+        onChange={(cropConfig) => setCropConfig(cropConfig)}
+        crossorigin="anonymous" // to avoid CORS-related problems
+      />
+    </>
   );
 };
 

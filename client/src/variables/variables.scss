@@ -64,8 +64,8 @@ $border: 1px solid #ccc;
 @mixin black-button($width: auto) {
   background-color: transparent;
   border: 1px solid $nav-white;
-  background-color: rgba(0, 0, 0, 0.618);
-  border-radius: 20px;
+  background-color: black;
+  border-radius: 5px;
   padding: 10px;
   cursor: pointer;
   transition: all 700ms ease;
