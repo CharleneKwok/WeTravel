@@ -113,7 +113,14 @@ export const googleLogin = async (req, res) => {
     // user exists in db
     user.token = token;
     await user.save();
-    return res.status(200).json({ ...getInfo(user), google: user.google });
+    return res
+      .status(200)
+      .json({
+        ...getInfo(user),
+        google: user.google,
+        wholeAppearance: user.wholeAppearance,
+        mapAppearance: user.mapAppearance,
+      });
   } else {
     let name = username;
     // if username exists then add number behind the name
@@ -137,9 +144,12 @@ export const googleLogin = async (req, res) => {
       avatar: avatar,
     });
     await newUser.save();
-    return res
-      .status(200)
-      .json({ ...getInfo(newUser), google: newUser.google });
+    return res.status(200).json({
+      ...getInfo(newUser),
+      google: newUser.google,
+      wholeAppearance: newUser.wholeAppearance,
+      mapAppearance: newUser.mapAppearance,
+    });
   }
 };
 

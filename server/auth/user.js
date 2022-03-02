@@ -29,7 +29,7 @@ const user = new mongoose.Schema({
   },
   mapAppearance: {
     type: String,
-    default: "basic",
+    default: "LightDream",
   },
   wholeAppearance: {
     type: String,

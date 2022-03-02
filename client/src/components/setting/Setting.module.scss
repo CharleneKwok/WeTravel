@@ -2,14 +2,15 @@
 
 .container {
   @include card(auto, 600px);
-  position: fixed;
-  top: 12vh;
+  position: absolute;
+  top: 10vh;
   left: 0;
   right: 0;
   margin: auto;
   max-width: 900px;
   min-width: auto;
-  height: 700px;
+  min-height: 700px;
+  height: auto;
   background-color: white;
   z-index: 100;
   animation: showSetting 500ms ease-in-out forwards;

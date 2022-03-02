@@ -1,0 +1,29 @@
+@import "../../variables/variables";
+
+.container {
+  cursor: pointer;
+  width: 250px;
+  height: auto;
+  @include flex-center(column);
+  margin: 14px;
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+  p {
+    display: inline-block;
+    margin: 0;
+  }
+  img {
+    width: 100%;
+    transition: all 500ms ease;
+    border-radius: 20px;
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+}
+
+.icon {
+  color: green;
+  position: absolute;
+}

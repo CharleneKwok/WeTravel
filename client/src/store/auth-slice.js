@@ -29,6 +29,10 @@ const authSlice = createSlice({
       state.user.bio = action.payload.bio;
       localStorage.setItem("profile", JSON.stringify(state.user));
     },
+    changeMapAppearance(state, action) {
+      state.user.mapAppearance = action.payload.mapAppearance;
+      localStorage.setItem("profile", JSON.stringify(state.user));
+    },
   },
 });
 

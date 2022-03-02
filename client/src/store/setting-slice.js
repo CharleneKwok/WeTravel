@@ -9,6 +9,9 @@ const settingSlice = createSlice({
   reducers: {
     setOpenSettings(state) {
       state.openSettings = !state.openSettings;
+      if (!state.openSettings) {
+        state.currLocation = "PROFILE";
+      }
     },
     setCurrLocarion(state, action) {
       state.currLocation = action.payload.currLocation;
