@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Post.module.scss";
+import classes from "./Posts.module.scss";
 
 const RandomPost = () => {
   return <div>RandomPost</div>;

@@ -25,3 +25,30 @@ export const changeUsername = (username) =>
 export const changeMap = (map) => API.put("/user/settings/map", map);
 export const changeWholeApp = (wholeAppearance) =>
   API.put("/user/settings/whole", wholeAppearance);
+
+// for posts
+export const getRandomPosts = () => API.get("/post/randomPosts");
+export const addPost = (title, content, images) =>
+  API.post("/post", { title, content, images });
+export const deletePost = (postId) => API.delete("/post", { postId });
+export const getUserPosts = (userId) => API.get("/post", { userId });
+
+// like, comment and reply
+export const likePost = (postId) => API.put(`/post/like/${postId}`);
+export const unlikePost = (postId) => API.put(`/post/unlike/${postId}`);
+export const addComment = (postId, content) =>
+  API.post(`/post/comment/${postId}`, { content });
+export const addReply = (postId, content, replyToId) =>
+  API.post(`/post/reply/${postId}`, { content, replyToId });
+export const getComments = (postId) => API.get(`/post/comment/${postId}`);
+export const getRelies = (postId) => API.get(`/post/comment/${postId}`);
+
+// follow and unfollow
+export const followUser = (followId) => API.put("/user/follow", { followId });
+export const unfollowUser = (unfollowId) =>
+  API.put("/user/unfollow", { unfollowId });
+
+export const getFollowingList = (userId) =>
+  API.get(`/user/following/${userId}`);
+export const getFollowersList = (userId) =>
+  API.get(`/user/followers/${userId}`);

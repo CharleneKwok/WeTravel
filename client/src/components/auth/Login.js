@@ -17,6 +17,7 @@ const Login = () => {
 
   useEffect(() => {
     if (isLogin) {
+      console.log("🚀 ~ isLogin", isLogin);
       history.push("/");
     }
   }, [isLogin, history]);
