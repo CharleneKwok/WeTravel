@@ -33,7 +33,7 @@ const Space = () => {
   const currYear = new Date().getFullYear();
   const [year, setYear] = useState(currYear);
   const [allYears, setAllYears] = useState([]);
-  const [bio, setBio] = useState(user?.bio);
+  const [bio, setBio] = useState(user?.bio || "Please enter your bio");
   const [showInput, setShowInput] = useState(false);
   const isLogin = useSelector((state) => state.auth.isLogin);
   const history = useHistory();
@@ -106,8 +106,9 @@ const Space = () => {
   const changeBioHandler = async () => {
     try {
       await changeBio({ bio: bio });
-      dispatch(authActions.changeBio);
+      dispatch(authActions.changeBio({ bio: bio }));
       setShowInput(false);
+      console.log("change");
     } catch (err) {
       console.log(err);
     }
@@ -127,22 +128,23 @@ const Space = () => {
               </div>
               <div className={classes["user_info--bio"]}>
                 bio:
-                {!showInput ? (
+                {/* {!showInput && (
                   <p
                     onClick={() => setShowInput(true)}
                     title="Click to change your bio"
                   >
                     {bio}
                   </p>
-                ) : (
-                  <input
-                    type="text"
-                    value={bio}
-                    onChange={(e) => setBio(e.target.value)}
-                    onBlur={changeBioHandler}
-                    maxLength="80"
-                  />
                 )}
+                {(showInput || !user.bio) && ( */}
+                {/* )} */}
+                <input
+                  type="text"
+                  value={bio}
+                  onChange={(e) => setBio(e.target.value)}
+                  onBlur={changeBioHandler}
+                  maxLength="80"
+                />
               </div>
             </div>
           </div>
