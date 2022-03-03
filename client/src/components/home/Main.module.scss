@@ -63,6 +63,10 @@
   }
 }
 
+.dark-mode {
+  color: white;
+}
+
 @keyframes dropdown {
   0% {
     opacity: 0;
@@ -80,6 +84,7 @@
 }
 
 .card {
+  color: black;
   font-weight: 600;
   @include card(auto, auto);
   text-align: center;

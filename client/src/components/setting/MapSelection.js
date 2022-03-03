@@ -26,7 +26,6 @@ const MapSelection = ({ text, idx, isSelected }) => {
       const resp = await changeMap({ mapAppearance: name });
       if (resp.status === 200) {
         dispatch(authActions.changeMapAppearance({ mapAppearance: name }));
-        console.log("change");
       }
     } catch ({ response }) {
       if (response.status === 401) {
@@ -36,7 +35,10 @@ const MapSelection = ({ text, idx, isSelected }) => {
   };
 
   return (
-    <div className={classes.container} onClick={changeMapHandler}>
+    <div
+      className={`${classes.container} ${isSelected ? classes.backdrop : ""}`}
+      onClick={changeMapHandler}
+    >
       <img src={mapImages[idx]} alt="map style" />
       {isSelected && <DoneOutlineIcon className={classes.icon} />}
       <p>{text}</p>

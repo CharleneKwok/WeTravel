@@ -26,18 +26,18 @@ const TravelList = (props) => {
     setItemsRefs(refs);
   }, [items]);
 
-  // useEffect(() => {
-  //   if (location.pathname.includes("restaurants")) {
-  //     dispatch(getRestaurants(getList.swLocation, getList.neLocation));
-  //     setType("restaurants");
-  //   } else if (location.pathname.includes("hotels")) {
-  //     dispatch(getHotels(getList.swLocation, getList.neLocation));
-  //     setType("hotels");
-  //   } else if (location.pathname.includes("attractions")) {
-  //     dispatch(getAttractions(getList.swLocation, getList.neLocation));
-  //     setType("attractions");
-  //   }
-  // }, [getList.swLocation, location.pathname]);
+  useEffect(() => {
+    if (location.pathname.includes("restaurants")) {
+      dispatch(getRestaurants(getList.swLocation, getList.neLocation));
+      setType("restaurants");
+    } else if (location.pathname.includes("hotels")) {
+      dispatch(getHotels(getList.swLocation, getList.neLocation));
+      setType("hotels");
+    } else if (location.pathname.includes("attractions")) {
+      dispatch(getAttractions(getList.swLocation, getList.neLocation));
+      setType("attractions");
+    }
+  }, [getList.swLocation, location.pathname]);
 
   return (
     <div className={`${classes.container} ${props.className}`}>
