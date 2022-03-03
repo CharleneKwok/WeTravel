@@ -1,12 +1,9 @@
 import React from "react";
-import Nav from "../header/Nav";
+import Page from "../UI/Page";
+import classes from "./Explore.module.scss";
 
 const Explore = () => {
-  return (
-    <div>
-      <Nav /> Explore
-    </div>
-  );
+  return <Page></Page>;
 };
 
 export default Explore;

@@ -26,6 +26,7 @@
   column-gap: 10px;
   justify-content: start;
   grid-template-columns: auto minmax(auto, 90vw);
+  grid-template-rows: auto auto auto;
   grid-template-areas: "image name" "image follow" "image des";
   h2 {
     margin: 10px 10px;
@@ -63,7 +64,6 @@
   input {
     margin-left: 2px;
     color: white;
-    height: 40px;
     width: 70%;
     font-size: inherit;
     border-radius: 10px;

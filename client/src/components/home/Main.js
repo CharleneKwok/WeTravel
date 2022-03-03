@@ -62,6 +62,15 @@ const MutiBrandNetwork = [
     ],
   },
   {
+    featureType: "transit",
+    elementType: "labels.icon",
+    stylers: [
+      {
+        visibility: "on",
+      },
+    ],
+  },
+  {
     featureType: "administrative",
     elementType: "geometry.fill",
     stylers: [
@@ -278,10 +287,26 @@ const MutiBrandNetwork = [
 
 const Becomeadinosaur = [
   {
-    elementType: "labels.text",
+    featureType: "all",
+    elementType: "labels",
     stylers: [
       {
         visibility: "on",
+      },
+    ],
+  },
+  {
+    featureType: "all",
+    elementType: "labels.text.fill",
+    stylers: [
+      {
+        saturation: 36,
+      },
+      {
+        color: "#000000",
+      },
+      {
+        lightness: 40,
       },
     ],
   },
@@ -309,7 +334,7 @@ const Becomeadinosaur = [
     featureType: "transit",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -317,7 +342,7 @@ const Becomeadinosaur = [
     featureType: "poi.attraction",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -337,7 +362,7 @@ const Becomeadinosaur = [
     featureType: "poi.business",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -345,7 +370,7 @@ const Becomeadinosaur = [
     featureType: "poi.medical",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -353,7 +378,7 @@ const Becomeadinosaur = [
     featureType: "poi.place_of_worship",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -361,7 +386,7 @@ const Becomeadinosaur = [
     featureType: "poi.school",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -369,7 +394,7 @@ const Becomeadinosaur = [
     featureType: "poi.sports_complex",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -404,7 +429,7 @@ const Becomeadinosaur = [
         color: "#ffffff",
       },
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -413,7 +438,7 @@ const Becomeadinosaur = [
     elementType: "labels.icon",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -549,7 +574,7 @@ const Becomeadinosaur = [
     featureType: "landscape",
     stylers: [
       {
-        visibility: "off",
+        visibility: "on",
       },
     ],
   },
@@ -558,7 +583,10 @@ const Becomeadinosaur = [
     elementType: "labels",
     stylers: [
       {
-        visibility: "off",
+        color: "#ccc",
+      },
+      {
+        visibility: "on",
       },
     ],
   },
@@ -582,10 +610,6 @@ const Becomeadinosaur = [
   {
     featureType: "road",
   },
-  {
-    featureType: "road",
-  },
-  {},
   {
     featureType: "road.highway",
   },
@@ -944,17 +968,17 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    const getWeather = async () => {
-      try {
-        const resp = await getWeatherData(center.lat, center.lng);
-        setWeatherData(resp.data.list);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    if (center.lat && center.lng) {
-      getWeather();
-    }
+    // const getWeather = async () => {
+    //   try {
+    //     const resp = await getWeatherData(center.lat, center.lng);
+    //     setWeatherData(resp.data.list);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+    // if (center.lat && center.lng) {
+    //   getWeather();
+    // }
   }, [center]);
 
   const placeChange = () => {

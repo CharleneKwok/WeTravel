@@ -6,9 +6,10 @@ import MutiBrandNetwork from "../../assets/mapStyles/MutiBrandNetwork.jpg";
 import UnsaturatedBrowns from "../../assets/mapStyles/UnsaturatedBrowns.jpg";
 import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import { changeMap } from "../../api/feature-api";
-import { useHistory } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth-slice";
+import { settingActions } from "../../store/setting-slice";
 
 const MapSelection = ({ text, idx, isSelected }) => {
   const history = useHistory();
@@ -29,6 +30,7 @@ const MapSelection = ({ text, idx, isSelected }) => {
       }
     } catch ({ response }) {
       if (response.status === 401) {
+        dispatch(settingActions.setOpenSettings());
         history.push("/login");
       }
     }
