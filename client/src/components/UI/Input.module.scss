@@ -2,6 +2,15 @@
 
 $error: #ff8080;
 
+.text-input {
+  margin: 10px 0;
+  height: 2.1rem;
+  border-radius: 10px;
+  border: $border;
+  padding: 6px;
+  font-family: inherit;
+}
+
 .input {
   display: flex;
   flex-direction: column;
@@ -11,12 +20,10 @@ $error: #ff8080;
     font-size: 1rem;
   }
   input {
-    margin: 10px 0;
-    height: 2.1rem;
-    border-radius: 10px;
-    border: $border;
-    padding: 6px;
-    font-family: inherit;
+    @extend .text-input;
+  }
+  textarea {
+    @extend .text-input;
   }
 }
 

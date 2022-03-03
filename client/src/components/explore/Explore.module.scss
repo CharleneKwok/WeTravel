@@ -1,22 +1,5 @@
-@import "../../variables/variables";
-
-.container {
-  display: flex;
-  margin-top: 120px;
-  padding: 0 100px;
-  width: 100%;
-}
-
-.new-post {
-  @include card(30%, auto);
-  padding: 20px 20px;
-  display: flex;
-  flex-direction: column;
-  h2 {
-    font-family: $title-font;
-    text-align: center;
-  }
-}
-
-.upload-images {
+.add-post {
+  position: fixed !important;
+  bottom: 40px;
+  right: 40px;
 }
