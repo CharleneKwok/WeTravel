@@ -24,7 +24,7 @@ export const signup = async (req, res) => {
   const user = await User.create({
     avatar: avatar,
     token: jwt.sign({ email: email.toLowerCase() }, process.env.TOKEN_KEY, {
-      expiresIn: "2h",
+      expiresIn: "1h",
     }),
     google: false,
     username: username,
@@ -62,7 +62,7 @@ export const login = async (req, res) => {
         { email: email.toLowerCase() },
         process.env.TOKEN_KEY,
         {
-          expiresIn: "2h",
+          expiresIn: "1h",
         }
       );
       await user.save();
@@ -113,14 +113,12 @@ export const googleLogin = async (req, res) => {
     // user exists in db
     user.token = token;
     await user.save();
-    return res
-      .status(200)
-      .json({
-        ...getInfo(user),
-        google: user.google,
-        wholeAppearance: user.wholeAppearance,
-        mapAppearance: user.mapAppearance,
-      });
+    return res.status(200).json({
+      ...getInfo(user),
+      google: user.google,
+      wholeAppearance: user.wholeAppearance,
+      mapAppearance: user.mapAppearance,
+    });
   } else {
     let name = username;
     // if username exists then add number behind the name

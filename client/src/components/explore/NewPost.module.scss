@@ -112,6 +112,10 @@
   }
 }
 
+.error {
+  color: $error;
+}
+
 @keyframes show {
   0% {
     transform: translateY(-50px);

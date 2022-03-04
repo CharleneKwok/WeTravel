@@ -15,7 +15,6 @@ const authSlice = createSlice({
     logout(state) {
       state.isLogin = false;
       state.user = {};
-      localStorage.removeItem("profile");
     },
     changeUsername(state, action) {
       state.user.username = action.payload.username;

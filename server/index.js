@@ -9,8 +9,8 @@ import postsRoutes from "./posts/postsRoutes.js";
 
 const app = express();
 
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ extended: false, limit: "50mb" }));
 app.use(cors());
 dotenv.config();
 

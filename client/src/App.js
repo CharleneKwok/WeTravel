@@ -6,33 +6,20 @@ import { Switch, Route, Redirect, useHistory } from "react-router-dom";
 import Explore from "./components/explore/Explore";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
-import Setting from "./components/setting/Setting";
-import decode from "jwt-decode";
 import { useDispatch, useSelector } from "react-redux";
-import { getUser, userLogin, userLogout } from "./store/auth-actions";
-import { authActions } from "./store/auth-slice";
+import { checkLogin } from "./store/auth-actions";
 import PwdReset from "./components/auth/PwdReset";
 import ForgotPwd from "./components/auth/ForgotPwd";
 import NotExist from "./components/404pages/NotExist";
 import Open from "./components/openPage/Open";
 import Space from "./components/space/Space";
-import Nav from "./components/header/Nav";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("profile"));
-    if (user) {
-      console.log("🚀 ~ user", user);
-      const decodedToken = decode(user.token);
-      if (decodedToken.exp * 1000 < new Date().getTime()) {
-        dispatch(userLogout(decodedToken.email));
-      } else {
-        dispatch(authActions.login({ user: user }));
-      }
-    }
+    dispatch(checkLogin());
     // setTimeout(() => {
     //   setOpenPage(false);
     // }, 2600);

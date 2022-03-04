@@ -10,6 +10,7 @@ import {
   resetPwd,
 } from "../api/auth-api";
 import { pwdActions } from "./pwd-slice";
+import decode from "jwt-decode";
 
 export const userLogin = (user, setFieldError) => async (dispatch) => {
   try {
@@ -31,6 +32,7 @@ export const userLogin = (user, setFieldError) => async (dispatch) => {
 export const userLogout = (email) => async (dispatch) => {
   try {
     await sendLogout({ email });
+    localStorage.removeItem("profile");
     dispatch(authActions.logout());
   } catch (err) {
     console.log(err);
@@ -95,6 +97,23 @@ export const userResetPwdEmail = (value, setFieldError) => async (dispatch) => {
       setFieldError("resetPwdEmail", "System error");
     } else {
       setFieldError("resetPwdEmail", response.data);
+    }
+  }
+};
+
+// each user action would call this to check if token is expired
+export const checkLogin = () => async (dispatch) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
+  if (user) {
+    console.log("🚀 ~ user", user);
+    const decodedToken = decode(user.token);
+    if (decodedToken.exp * 1000 < new Date().getTime()) {
+      localStorage.removeItem("profile");
+      userLogout(decodedToken.email);
+      console.log("token invalid");
+    } else {
+      console.log("token valid");
+      dispatch(authActions.login({ user: user }));
     }
   }
 };

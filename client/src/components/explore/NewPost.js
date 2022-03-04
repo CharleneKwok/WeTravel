@@ -6,13 +6,19 @@ import classes from "./NewPost.module.scss";
 import AddIcon from "@mui/icons-material/Add";
 import Fab from "@mui/material/Fab";
 import Backdrop from "../UI/Backdrop";
+import { addPost } from "../../api/feature-api";
+import { useDispatch } from "react-redux";
+import { checkLogin, userLogout } from "../../store/auth-actions";
+import { Redirect } from "react-router-dom";
+import { authActions } from "../../store/auth-slice";
 
-const NewPost = ({ onClose }) => {
+const NewPost = ({ onClose, onPostBar }) => {
   const [postImages, setPostImages] = useState([]);
+  const [showError, setShowError] = useState(false);
+  const dispatch = useDispatch();
 
   const addImageHandler = (e) => {
     if (e.target.files && e.target.files.length > 0) {
-      console.log("?");
       const reader = new FileReader();
       reader.readAsDataURL(e.target.files[0]);
       reader.onload = () => {
@@ -38,11 +44,32 @@ const NewPost = ({ onClose }) => {
               postContent: "",
             }}
             validationSchema={Yup.object({
-              postTitle: Yup.string().required("Title cannot be empty"),
-              postContent: Yup.string().required("Content cannot be empty"),
+              postTitle: Yup.string().required("👉Title cannot be empty"),
+              postContent: Yup.string().required("👉Content cannot be empty"),
             })}
-            onSubmit={(value, { setFieldError }) => {
-              console.log(value);
+            onSubmit={async (value) => {
+              if (postImages.length === 0) {
+                setShowError(true);
+                return;
+              }
+              try {
+                const resp = await addPost(
+                  value.postTitle,
+                  value.postContent,
+                  postImages
+                );
+                if (resp.status === 200) {
+                  onPostBar();
+                  onClose();
+                }
+              } catch ({ response }) {
+                if (response.status === 401) {
+                  console.log("new post failed cuz token");
+                  const user = JSON.parse(localStorage.getItem("profile"));
+                  dispatch(userLogout(user.email));
+                  return <Redirect to={"/login"} />;
+                }
+              }
             }}
           >
             <Form>
@@ -76,6 +103,9 @@ const NewPost = ({ onClose }) => {
                   </label>
                 )}
               </div>
+              {showError && (
+                <p className={classes.error}>👉At least one image</p>
+              )}
               <button type="submit" className={classes["post-btn"]}>
                 POST
               </button>
