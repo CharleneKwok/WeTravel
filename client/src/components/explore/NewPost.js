@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { checkLogin, userLogout } from "../../store/auth-actions";
 import { Redirect } from "react-router-dom";
 
-const NewPost = ({ onClose, onPostBar }) => {
+const NewPost = ({ onClose, onPostBar, showNewPost }) => {
   const [postImages, setPostImages] = useState([]);
   const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
@@ -59,6 +59,7 @@ const NewPost = ({ onClose, onPostBar }) => {
                 if (resp.status === 200) {
                   onPostBar();
                   onClose();
+                  showNewPost(resp.data);
                 }
               } catch ({ response }) {
                 if (response.status === 401) {

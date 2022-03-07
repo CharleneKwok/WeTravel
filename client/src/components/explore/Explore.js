@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Page from "../UI/Page";
 import NewPost from "./NewPost";
 import Fab from "@mui/material/Fab";
@@ -8,11 +8,13 @@ import { useDispatch } from "react-redux";
 import { checkLogin } from "../../store/auth-actions";
 import { Redirect, useHistory } from "react-router-dom";
 import { Snackbar } from "@mui/material";
-import AllPosts from "./AllPosts";
+import { getRandomPosts } from "../../api/feature-api";
+import PostItem from "./PostItem";
 
 const Explore = () => {
   const [open, setOpen] = useState(false);
   const [postSuccess, setPostSuccess] = useState(false);
+  const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -24,13 +26,30 @@ const Explore = () => {
     setOpen(false);
   };
 
+  const showNewPost = (newPost) => {
+    setPosts((prev) => [newPost, ...prev]);
+  };
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(async () => {
+    const resp = await getRandomPosts();
+    setPosts(resp.data);
+  }, []);
+
   return (
     <Page>
       {open && (
-        <NewPost onClose={newPostClose} onPostBar={postSuccessHandler} />
+        <NewPost
+          onClose={newPostClose}
+          onPostBar={postSuccessHandler}
+          showNewPost={showNewPost}
+        />
       )}
       <section>
-        <AllPosts />
+        <div className={classes["explore-image"]} />
+        {posts?.map((post, i) => (
+          <PostItem info={post} key={`post_${i}`} />
+        ))}
       </section>
       <Fab
         color="secondary"

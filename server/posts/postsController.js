@@ -19,7 +19,7 @@ export const addPost = async (req, res) => {
   };
   const post = await Post.create(newPost);
   await post.save();
-  return res.status(200).json({ ...newPost, username: user.username });
+  return res.status(200).json(post._doc);
 };
 
 // delete post

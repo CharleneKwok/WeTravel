@@ -1,3 +1,16 @@
+@import "../../variables/variables";
+
+.explore-image {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.372) 70%, transparent),
+    url("https://source.unsplash.com/random/1900x200/?food,travel");
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  box-shadow: $box-shadow;
+}
+
 .add-post {
   position: fixed !important;
   bottom: 40px;
