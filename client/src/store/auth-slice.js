@@ -14,6 +14,7 @@ const authSlice = createSlice({
     },
     logout(state) {
       state.isLogin = false;
+      console.log("/?", state.isLogin);
       state.user = {};
     },
     changeUsername(state, action) {

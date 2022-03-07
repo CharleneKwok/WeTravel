@@ -4,13 +4,11 @@ import * as Yup from "yup";
 import Input from "../UI/Input";
 import classes from "./NewPost.module.scss";
 import AddIcon from "@mui/icons-material/Add";
-import Fab from "@mui/material/Fab";
 import Backdrop from "../UI/Backdrop";
 import { addPost } from "../../api/feature-api";
 import { useDispatch } from "react-redux";
 import { checkLogin, userLogout } from "../../store/auth-actions";
 import { Redirect } from "react-router-dom";
-import { authActions } from "../../store/auth-slice";
 
 const NewPost = ({ onClose, onPostBar }) => {
   const [postImages, setPostImages] = useState([]);

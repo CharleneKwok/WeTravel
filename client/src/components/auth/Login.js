@@ -16,7 +16,7 @@ const Login = () => {
   const isLogin = useSelector((state) => state.auth.isLogin);
 
   useEffect(() => {
-    if (isLogin) {
+    if (localStorage.getItem("profile")) {
       console.log("🚀 ~ isLogin", isLogin);
       history.push("/");
     }
