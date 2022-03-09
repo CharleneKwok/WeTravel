@@ -19,7 +19,7 @@ export const checkSignUp = async (req, res, next) => {
   const checkUsername = await User.findOne({ username: username });
 
   if (checkUsername) {
-    return res.status(409).send("Username already exists");
+    return res.status(403).send("Username already exists");
   }
 
   next();

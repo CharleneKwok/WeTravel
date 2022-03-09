@@ -8,12 +8,13 @@ import Backdrop from "../UI/Backdrop";
 import { addPost } from "../../api/feature-api";
 import { useDispatch } from "react-redux";
 import { checkLogin, userLogout } from "../../store/auth-actions";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 
 const NewPost = ({ onClose, onPostBar, showNewPost }) => {
   const [postImages, setPostImages] = useState([]);
   const [showError, setShowError] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const addImageHandler = (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -66,7 +67,8 @@ const NewPost = ({ onClose, onPostBar, showNewPost }) => {
                   console.log("new post failed cuz token");
                   const user = JSON.parse(localStorage.getItem("profile"));
                   dispatch(userLogout(user.email));
-                  return <Redirect to={"/login"} />;
+                  localStorage.removeItem("profile");
+                  history.push("/login");
                 }
               }
             }}

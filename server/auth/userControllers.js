@@ -98,7 +98,13 @@ export const getUser = async (req, res) => {
     return res.status(404).send("User not found");
   }
   res.status(200).json({
-    ...getInfo(user),
+    bio: user.bio,
+    username: user.username,
+    _id: user._id,
+    avatar: user.avatar,
+    email: user.email,
+    following: user.following.length,
+    followers: user.followers.length,
   });
 };
 

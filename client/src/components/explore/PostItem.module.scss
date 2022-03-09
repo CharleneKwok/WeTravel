@@ -1,0 +1,55 @@
+@import "../../variables/variables";
+
+.container {
+  @include card(200px, auto);
+  display: inline-block;
+  // margin: 10px 20px;
+  overflow: hidden;
+  border-radius: 10px;
+  cursor: pointer;
+  img {
+    transition: all 500ms ease-in-out;
+    display: block;
+    width: 100%;
+    &:hover {
+      transform: scale(1.02);
+    }
+  }
+  section {
+    padding: 0 20px;
+  }
+}
+
+.info-wrapper {
+  margin-bottom: 13px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  p {
+    display: inline-block;
+    margin: 10px 5px;
+    word-break: break-all;
+  }
+}
+
+.info {
+  @include flex-center();
+}
+
+.likes {
+  color: rgba(255, 0, 0, 0.605);
+}
+
+.username {
+  font-weight: 700;
+  transition: all 500ms ease-in-out;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.avatar {
+  width: 30px;
+  height: 30px;
+}

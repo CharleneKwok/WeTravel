@@ -1,5 +1,5 @@
 import React, { createRef, useEffect, useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { Redirect, useHistory, useLocation } from "react-router-dom";
 import {
   changeBio,
   deleteItemOnList,
@@ -35,22 +35,11 @@ const Space = () => {
   const [allYears, setAllYears] = useState([]);
   const [bio, setBio] = useState(user?.bio || "Please enter your bio");
   const [showInput, setShowInput] = useState(false);
-  const isLogin = useSelector((state) => state.auth.isLogin);
-  const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
   }, [checkUserUpdate]);
-
-  useEffect(() => {
-    if (!isLogin) {
-      const interval = setTimeout(() => {
-        history.push("/login");
-      }, 500);
-      return () => clearTimeout(interval);
-    }
-  }, [isLogin]);
 
   const handleChange = (event) => {
     setYear(event.target.value);
@@ -116,7 +105,7 @@ const Space = () => {
 
   return (
     <Page>
-      {user && (
+      {localStorage.getItem("profile") ? (
         <>
           <div className={classes["space-image"]}>
             <div className={classes["user_info"]}>
@@ -214,6 +203,8 @@ const Space = () => {
             )}
           </section>
         </>
+      ) : (
+        <Redirect to={"/login"} />
       )}
     </Page>
   );

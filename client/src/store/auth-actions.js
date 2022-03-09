@@ -32,7 +32,9 @@ export const userLogin = (user, setFieldError) => async (dispatch) => {
 export const userLogout = (email) => async (dispatch) => {
   try {
     await sendLogout({ email });
-    localStorage.removeItem("profile");
+    if (localStorage.getItem("profile")) {
+      localStorage.removeItem("profile");
+    }
     dispatch(authActions.logout());
   } catch (err) {
     console.log(err);
@@ -52,6 +54,8 @@ export const userSignup = (user, setFieldError) => async (dispatch) => {
   } catch ({ response }) {
     if (response.status === 409) {
       setFieldError("signupEmail", response.data);
+    } else if (response.status === 403) {
+      setFieldError("signupUsername", response.data);
     } else {
       console.log("signup error ", response);
     }
@@ -107,6 +111,7 @@ export const checkLogin = () => async (dispatch) => {
   if (user) {
     console.log("🚀 ~ user", user);
     const decodedToken = decode(user.token);
+    console.log("🚀 ~ user.token", user.token);
     if (decodedToken.exp * 1000 < new Date().getTime()) {
       localStorage.removeItem("profile");
       userLogout(decodedToken.email);

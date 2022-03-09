@@ -10,6 +10,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import { Snackbar } from "@mui/material";
 import { getRandomPosts } from "../../api/feature-api";
 import PostItem from "./PostItem";
+import Masonry from "@mui/lab/Masonry";
 
 const Explore = () => {
   const [open, setOpen] = useState(false);
@@ -33,6 +34,7 @@ const Explore = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
     const resp = await getRandomPosts();
+    console.log("🚀 ~ resp", resp.data);
     setPosts(resp.data);
   }, []);
 
@@ -47,9 +49,13 @@ const Explore = () => {
       )}
       <section>
         <div className={classes["explore-image"]} />
-        {posts?.map((post, i) => (
-          <PostItem info={post} key={`post_${i}`} />
-        ))}
+        <div className={classes["explore-posts"]}>
+          <Masonry columns={4} spacing={2}>
+            {posts?.map((post, i) => (
+              <PostItem info={post} key={`post_${i}_${post.title}`} />
+            ))}
+          </Masonry>
+        </div>
       </section>
       <Fab
         color="secondary"
@@ -60,7 +66,6 @@ const Explore = () => {
           setOpen(true);
           dispatch(checkLogin());
           if (!localStorage.getItem("profile")) {
-            console.log("?");
             history.push("/login");
           }
         }}

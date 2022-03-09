@@ -31,7 +31,7 @@ const Nav = (props) => {
           <LinkButton to="/explore" text="EXPLORE" darkMode={props.darkMode} />
           <LinkButton to="/space" text="SPACE" darkMode={props.darkMode} />
         </nav>
-        {user.isLogin ? (
+        {localStorage.getItem("profile") ? (
           <div className={classes.user}>
             <Avatar
               className={classes.avatar}
