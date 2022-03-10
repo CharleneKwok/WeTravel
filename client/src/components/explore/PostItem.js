@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import classes from "./PostItem.module.scss";
-import Aos from "aos";
-import "aos/dist/aos.css";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { userLogout } from "../../store/auth-actions";
@@ -11,10 +9,10 @@ import { likePost, unlikePost } from "../../api/feature-api";
 import { sendGetUser } from "../../api/auth-api";
 import Avatar from "../header/Avatar";
 
-const PostItem = ({ info }) => {
+const PostItem = (props) => {
+  const info = props.info;
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(info.likes);
-  const [postUser, setPostUser] = useState({});
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -39,22 +37,6 @@ const PostItem = ({ info }) => {
       ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol
       : "0";
   };
-
-  useEffect(() => {
-    Aos.init({ duration: 500 });
-  }, []);
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    try {
-      const resp = await sendGetUser(info.userId);
-      if (resp.status === 200) {
-        setPostUser(resp.data);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, [info.userId]);
 
   const userLike = async () => {
     try {
@@ -82,24 +64,26 @@ const PostItem = ({ info }) => {
   };
 
   return (
-    <div className={classes.container} data-aos="zoom-in">
+    <div className={classes.container}>
       <img src={info.images[0]} alt={info.title} loading="lazy" />
       <section>
         <h2>{info.title}</h2>
         <p>{info.content}</p>
         <div className={classes["info-wrapper"]}>
           <div className={classes["info"]}>
-            <Avatar src={postUser.avatar} className={classes.avatar} />
-            <p className={classes.username}>{postUser.username}</p>
+            <Avatar src={info.avatar} className={classes.avatar} />
+            <p className={classes.username}>{info.username}</p>
           </div>
-          <div className={classes["info"]}>
-            {likes.includes(user._id) ? (
-              <FavoriteIcon className={classes.likes} onClick={userLike} />
-            ) : (
-              <FavoriteBorderIcon onClick={userLike} />
-            )}
-            <p>{nFormatter(likes.length, 1)}</p>
-          </div>
+          {localStorage.getItem("profile") && (
+            <div className={classes["info"]}>
+              {likes.includes(user._id) ? (
+                <FavoriteIcon className={classes.likes} onClick={userLike} />
+              ) : (
+                <FavoriteBorderIcon onClick={userLike} />
+              )}
+              <p>{nFormatter(likes.length, 1)}</p>
+            </div>
+          )}
         </div>
       </section>
     </div>

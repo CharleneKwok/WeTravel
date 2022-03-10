@@ -939,7 +939,6 @@ const Main = () => {
   const [weatherData, setWeatherData] = useState(null);
   const [originalPlace, setOriginalPlace] = useState(null);
   const [mapStyle, setMapStyle] = useState(LightDream);
-
   useEffect(() => {
     if (user) {
       if (user.mapAppearance === "MutiBrandNetwork") {
@@ -1017,8 +1016,6 @@ const Main = () => {
             defaultZoom={16}
             margin={[50, 50, 50, 50]}
             options={{
-              disableDefaultUI: true,
-              zoomControl: true,
               styles: mapStyle,
             }}
             // need ne and sw

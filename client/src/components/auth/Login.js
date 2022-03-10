@@ -9,14 +9,16 @@ import { GoogleLogin } from "react-google-login";
 import { useDispatch, useSelector } from "react-redux";
 import { userGoogleLogin, userLogin } from "../../store/auth-actions";
 import Page from "../UI/Page";
+import { authActions } from "../../store/auth-slice";
 
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const isLogin = useSelector((state) => state.auth.isLogin);
+  console.log("🚀 ~ isLogin", isLogin);
 
   useEffect(() => {
-    if (localStorage.getItem("profile")) {
+    if (isLogin) {
       console.log("🚀 ~ isLogin", isLogin);
       history.push("/");
     }
@@ -46,6 +48,7 @@ const Login = () => {
             .required("👉 Please enter your password"),
         })}
         onSubmit={(values, { setFieldError }) => {
+          dispatch(authActions.changeIsLogin());
           dispatch(userLogin(values, setFieldError));
         }}
       >

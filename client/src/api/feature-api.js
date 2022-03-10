@@ -27,7 +27,6 @@ export const changeWholeApp = (wholeAppearance) =>
   API.put("/user/settings/whole", wholeAppearance);
 
 // for posts
-export const getRandomPosts = () => API.get("/post/randomPosts");
 export const addPost = (title, content, images) =>
   API.post("/post", { title, content, images });
 export const deletePost = (postId) => API.delete("/post", { postId });

@@ -12,3 +12,6 @@ export const sendGetUser = (id) => API.get(`/user/${id}`);
 export const sendResetPwdEmail = (email) =>
   API.post("/pwdReset/sendmail", email);
 export const resetPwd = (data) => API.post("/pwdReset", data);
+
+export const getRandomPosts = (offset) =>
+  API.get(`/post/randomPosts/${offset}`);

@@ -7,23 +7,38 @@ import Explore from "./components/explore/Explore";
 import Login from "./components/auth/Login";
 import Signup from "./components/auth/Signup";
 import { useDispatch, useSelector } from "react-redux";
-import { checkLogin } from "./store/auth-actions";
+import { checkLogin, userLogout } from "./store/auth-actions";
 import PwdReset from "./components/auth/PwdReset";
 import ForgotPwd from "./components/auth/ForgotPwd";
 import NotExist from "./components/404pages/NotExist";
 import Open from "./components/openPage/Open";
 import Space from "./components/space/Space";
+import decode from "jwt-decode";
+import { authActions } from "./store/auth-slice";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkLogin());
+    const user = JSON.parse(localStorage.getItem("profile"));
+    if (user) {
+      console.log("🚀 ~ user", user);
+      const decodedToken = decode(user.token);
+      console.log("🚀 ~ user.token", user.token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        localStorage.removeItem("profile");
+        dispatch(userLogout(decodedToken.email));
+        console.log("token invalid");
+      } else {
+        console.log("token valid");
+        dispatch(authActions.login({ user: user }));
+      }
+    }
     // setTimeout(() => {
     //   setOpenPage(false);
     // }, 2600);
-  });
+  }, []);
 
   return (
     <Fragment>

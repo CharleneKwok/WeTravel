@@ -113,6 +113,7 @@ export const checkLogin = () => async (dispatch) => {
     const decodedToken = decode(user.token);
     console.log("🚀 ~ user.token", user.token);
     if (decodedToken.exp * 1000 < new Date().getTime()) {
+      dispatch(authActions.changeIsLogin());
       localStorage.removeItem("profile");
       userLogout(decodedToken.email);
       console.log("token invalid");

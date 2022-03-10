@@ -19,7 +19,7 @@ export const addPost = async (req, res) => {
   };
   const post = await Post.create(newPost);
   await post.save();
-  return res.status(200).json(post._doc);
+  return res.status(200).json({ ...post._doc, username: user.username });
 };
 
 // delete post
@@ -43,12 +43,21 @@ export const getPosts = async (req, res) => {
 // get random posts
 // offset 10
 export const getRandomPosts = async (req, res) => {
-  const allPosts = await Post.find({});
-  // const ramdomList = Array.from({ length: 20 }, () =>
-  //   Math.floor(Math.random() * allPosts.length)
+  const { offset } = req.params;
+  // const { offset } = req.body;
+  const allPosts = await Post.find({}).skip(offset).limit(10);
+  const len = await Post.estimatedDocumentCount();
+  // const ramdomList = Array.from({ length: 10 }, () =>
+  //   Math.floor(Math.random() * 10)
   // );
-  // console.log("🚀 ~ ramdomList", ramdomList);
-  return res.status(200).json(allPosts);
+
+  const postsWithName = allPosts.map(async (post) => {
+    const user = await User.findById(post.userId);
+    return { ...post._doc, username: user.username, avatar: user.avatar };
+  });
+  Promise.all(postsWithName).then((posts) => {
+    return res.status(200).json({ posts: posts, len: len });
+  });
 };
 
 // like the post

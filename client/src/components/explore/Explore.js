@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Page from "../UI/Page";
 import NewPost from "./NewPost";
 import Fab from "@mui/material/Fab";
@@ -8,9 +8,10 @@ import { useDispatch } from "react-redux";
 import { checkLogin } from "../../store/auth-actions";
 import { Redirect, useHistory } from "react-router-dom";
 import { Snackbar } from "@mui/material";
-import { getRandomPosts } from "../../api/feature-api";
+import { getRandomPosts } from "../../api/auth-api";
 import PostItem from "./PostItem";
 import Masonry from "@mui/lab/Masonry";
+import MyLoader from "../UI/MyLoader";
 
 const Explore = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +19,19 @@ const Explore = () => {
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [load, setLoad] = useState(null);
+  const [offset, setOffset] = useState(0);
+  const [lengthOfAllPosts, setLengthOfAllPosts] = useState(0);
+
+  const observer = useRef();
+  const lastItemRef = useCallback((node) => {
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        setOffset((prev) => prev + 10);
+      }
+    });
+    if (node) observer.current.observe(node);
+  }, []);
 
   const postSuccessHandler = () => {
     setPostSuccess(true);
@@ -33,10 +47,30 @@ const Explore = () => {
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(async () => {
-    const resp = await getRandomPosts();
-    console.log("🚀 ~ resp", resp.data);
-    setPosts(resp.data);
-  }, []);
+    try {
+      const resp = await getRandomPosts(offset);
+      console.log("🚀 ~ resp", resp.data);
+      if (resp.status === 200) {
+        const posts = resp.data.posts;
+        if (posts.length === 0) {
+          setLoad("End");
+          return;
+        } else {
+          setLoad("Loading");
+        }
+        setPosts((prev) => {
+          if (prev !== []) {
+            return [...prev, ...posts];
+          } else {
+            return posts;
+          }
+        });
+        setLengthOfAllPosts(resp.len);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }, [offset]);
 
   return (
     <Page>
@@ -51,10 +85,23 @@ const Explore = () => {
         <div className={classes["explore-image"]} />
         <div className={classes["explore-posts"]}>
           <Masonry columns={4} spacing={2}>
-            {posts?.map((post, i) => (
-              <PostItem info={post} key={`post_${i}_${post.title}`} />
-            ))}
+            {load ? (
+              posts?.map((post, i) => (
+                <PostItem info={post} key={`post_${i}_${post.title}`} />
+              ))
+            ) : (
+              <>
+                <MyLoader />
+                <MyLoader />
+                <MyLoader />
+              </>
+            )}
           </Masonry>
+          {load && (
+            <p className={classes["loading"]} ref={lastItemRef}>
+              {load}
+            </p>
+          )}
         </div>
       </section>
       <Fab

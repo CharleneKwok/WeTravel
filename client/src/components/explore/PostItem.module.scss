@@ -7,6 +7,8 @@
   overflow: hidden;
   border-radius: 10px;
   cursor: pointer;
+  opacity: 0;
+  animation: showUp 500ms ease-in-out forwards;
   img {
     transition: all 500ms ease-in-out;
     display: block;
@@ -52,4 +54,15 @@
 .avatar {
   width: 30px;
   height: 30px;
+}
+
+@keyframes showUp {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
