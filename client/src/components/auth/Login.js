@@ -10,19 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { userGoogleLogin, userLogin } from "../../store/auth-actions";
 import Page from "../UI/Page";
 import { authActions } from "../../store/auth-slice";
+import { sendLogin } from "../../api/auth-api";
 
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.auth.isLogin);
-  console.log("🚀 ~ isLogin", isLogin);
-
-  useEffect(() => {
-    if (isLogin) {
-      console.log("🚀 ~ isLogin", isLogin);
-      history.push("/");
-    }
-  }, [isLogin, history]);
 
   const googleSuccess = async (res) => {
     dispatch(userGoogleLogin(res.profileObj, res.tokenId));
@@ -47,9 +39,24 @@ const Login = () => {
             .min(6, "👉 Password must be longer than 5")
             .required("👉 Please enter your password"),
         })}
-        onSubmit={(values, { setFieldError }) => {
-          dispatch(authActions.changeIsLogin());
-          dispatch(userLogin(values, setFieldError));
+        onSubmit={async (values, { setFieldError }) => {
+          try {
+            const sendData = {
+              email: values.loginEmail,
+              password: values.loginPwd,
+            };
+            const resp = await sendLogin(sendData);
+            if (resp.status === 200) {
+              history.push("/");
+              dispatch(authActions.login({ user: resp.data }));
+            }
+          } catch ({ response }) {
+            if (response.status === 400) {
+              setFieldError("loginPwd", response.data);
+            } else {
+              setFieldError("loginEmail", response.data);
+            }
+          }
         }}
       >
         <Form className={classes.card}>

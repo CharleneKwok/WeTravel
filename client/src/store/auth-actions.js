@@ -1,33 +1,13 @@
 import { authActions } from "./auth-slice";
-import { errActions } from "./err-slice";
 import {
-  sendLogin,
   sendSignUp,
   sendLogout,
   sendGetUser,
   sendGoogleLogin,
   sendResetPwdEmail,
-  resetPwd,
 } from "../api/auth-api";
 import { pwdActions } from "./pwd-slice";
 import decode from "jwt-decode";
-
-export const userLogin = (user, setFieldError) => async (dispatch) => {
-  try {
-    const sendData = {
-      email: user.loginEmail,
-      password: user.loginPwd,
-    };
-    const resp = await sendLogin(sendData);
-    dispatch(authActions.login({ user: resp.data }));
-  } catch ({ response }) {
-    if (response.status === 400) {
-      setFieldError("loginPwd", response.data);
-    } else {
-      setFieldError("loginEmail", response.data);
-    }
-  }
-};
 
 export const userLogout = (email) => async (dispatch) => {
   try {
