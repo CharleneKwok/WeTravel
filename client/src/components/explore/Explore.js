@@ -49,7 +49,6 @@ const Explore = () => {
   useEffect(async () => {
     try {
       const resp = await getRandomPosts(offset);
-      console.log("🚀 ~ resp", resp.data);
       if (resp.status === 200) {
         const posts = resp.data.posts;
         if (posts.length === 0) {
@@ -84,7 +83,7 @@ const Explore = () => {
       <section>
         <div className={classes["explore-image"]} />
         <div className={classes["explore-posts"]}>
-          <Masonry columns={4} spacing={2}>
+          <Masonry columns={{ md: 3, sm: 2, xs: 1, lg: 4 }} spacing={2}>
             {load ? (
               posts?.map((post, i) => (
                 <PostItem info={post} key={`post_${i}_${post.title}`} />
