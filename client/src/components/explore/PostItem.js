@@ -43,12 +43,10 @@ const PostItem = ({ info }) => {
       if (!likes.includes(user._id)) {
         const resp = await likePost(info._id);
         if (resp.status === 200) {
-          console.log("like");
           setLikes((prev) => [...prev, user._id]);
         }
       } else {
         const resp = await unlikePost(info._id);
-        console.log("unlike");
         if (resp.status === 200) {
           setLikes((prev) => prev.filter((id) => id !== user._id));
         }
@@ -66,13 +64,24 @@ const PostItem = ({ info }) => {
   return (
     <>
       {showDetails && (
-        <PostPage info={info} onClose={() => setShowDetails(false)} />
+        <PostPage
+          info={info}
+          onClose={() => setShowDetails(false)}
+          likePost={userLike}
+          likes={likes}
+          nFormatter={nFormatter}
+        />
       )}
-      <div className={classes.container} onClick={() => setShowDetails(true)}>
-        <img src={info.images[0]} alt={info.title} loading="lazy" />
+      <div className={classes.container}>
+        <img
+          src={info.images[0]}
+          alt={info.title}
+          loading="lazy"
+          onClick={() => setShowDetails(true)}
+        />
         <section>
-          <h2>{info.title}</h2>
-          <p>{info.content}</p>
+          <h2 onClick={() => setShowDetails(true)}>{info.title}</h2>
+          <p onClick={() => setShowDetails(true)}>{info.content}</p>
           <div className={classes["info-wrapper"]}>
             <div className={classes["info"]}>
               <Avatar src={info.avatar} className={classes.avatar} />

@@ -4,8 +4,13 @@ import classes from "./PostPage.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import Avatar from "../header/Avatar";
+import Backdrop from "../UI/Backdrop";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const PostPage = (props) => {
+  const user = JSON.parse(localStorage.getItem("profile"));
   const info = props.info;
   const [currImage, setCurrImage] = useState(0);
   console.log(props.info);
@@ -13,46 +18,72 @@ const PostPage = (props) => {
   return (
     <>
       {localStorage.getItem("profile") ? (
-        <div className={classes.container}>
-          <CloseIcon
-            fontSize="large"
-            className={classes.close}
-            titleAccess="Close Post"
-            onClick={() => props.onClose()}
-          />
+        <>
+          <Backdrop onClick={() => props.onClose()} />
           <div className={classes.wrapper}>
-            <div className={classes["info__imgs"]}>
-              {info.images.map((image, i) => (
-                <>
-                  <div
-                    className={`${classes["info__img"]} ${
-                      currImage === i
-                        ? classes["info__img--show"]
-                        : classes["info__img--hide"]
-                    }`}
-                    style={{ backgroundImage: `url(${image})` }}
-                    key={`image_${i}`}
-                  ></div>
-                </>
-              ))}
-              {currImage !== 0 && (
-                <ArrowBackIosIcon
-                  className={classes["info__img--back"]}
-                  titleAccess="Last"
-                  onClick={() => setCurrImage((prev) => prev - 1)}
-                />
-              )}
-              {currImage + 1 !== info.images.length && (
-                <ArrowForwardIosIcon
-                  className={classes["info__img--forword"]}
-                  titleAccess="Next"
-                  onClick={() => setCurrImage((prev) => prev + 1)}
-                />
-              )}
+            <div className={classes.user}>
+              <CloseIcon
+                fontSize="large"
+                className={classes.close}
+                titleAccess="Close Post"
+                onClick={() => props.onClose()}
+              />
+              <Avatar src={info.avatar} />
+              <h3>{info.username}</h3>
             </div>
-            <p>{info.title}</p>
+            <div className={classes.info}>
+              <div className={classes["info__imgs"]}>
+                {info.images.map((image, i) => (
+                  <>
+                    <div
+                      className={`${classes["info__img"]} ${
+                        currImage === i
+                          ? classes["info__img--show"]
+                          : classes["info__img--hide"]
+                      }`}
+                      style={{ backgroundImage: `url(${image})` }}
+                      key={`image_${i}`}
+                    ></div>
+                  </>
+                ))}
+                {currImage !== 0 && (
+                  <ArrowBackIosIcon
+                    className={classes["info__img--back"]}
+                    titleAccess="Last"
+                    onClick={() => setCurrImage((prev) => prev - 1)}
+                  />
+                )}
+                {currImage + 1 !== info.images.length && (
+                  <ArrowForwardIosIcon
+                    className={classes["info__img--forword"]}
+                    titleAccess="Next"
+                    onClick={() => setCurrImage((prev) => prev + 1)}
+                  />
+                )}
+              </div>
+              <section>
+                <h2>{info.title}</h2>
+                <p>{info.content}</p>
+                <div className={classes["info__more"]}>
+                  <p>{info.createdAt.split("T")[0]}</p>
+                  <div className={classes["info__more--likes"]}>
+                    {props.likes.includes(user._id) ? (
+                      <FavoriteIcon
+                        className={classes["info__more--likesIcon"]}
+                        onClick={props.likePost}
+                      />
+                    ) : (
+                      <FavoriteBorderIcon onClick={props.likePost} />
+                    )}
+                    <p>{props.nFormatter(props.likes.length, 1)}</p>
+                  </div>
+                </div>
+              </section>
+              <h3>✨COMMENTS</h3>
+              <textarea></textarea>
+            </div>
           </div>
-        </div>
+        </>
       ) : (
         <Redirect to="/login" />
       )}
