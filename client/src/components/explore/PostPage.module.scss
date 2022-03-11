@@ -1,15 +1,27 @@
+@import "../../variables/variables";
+
 .container {
-  background-color: pink;
+  background-color: white;
   opacity: 0;
   margin: 0 !important;
-  animation: show 500ms ease forwards;
-  min-height: 100vh;
-  height: auto;
+  animation: show 500ms ease-out forwards;
+  height: 100vh !important;
   width: 100vw !important;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 10000;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  align-self: center;
+  overflow: scroll;
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  height: 100%;
 }
 
 .close {
@@ -19,6 +31,56 @@
   &:hover {
     transform: scale(1.1);
   }
+}
+
+.info__imgs {
+  width: 100%;
+  height: 600px;
+  position: relative;
+}
+
+.info__img {
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  border-radius: 10px;
+  transition: all ease 500ms;
+  // opacity: 0;
+}
+
+.info__img--hide {
+  opacity: 0;
+}
+
+.info__img--show {
+  opacity: 1;
+}
+
+.icon {
+  position: absolute;
+  z-index: 101;
+  color: white;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all ease 700ms;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.info__img--back {
+  @extend .icon;
+  top: 300px;
+  left: 10px;
+}
+
+.info__img--forword {
+  @extend .icon;
+  top: 300px;
+  right: 10px;
 }
 
 @keyframes show {

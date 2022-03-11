@@ -15,7 +15,6 @@ const PostItem = ({ info }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [showDetails, setShowDetails] = useState(false);
-  console.log("🚀 ~ showDetails", showDetails);
 
   const nFormatter = (num, digits) => {
     const lookup = [
@@ -69,13 +68,7 @@ const PostItem = ({ info }) => {
       {showDetails && (
         <PostPage info={info} onClose={() => setShowDetails(false)} />
       )}
-      <div
-        className={classes.container}
-        onClick={() =>
-          // history.push({ pathname: `/explore/${info._id}`, state: info })
-          setShowDetails(true)
-        }
-      >
+      <div className={classes.container} onClick={() => setShowDetails(true)}>
         <img src={info.images[0]} alt={info.title} loading="lazy" />
         <section>
           <h2>{info.title}</h2>
