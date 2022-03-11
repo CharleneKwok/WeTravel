@@ -1,0 +1,32 @@
+.container {
+  background-color: pink;
+  opacity: 0;
+  margin: 0 !important;
+  animation: show 500ms ease forwards;
+  min-height: 100vh;
+  height: auto;
+  width: 100vw !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+}
+
+.close {
+  cursor: pointer;
+  margin: 10px;
+  transition: all 500ms ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes show {
+  0% {
+    transform: translateY(500px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

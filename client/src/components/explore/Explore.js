@@ -72,7 +72,7 @@ const Explore = () => {
   }, [offset]);
 
   return (
-    <Page>
+    <Page isDarkMode={true}>
       {open && (
         <NewPost
           onClose={newPostClose}

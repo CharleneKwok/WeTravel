@@ -19,7 +19,9 @@ export const addPost = async (req, res) => {
   };
   const post = await Post.create(newPost);
   await post.save();
-  return res.status(200).json({ ...post._doc, username: user.username });
+  return res
+    .status(200)
+    .json({ ...post._doc, username: user.username, avatar: user.avatar });
 };
 
 // delete post
@@ -104,7 +106,7 @@ export const addComment = async (req, res) => {
   return res.status(200).send("Add comment successful");
 };
 
-// get comments of one post
+// get comments of one post and info of post
 export const getComments = async (req, res) => {
   const { postId } = req.params;
   const post = await Post.findOne({ _id: postId });
@@ -118,7 +120,7 @@ export const getComments = async (req, res) => {
   const commentsWithName = comments.map(async (com) => {
     const user = await User.findById(com.userId);
 
-    return { ...com._doc, username: user.username };
+    return { ...com._doc, username: user.username, avatar: user.avatar };
   });
   Promise.all(commentsWithName).then((comments) => {
     return res.status(200).json(comments);

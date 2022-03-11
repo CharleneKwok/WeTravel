@@ -104,7 +104,7 @@ const Space = () => {
   };
 
   return (
-    <Page>
+    <Page isDarkMode={true}>
       {localStorage.getItem("profile") ? (
         <>
           <div className={classes["space-image"]}>

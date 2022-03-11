@@ -47,7 +47,7 @@ const Login = () => {
             };
             const resp = await sendLogin(sendData);
             if (resp.status === 200) {
-              history.push("/");
+              history.goBack();
               dispatch(authActions.login({ user: resp.data }));
             }
           } catch ({ response }) {

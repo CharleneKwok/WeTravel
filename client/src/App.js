@@ -15,6 +15,7 @@ import Open from "./components/openPage/Open";
 import Space from "./components/space/Space";
 import decode from "jwt-decode";
 import { authActions } from "./store/auth-slice";
+import PostPage from "./components/explore/PostPage";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -55,6 +56,7 @@ function App() {
         <Route path="/home" exact component={Main}>
           <Redirect to="/home/restaurants" />
         </Route>
+        <Route path="/login" exact component={Login} />
         <Route path="/home/restaurants" component={Main} />
         <Route path="/home/hotels" component={Main} />
         <Route path="/home/attractions" component={Main} />
@@ -64,10 +66,9 @@ function App() {
         </Route>
         <Route path="/space/collection" component={Space} />
         <Route path="/space/posts" component={Space} />
-        <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/pwd-reset" component={ForgotPwd} exact />
-        {/* <Route path="*" component={NotExist} /> */}
+        <Route path="*" component={NotExist} />
       </Switch>
       {/* )} */}
     </Fragment>

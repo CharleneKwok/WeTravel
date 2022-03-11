@@ -7,15 +7,11 @@ import classes from "./Page.module.scss";
 
 const Page = (props) => {
   const isOpenSettings = useSelector((state) => state.settings.openSettings);
-  const location = useLocation();
-  const isDarkMode =
-    location.pathname.includes("space") ||
-    location.pathname.includes("explore");
 
   return (
     <>
       {isOpenSettings && <Setting />}
-      {isDarkMode ? <Nav darkMode={true} /> : <Nav />}
+      {props?.isDarkMode ? <Nav darkMode={true} /> : <Nav />}
       <div className={`${classes.container} ${props.className}`}>
         {props.children}
       </div>

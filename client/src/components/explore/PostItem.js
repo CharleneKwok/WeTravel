@@ -6,15 +6,16 @@ import { userLogout } from "../../store/auth-actions";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { likePost, unlikePost } from "../../api/feature-api";
-import { sendGetUser } from "../../api/auth-api";
 import Avatar from "../header/Avatar";
+import PostPage from "./PostPage";
 
-const PostItem = (props) => {
-  const info = props.info;
+const PostItem = ({ info }) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(info.likes);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [showDetails, setShowDetails] = useState(false);
+  console.log("🚀 ~ showDetails", showDetails);
 
   const nFormatter = (num, digits) => {
     const lookup = [
@@ -64,29 +65,40 @@ const PostItem = (props) => {
   };
 
   return (
-    <div className={classes.container}>
-      <img src={info.images[0]} alt={info.title} loading="lazy" />
-      <section>
-        <h2>{info.title}</h2>
-        <p>{info.content}</p>
-        <div className={classes["info-wrapper"]}>
-          <div className={classes["info"]}>
-            <Avatar src={info.avatar} className={classes.avatar} />
-            <p className={classes.username}>{info.username}</p>
-          </div>
-          {localStorage.getItem("profile") && (
+    <>
+      {showDetails && (
+        <PostPage info={info} onClose={() => setShowDetails(false)} />
+      )}
+      <div
+        className={classes.container}
+        onClick={() =>
+          // history.push({ pathname: `/explore/${info._id}`, state: info })
+          setShowDetails(true)
+        }
+      >
+        <img src={info.images[0]} alt={info.title} loading="lazy" />
+        <section>
+          <h2>{info.title}</h2>
+          <p>{info.content}</p>
+          <div className={classes["info-wrapper"]}>
             <div className={classes["info"]}>
-              {likes.includes(user._id) ? (
-                <FavoriteIcon className={classes.likes} onClick={userLike} />
-              ) : (
-                <FavoriteBorderIcon onClick={userLike} />
-              )}
-              <p>{nFormatter(likes.length, 1)}</p>
+              <Avatar src={info.avatar} className={classes.avatar} />
+              <p className={classes.username}>{info.username}</p>
             </div>
-          )}
-        </div>
-      </section>
-    </div>
+            {localStorage.getItem("profile") && (
+              <div className={classes["info"]}>
+                {likes.includes(user._id) ? (
+                  <FavoriteIcon className={classes.likes} onClick={userLike} />
+                ) : (
+                  <FavoriteBorderIcon onClick={userLike} />
+                )}
+                <p>{nFormatter(likes.length, 1)}</p>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    </>
   );
 };
 
