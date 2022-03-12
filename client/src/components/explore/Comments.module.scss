@@ -17,7 +17,7 @@
   @include flex-center();
   gap: 13px;
   textarea {
-    @include input-style(80%, 50px);
+    @include input-style(100%, 50px);
   }
   button {
     background-color: transparent;
@@ -34,5 +34,20 @@
 }
 
 .comments {
-  padding: 0 5%;
+  padding: 0 3%;
+}
+
+.comment {
+  display: flex;
+  padding: 10px 0;
+  div {
+    margin-left: 10px;
+    h4 {
+      margin: 0;
+    }
+  }
+  border-bottom: $border;
+  &:last-child {
+    border-bottom: 0;
+  }
 }

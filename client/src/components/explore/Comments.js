@@ -13,6 +13,7 @@ const Comments = ({ postId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [allComments, setAllComments] = useState([]);
+  console.log("🚀 ~ allComments", allComments);
   const [offset, setOffset] = useState(0);
   const [cmtLength, setCmtLength] = useState(0);
   const [loadmsg, setLoadmsg] = useState("Loading...");
@@ -53,6 +54,7 @@ const Comments = ({ postId }) => {
       const resp = await addComment(postId, content);
       if (resp.status === 200) {
         console.log("sent");
+        setContent("");
         setAllComments((prev) => [resp.data].concat(prev));
         setCmtLength((prev) => prev + 1);
       }
@@ -84,8 +86,12 @@ const Comments = ({ postId }) => {
         <>
           <div className={classes.comments}>
             {allComments.map((cmt, i) => (
-              <div className={classes.comment}>
-                <p>{cmt.content}</p>
+              <div className={classes.comment} key={`comment_${i}`}>
+                <Avatar src={cmt.avatar} />
+                <div>
+                  <h4>{cmt.username}</h4>
+                  <p>{cmt.content}</p>
+                </div>
               </div>
             ))}
           </div>

@@ -42,7 +42,7 @@ const Explore = () => {
   };
 
   const showNewPost = (newPost) => {
-    setPosts((prev) => [newPost, ...prev]);
+    setPosts((prev) => [newPost].concat(prev));
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,13 +57,7 @@ const Explore = () => {
         } else {
           setLoad("Loading");
         }
-        setPosts((prev) => {
-          if (prev !== []) {
-            return [...prev, ...posts];
-          } else {
-            return posts;
-          }
-        });
+        setPosts((prev) => prev.concat(posts));
         setLengthOfAllPosts(resp.len);
       }
     } catch (err) {

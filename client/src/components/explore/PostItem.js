@@ -61,12 +61,18 @@ const PostItem = ({ info }) => {
     }
   };
 
+  const showDetailsHandler = () => {
+    setShowDetails(true);
+  };
+
   return (
     <>
       {showDetails && (
         <PostPage
           info={info}
-          onClose={() => setShowDetails(false)}
+          onClose={() => {
+            setShowDetails(false);
+          }}
           likePost={userLike}
           likes={likes}
           nFormatter={nFormatter}
@@ -77,11 +83,11 @@ const PostItem = ({ info }) => {
           src={info.images[0]}
           alt={info.title}
           loading="lazy"
-          onClick={() => setShowDetails(true)}
+          onClick={showDetailsHandler}
         />
         <section>
-          <h2 onClick={() => setShowDetails(true)}>{info.title}</h2>
-          <p onClick={() => setShowDetails(true)}>{info.content}</p>
+          <h2 onClick={showDetailsHandler}>{info.title}</h2>
+          <p onClick={showDetailsHandler}>{info.content}</p>
           <div className={classes["info-wrapper"]}>
             <div className={classes["info"]}>
               <Avatar src={info.avatar} className={classes.avatar} />
