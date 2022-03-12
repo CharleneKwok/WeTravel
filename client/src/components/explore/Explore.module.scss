@@ -19,6 +19,7 @@
 
 .explore-posts {
   margin: 60px auto;
+  margin-bottom: 0;
   width: 80vw;
   height: auto;
   @extend .hide-scrollbar;
@@ -30,11 +31,16 @@
 }
 
 .to-top {
-  position: absolute;
+  position: fixed !important;
   bottom: 120px;
   right: 40px;
-  &:first-of-type {
-    margin-right: 0px !important;
-    // color: white !important;
+  background: #d1d1e9 !important;
+  &:hover {
+    background: #b0b0e6 !important;
   }
+}
+
+.to-top-icon {
+  margin-right: 0px !important;
+  color: white !important;
 }

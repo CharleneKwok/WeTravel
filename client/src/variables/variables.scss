@@ -25,6 +25,7 @@ $error: #ff8080;
 }
 
 @mixin button($width: auto) {
+  @extend .hide-scrollbar;
   background-color: transparent;
   border: 1px solid black;
   border-radius: 20px;

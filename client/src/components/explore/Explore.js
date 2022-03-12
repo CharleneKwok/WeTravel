@@ -23,6 +23,22 @@ const Explore = () => {
   const [load, setLoad] = useState(null);
   const [offset, setOffset] = useState(0);
   const [lengthOfAllPosts, setLengthOfAllPosts] = useState(0);
+  const [showScroll, setShowScroll] = useState(false);
+
+  const checkScrollTop = () => {
+    if (window.pageYOffset > 200) {
+      setShowScroll(true);
+    } else {
+      setShowScroll(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", checkScrollTop);
+    return () => {
+      window.removeEventListener("scroll", checkScrollTop);
+    };
+  }, []);
 
   const observer = useRef();
   const lastItemRef = useCallback((node) => {
@@ -98,13 +114,17 @@ const Explore = () => {
           )}
         </div>
       </section>
-      <Fab
-        variant="circular"
-        aria-label="back to top"
-        className={classes["to-top"]}
-      >
-        <ArrowUpwardIcon sx={{ mr: 1 }} />
-      </Fab>
+      {showScroll && (
+        <Fab
+          variant="circular"
+          aria-label="back to top"
+          className={classes["to-top"]}
+          title="Back to top"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <ArrowUpwardIcon sx={{ mr: 1 }} className={classes["to-top-icon"]} />
+        </Fab>
+      )}
       <Fab
         color="secondary"
         aria-label="add"
