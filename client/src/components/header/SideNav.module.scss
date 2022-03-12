@@ -1,6 +1,7 @@
 @import "../../variables/variables";
 
 .side-nav {
+  @extend .hide-scrollbar;
   display: grid;
   grid-template-rows: 120px 70px 70px 70px 70px 70px;
 
@@ -43,9 +44,4 @@
 
 .open {
   transform: translateX(0);
-}
-
-.btns {
-  @include flex-center(column);
-  gap: 13px;
 }

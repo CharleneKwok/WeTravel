@@ -1,10 +1,11 @@
 @import "../../variables/variables";
 
 .container {
+  @extend .hide-scrollbar;
   @include card(200px, auto);
   @include flex-center(column);
   border-radius: 10px;
-  position: absolute;
+  position: fixed;
   background-color: $nav-white;
   right: 15px;
   transition: all 500ms ease;

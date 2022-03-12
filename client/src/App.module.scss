@@ -2,7 +2,7 @@
 * {
   box-sizing: border-box;
   scrollbar-width: thin;
-  overflow-x: hidden;
+  // @extend .hide-scrollbar;
 }
 
 html {

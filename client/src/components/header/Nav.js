@@ -48,7 +48,7 @@ const Nav = (props) => {
           </div>
         ) : (
           <button
-            className={classes.login}
+            className={props.darkMode ? classes.loginWhite : classes.login}
             onClick={() => history.push("/login")}
           >
             LOGIN
@@ -57,6 +57,7 @@ const Nav = (props) => {
         <MenuIcon
           onClick={() => setOpenSideNav(true)}
           className={classes["show-side-nav"]}
+          isDarkMode={props.darkMode}
         />
       </header>
       <SideNav

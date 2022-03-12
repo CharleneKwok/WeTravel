@@ -10,3 +10,17 @@
   border: 3px solid black;
   border-radius: 50px;
 }
+
+.dark-menu-icon {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 0px;
+  transition: all 500ms ease;
+  fill: white;
+}
+
+.dark-menu-icon:hover {
+  fill: white;
+  border: 3px solid white;
+  border-radius: 50px;
+}

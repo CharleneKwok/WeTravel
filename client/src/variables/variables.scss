@@ -24,10 +24,11 @@ $error: #ff8080;
   border: $border;
 }
 
-@mixin button($width: auto) {
+@mixin button($width: auto, $color: black) {
   @extend .hide-scrollbar;
   background-color: transparent;
-  border: 1px solid black;
+  border: 1px solid $color;
+  color: $color;
   border-radius: 20px;
   padding: 15px;
   cursor: pointer;
@@ -38,7 +39,6 @@ $error: #ff8080;
 
   &:hover {
     letter-spacing: 2px;
-    border: 1px solid $nav-white;
     background-color: black;
     color: $nav-white;
     box-shadow: $box-shadow;

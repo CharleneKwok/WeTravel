@@ -44,17 +44,19 @@ const SideNav = (props) => {
           <LinkButton to="/home" text="HOME" />
           <LinkButton to="/explore" text="EXPLORE" />
           <LinkButton to="/space" text="SPACE" />
-          <div className={classes.btns}>
-            <button
-              onClick={() => {
-                dispatch(settingActions.setOpenSettings());
-                props.onClose();
-              }}
-            >
-              SETTINGS
-            </button>
-            {user.isLogin && <button onClick={logoutHandler}>LOGOUT</button>}
-          </div>
+          {localStorage.getItem("profile") && (
+            <>
+              <button
+                onClick={() => {
+                  dispatch(settingActions.setOpenSettings());
+                  props.onClose();
+                }}
+              >
+                SETTINGS
+              </button>
+              <button onClick={logoutHandler}>LOGOUT</button>
+            </>
+          )}
         </div>
       </div>
     </>
