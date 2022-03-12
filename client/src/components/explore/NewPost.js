@@ -9,6 +9,7 @@ import { addPost } from "../../api/feature-api";
 import { useDispatch } from "react-redux";
 import { checkLogin, userLogout } from "../../store/auth-actions";
 import { Redirect, useHistory } from "react-router-dom";
+import CloseIcon from "@mui/icons-material/Close";
 
 const NewPost = ({ onClose, onPostBar, showNewPost }) => {
   const [postImages, setPostImages] = useState([]);
@@ -36,6 +37,7 @@ const NewPost = ({ onClose, onPostBar, showNewPost }) => {
       <div className={`${classes["new-post"]}`}>
         <Backdrop onClick={onClose} />
         <div>
+          <CloseIcon className={classes.close} onClick={onClose} />
           <h2>What's new today? </h2>
           <Formik
             initialValues={{
@@ -79,7 +81,6 @@ const NewPost = ({ onClose, onPostBar, showNewPost }) => {
                 id="postContent"
                 text="Content"
                 type="textarea"
-                className={classes.content}
                 isTextarea={true}
               />
               <div className={classes["post-pics"]}>
@@ -109,9 +110,6 @@ const NewPost = ({ onClose, onPostBar, showNewPost }) => {
               )}
               <button type="submit" className={classes["post-btn"]}>
                 POST
-              </button>
-              <button className={classes.black} onClick={onClose}>
-                CLOSE
               </button>
             </Form>
           </Formik>

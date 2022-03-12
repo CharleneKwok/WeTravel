@@ -61,13 +61,16 @@
     background-color: rgb(#ccc, 0.173);
     word-break: break-all;
   }
-  input {
+  textarea {
+    vertical-align: middle;
+    height: 30px;
     margin-left: 2px;
     color: white;
     width: 70%;
     font-size: inherit;
     border-radius: 10px;
-    padding: 8px;
+    padding-top: 5px;
+    padding-left: 10px;
     background-color: rgb(#ccc, 0.373);
     border: #ccc;
     letter-spacing: 1px;

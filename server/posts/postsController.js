@@ -103,17 +103,22 @@ export const addComment = async (req, res) => {
     onPostId: postId,
   });
   await comment.save();
-  return res.status(200).send("Add comment successful");
+  return res
+    .status(200)
+    .json({ username: user.username, avatar: user.avatar, ...comment._doc });
 };
 
 // get comments of one post and info of post
 export const getComments = async (req, res) => {
-  const { postId } = req.params;
+  const { postId, offset } = req.params;
   const post = await Post.findOne({ _id: postId });
   if (!post) {
     return res.status(404).send("Post not found");
   }
-  const comments = await Comment.find({ onPostId: postId });
+  const len = await Comment.estimatedDocumentCount();
+  const comments = await Comment.find({ onPostId: postId })
+    .skip(offset)
+    .limit(10);
   if (!comments) {
     return res.status(200).json([]);
   }
@@ -123,7 +128,7 @@ export const getComments = async (req, res) => {
     return { ...com._doc, username: user.username, avatar: user.avatar };
   });
   Promise.all(commentsWithName).then((comments) => {
-    return res.status(200).json(comments);
+    return res.status(200).json({ comments: comments, len: len });
   });
 };
 

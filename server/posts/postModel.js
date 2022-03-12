@@ -25,8 +25,11 @@ const post = new mongoose.Schema({
     default: [],
   },
   createdAt: {
-    type: Date,
-    default: new Date(),
+    type: String,
+    default: new Date().toLocaleString("en-US", {
+      timeZone: "Australia/Sydney",
+      hour12: false,
+    }),
   },
 });
 

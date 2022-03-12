@@ -1,0 +1,38 @@
+@import "../../variables/variables";
+
+.container {
+  margin-top: 20px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  i {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgb(104, 98, 98);
+  }
+}
+
+.send-comment {
+  @include flex-center();
+  gap: 13px;
+  textarea {
+    @include input-style(80%, 50px);
+  }
+  button {
+    background-color: transparent;
+    border: 0;
+  }
+}
+
+.icon {
+  @include icon();
+}
+
+.loading {
+  @include loading();
+}
+
+.comments {
+  padding: 0 5%;
+}

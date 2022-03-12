@@ -8,12 +8,12 @@ import Avatar from "../header/Avatar";
 import Backdrop from "../UI/Backdrop";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
+import Comments from "./Comments";
 
 const PostPage = (props) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   const info = props.info;
   const [currImage, setCurrImage] = useState(0);
-  console.log(props.info);
 
   return (
     <>
@@ -26,7 +26,7 @@ const PostPage = (props) => {
                 fontSize="large"
                 className={classes.close}
                 titleAccess="Close Post"
-                onClick={() => props.onClose()}
+                onClick={props.onClose}
               />
               <Avatar src={info.avatar} />
               <h3>{info.username}</h3>
@@ -34,17 +34,15 @@ const PostPage = (props) => {
             <div className={classes.info}>
               <div className={classes["info__imgs"]}>
                 {info.images.map((image, i) => (
-                  <>
-                    <div
-                      className={`${classes["info__img"]} ${
-                        currImage === i
-                          ? classes["info__img--show"]
-                          : classes["info__img--hide"]
-                      }`}
-                      style={{ backgroundImage: `url(${image})` }}
-                      key={`image_${i}`}
-                    ></div>
-                  </>
+                  <div
+                    className={`${classes["info__img"]} ${
+                      currImage === i
+                        ? classes["info__img--show"]
+                        : classes["info__img--hide"]
+                    }`}
+                    style={{ backgroundImage: `url(${image})` }}
+                    key={`image_${i}`}
+                  ></div>
                 ))}
                 {currImage !== 0 && (
                   <ArrowBackIosIcon
@@ -65,7 +63,7 @@ const PostPage = (props) => {
                 <h2>{info.title}</h2>
                 <p>{info.content}</p>
                 <div className={classes["info__more"]}>
-                  <p>{info.createdAt.split("T")[0]}</p>
+                  <p>{info.createdAt}</p>
                   <div className={classes["info__more--likes"]}>
                     {props.likes.includes(user._id) ? (
                       <FavoriteIcon
@@ -79,8 +77,7 @@ const PostPage = (props) => {
                   </div>
                 </div>
               </section>
-              <h3>✨COMMENTS</h3>
-              <textarea></textarea>
+              <Comments postId={info._id} />
             </div>
           </div>
         </>

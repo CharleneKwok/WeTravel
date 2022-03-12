@@ -24,7 +24,6 @@
 }
 
 .loading {
-  text-align: center;
-  padding: 30px;
-  font-weight: 700;
+  @include loading();
+  padding: 20px;
 }

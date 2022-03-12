@@ -23,10 +23,8 @@ router
 router.route(`/randomPosts/:offset`).get(getRandomPosts);
 router.route("/like/:postId").put(checkUserToken, likePost);
 router.route("/unlike/:postId").put(checkUserToken, unlikePost);
-router
-  .route("/comment/:postId")
-  .post(checkUserToken, addComment)
-  .get(checkUserToken, getComments);
+router.route("/comment/:postId").post(checkUserToken, addComment);
+router.route("/comment/:postId/:offset").get(checkUserToken, getComments);
 router
   .route("/reply/:commentId")
   .post(checkUserToken, replyComment)

@@ -39,7 +39,8 @@ export const addComment = (postId, content) =>
   API.post(`/post/comment/${postId}`, { content });
 export const addReply = (postId, content, replyToId) =>
   API.post(`/post/reply/${postId}`, { content, replyToId });
-export const getComments = (postId) => API.get(`/post/comment/${postId}`);
+export const getComments = (postId, offset) =>
+  API.get(`/post/comment/${postId}/${offset}`);
 export const getRelies = (postId) => API.get(`/post/comment/${postId}`);
 
 // follow and unfollow

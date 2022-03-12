@@ -84,3 +84,29 @@ $error: #ff8080;
     transform: scale(1.01);
   }
 }
+
+@mixin input-style($width: auto, $height: auto) {
+  margin: 10px 0;
+  height: $height;
+  border-radius: 10px;
+  border: $border;
+  padding: 6px;
+  font-family: inherit;
+  width: $width;
+  text-decoration: none;
+}
+
+@mixin icon() {
+  cursor: pointer;
+  transition: all 500ms ease;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@mixin loading {
+  text-align: center;
+  font-weight: 700;
+  font-size: small;
+  font-style: italic;
+}

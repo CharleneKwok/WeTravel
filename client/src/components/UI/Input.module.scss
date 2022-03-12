@@ -1,14 +1,5 @@
 @import "../../variables/variables";
 
-.text-input {
-  margin: 10px 0;
-  height: 2.1rem;
-  border-radius: 10px;
-  border: $border;
-  padding: 6px;
-  font-family: inherit;
-}
-
 .input {
   display: flex;
   flex-direction: column;
@@ -18,10 +9,10 @@
     font-size: 1rem;
   }
   input {
-    @extend .text-input;
+    @include input-style(auto, 2.1rem);
   }
   textarea {
-    @extend .text-input;
+    @include input-style(auto, 150px);
   }
 }
 

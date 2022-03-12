@@ -36,12 +36,8 @@
 }
 
 .close {
-  cursor: pointer;
+  @include icon();
   margin: 10px;
-  transition: all 500ms ease;
-  &:hover {
-    transform: scale(1.1);
-  }
 }
 
 .info {

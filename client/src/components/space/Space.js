@@ -33,7 +33,7 @@ const Space = () => {
   const currYear = new Date().getFullYear();
   const [year, setYear] = useState(currYear);
   const [allYears, setAllYears] = useState([]);
-  const [bio, setBio] = useState(user?.bio || "Please enter your bio");
+  const [bio, setBio] = useState(user?.bio);
   const [showInput, setShowInput] = useState(false);
   const dispatch = useDispatch();
 
@@ -127,12 +127,13 @@ const Space = () => {
                 )}
                 {(showInput || !user.bio) && ( */}
                 {/* )} */}
-                <input
+                <textarea
                   type="text"
                   value={bio}
                   onChange={(e) => setBio(e.target.value)}
                   onBlur={changeBioHandler}
                   maxLength="80"
+                  placeholder="Please enter your bio.."
                 />
               </div>
             </div>
