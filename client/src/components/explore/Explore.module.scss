@@ -21,9 +21,20 @@
   margin: 60px auto;
   width: 80vw;
   height: auto;
+  @extend .hide-scrollbar;
 }
 
 .loading {
   @include loading();
   padding: 20px;
+}
+
+.to-top {
+  position: absolute;
+  bottom: 120px;
+  right: 40px;
+  &:first-of-type {
+    margin-right: 0px !important;
+    // color: white !important;
+  }
 }

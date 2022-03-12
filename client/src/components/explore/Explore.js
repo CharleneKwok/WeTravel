@@ -12,6 +12,7 @@ import { getRandomPosts } from "../../api/auth-api";
 import PostItem from "./PostItem";
 import Masonry from "@mui/lab/Masonry";
 import MyLoader from "../UI/MyLoader";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 
 const Explore = () => {
   const [open, setOpen] = useState(false);
@@ -55,7 +56,7 @@ const Explore = () => {
           setLoad("End");
           return;
         } else {
-          setLoad("Loading");
+          setLoad("Loading...");
         }
         setPosts((prev) => prev.concat(posts));
         setLengthOfAllPosts(resp.len);
@@ -97,6 +98,13 @@ const Explore = () => {
           )}
         </div>
       </section>
+      <Fab
+        variant="circular"
+        aria-label="back to top"
+        className={classes["to-top"]}
+      >
+        <ArrowUpwardIcon sx={{ mr: 1 }} />
+      </Fab>
       <Fab
         color="secondary"
         aria-label="add"

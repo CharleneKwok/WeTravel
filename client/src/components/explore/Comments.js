@@ -13,7 +13,6 @@ const Comments = ({ postId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [allComments, setAllComments] = useState([]);
-  console.log("🚀 ~ allComments", allComments);
   const [offset, setOffset] = useState(0);
   const [cmtLength, setCmtLength] = useState(0);
   const [loadmsg, setLoadmsg] = useState("Loading...");

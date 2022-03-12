@@ -2,10 +2,7 @@
 * {
   box-sizing: border-box;
   scrollbar-width: thin;
-}
-
-::-webkit-scrollbar {
-  width: 0;
+  overflow-x: hidden;
 }
 
 html {
