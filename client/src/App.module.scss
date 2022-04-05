@@ -1,8 +1,11 @@
 @import "./variables/variables";
 * {
   box-sizing: border-box;
-  scrollbar-width: thin;
+  scrollbar-width: none;
   // @extend .hide-scrollbar;
+}
+::-webkit-scrollbar {
+  display: none;
 }
 
 html {

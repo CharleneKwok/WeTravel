@@ -1013,7 +1013,7 @@ const Main = () => {
             bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_API_KEY }}
             defaultCenter={center}
             center={center}
-            defaultZoom={16}
+            defaultZoom={17}
             margin={[50, 50, 50, 50]}
             options={{
               styles: mapStyle,
