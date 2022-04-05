@@ -30,7 +30,8 @@ export const changeWholeApp = (wholeAppearance) =>
 export const addPost = (title, content, images) =>
   API.post("/post", { title, content, images });
 export const deletePost = (postId) => API.delete("/post", { postId });
-export const getUserPosts = (userId) => API.get("/post", { userId });
+export const getUserPosts = (userId, offset) =>
+  API.get(`/post/${userId}/${offset}`);
 
 // like, comment and reply
 export const likePost = (postId) => API.put(`/post/like/${postId}`);

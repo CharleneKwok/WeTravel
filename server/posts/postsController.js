@@ -33,12 +33,14 @@ export const deletePost = async (req, res) => {
 
 // get posts of certain user
 export const getPosts = async (req, res) => {
-  const { userId } = req.body;
+  const { userId, offset } = req.params;
   const user = await User.findById(userId);
   if (!user) {
     return res.status(404).send("User not found");
   }
-  const userPosts = await Post.find({ userId: user._id });
+  const userPosts = await Post.find({ userId: user._id })
+    .skip(offset)
+    .limit(10);
   return res.status(200).json({ username: user.username, posts: userPosts });
 };
 
@@ -115,7 +117,8 @@ export const getComments = async (req, res) => {
   if (!post) {
     return res.status(404).send("Post not found");
   }
-  const len = await Comment.estimatedDocumentCount();
+  const allCmts = await Comment.find({ onPostId: postId });
+  const len = allCmts.length;
   const comments = await Comment.find({ onPostId: postId })
     .skip(offset)
     .limit(10);

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Page from "../UI/Page";
 import NewPost from "./NewPost";
 import Fab from "@mui/material/Fab";
@@ -6,13 +6,10 @@ import AddIcon from "@mui/icons-material/Add";
 import classes from "./Explore.module.scss";
 import { useDispatch } from "react-redux";
 import { checkLogin } from "../../store/auth-actions";
-import { Redirect, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { Snackbar } from "@mui/material";
-import { getRandomPosts } from "../../api/auth-api";
-import PostItem from "./PostItem";
-import Masonry from "@mui/lab/Masonry";
-import MyLoader from "../UI/MyLoader";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import AllPosts from "./AllPosts";
 
 const Explore = () => {
   const [open, setOpen] = useState(false);
@@ -20,9 +17,6 @@ const Explore = () => {
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [load, setLoad] = useState(null);
-  const [offset, setOffset] = useState(0);
-  const [lengthOfAllPosts, setLengthOfAllPosts] = useState(0);
   const [showScroll, setShowScroll] = useState(false);
 
   const checkScrollTop = () => {
@@ -40,16 +34,6 @@ const Explore = () => {
     };
   }, []);
 
-  const observer = useRef();
-  const lastItemRef = useCallback((node) => {
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        setOffset((prev) => prev + 10);
-      }
-    });
-    if (node) observer.current.observe(node);
-  }, []);
-
   const postSuccessHandler = () => {
     setPostSuccess(true);
   };
@@ -62,26 +46,6 @@ const Explore = () => {
     setPosts((prev) => [newPost].concat(prev));
   };
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(async () => {
-    try {
-      const resp = await getRandomPosts(offset);
-      if (resp.status === 200) {
-        const posts = resp.data.posts;
-        if (posts.length === 0) {
-          setLoad("End");
-          return;
-        } else {
-          setLoad("Loading...");
-        }
-        setPosts((prev) => prev.concat(posts));
-        setLengthOfAllPosts(resp.len);
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  }, [offset]);
-
   return (
     <Page isDarkMode={true}>
       {open && (
@@ -93,26 +57,12 @@ const Explore = () => {
       )}
       <section>
         <div className={classes["explore-image"]} />
-        <div className={classes["explore-posts"]}>
-          <Masonry columns={{ md: 3, sm: 2, xs: 1, lg: 4 }} spacing={2}>
-            {load ? (
-              posts?.map((post, i) => (
-                <PostItem info={post} key={`post_${i}_${post.title}`} />
-              ))
-            ) : (
-              <>
-                <MyLoader />
-                <MyLoader />
-                <MyLoader />
-              </>
-            )}
-          </Masonry>
-          {load && (
-            <p className={classes["loading"]} ref={lastItemRef}>
-              {load}
-            </p>
-          )}
-        </div>
+        <AllPosts
+          className={classes["explore-posts"]}
+          setPosts={setPosts}
+          posts={posts}
+          isUserPosts={false}
+        />
       </section>
       {showScroll && (
         <Fab

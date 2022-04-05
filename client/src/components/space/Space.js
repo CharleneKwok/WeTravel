@@ -20,6 +20,7 @@ import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { settingActions } from "../../store/setting-slice";
 import { authActions } from "../../store/auth-slice";
+import AllPosts from "../explore/AllPosts";
 
 const Space = () => {
   const checkUserUpdate = useSelector((state) => state.auth.user);
@@ -35,6 +36,7 @@ const Space = () => {
   const [allYears, setAllYears] = useState([]);
   const [bio, setBio] = useState(user?.bio);
   const [showInput, setShowInput] = useState(false);
+  const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -143,7 +145,7 @@ const Space = () => {
               <Button text="COLLECTS" to="/space/collection" />
               <Button text="POSTS" to="/space/posts" />
             </div>
-            {isCollection && (
+            {isCollection ? (
               <>
                 <div className={classes.filter}>
                   <div className={classes.search}>
@@ -201,6 +203,14 @@ const Space = () => {
                   <p>Cannot find any saved location</p>
                 )}
               </>
+            ) : (
+              <AllPosts
+                className={classes.posts}
+                setPosts={setPosts}
+                posts={posts}
+                isUserPosts={true}
+                userId={user._id}
+              />
             )}
           </section>
         </>

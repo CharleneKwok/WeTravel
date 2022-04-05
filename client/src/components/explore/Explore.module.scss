@@ -25,11 +25,6 @@
   @extend .hide-scrollbar;
 }
 
-.loading {
-  @include loading();
-  padding: 20px;
-}
-
 .to-top {
   position: fixed !important;
   bottom: 120px;

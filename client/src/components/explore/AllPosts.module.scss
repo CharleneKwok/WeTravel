@@ -1,0 +1,6 @@
+@import "../../variables/variables";
+
+.loading {
+  @include loading();
+  padding: 20px;
+}
