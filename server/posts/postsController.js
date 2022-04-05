@@ -41,7 +41,12 @@ export const getPosts = async (req, res) => {
   const userPosts = await Post.find({ userId: user._id })
     .skip(offset)
     .limit(10);
-  return res.status(200).json({ username: user.username, posts: userPosts });
+  const postsWithName = userPosts.map(async (post) => {
+    return { ...post._doc, username: user.username };
+  });
+  Promise.all(postsWithName).then((posts) => {
+    return res.status(200).json({ posts: posts });
+  });
 };
 
 // get random posts
