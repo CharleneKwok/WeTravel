@@ -15,12 +15,10 @@ import {
 
 const router = express.Router();
 
-router
-  .route("/")
-  .post(checkUserToken, addPost)
-  .delete(checkUserToken, deletePost);
-router.route("/:userId/:offset").get(checkUserToken, getPosts);
+router.route("/").post(checkUserToken, addPost);
+router.route("/:postId").delete(checkUserToken, deletePost);
 router.route(`/randomPosts/:offset`).get(getRandomPosts);
+router.route("/:userId/:offset").get(checkUserToken, getPosts);
 router.route("/like/:postId").put(checkUserToken, likePost);
 router.route("/unlike/:postId").put(checkUserToken, unlikePost);
 router.route("/comment/:postId").post(checkUserToken, addComment);

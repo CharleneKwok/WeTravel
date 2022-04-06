@@ -26,7 +26,10 @@ export const addPost = async (req, res) => {
 
 // delete post
 export const deletePost = async (req, res) => {
-  const { user, postId } = req.body;
+  const { postId } = req.params;
+  if (!postId) {
+    return res.status(400).send("no postId");
+  }
   await Post.deleteOne({ _id: postId });
   return res.status(200).send("Delete Post successful!");
 };
