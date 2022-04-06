@@ -4,17 +4,20 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { userLogout } from "../../store/auth-actions";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { likePost, unlikePost } from "../../api/feature-api";
 import Avatar from "../header/Avatar";
 import PostPage from "./PostPage";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const PostItem = ({ info }) => {
+const PostItem = (props) => {
+  const info = props.info;
   const user = JSON.parse(localStorage.getItem("profile"));
   const [likes, setLikes] = useState(info.likes);
   const dispatch = useDispatch();
   const history = useHistory();
   const [showDetails, setShowDetails] = useState(false);
+  const location = useLocation();
 
   const nFormatter = (num, digits) => {
     const lookup = [
@@ -93,16 +96,27 @@ const PostItem = ({ info }) => {
               <Avatar src={info.avatar} className={classes.avatar} />
               <p className={classes.username}>{info.username}</p>
             </div>
-            {localStorage.getItem("profile") && (
-              <div className={classes["info"]}>
-                {likes.includes(user._id) ? (
-                  <FavoriteIcon className={classes.likes} onClick={userLike} />
-                ) : (
-                  <FavoriteBorderIcon onClick={userLike} />
-                )}
-                <p>{nFormatter(likes.length, 1)}</p>
-              </div>
-            )}
+            <div className={classes["info__feature"]}>
+              {location.pathname.includes("/space/posts") && (
+                <DeleteIcon
+                  onClick={() => props.onDeletePost(info._id)}
+                  titleAccess="Delete post"
+                />
+              )}
+              {localStorage.getItem("profile") && (
+                <div className={classes["info"]}>
+                  {likes.includes(user._id) ? (
+                    <FavoriteIcon
+                      className={classes.likes}
+                      onClick={userLike}
+                    />
+                  ) : (
+                    <FavoriteBorderIcon onClick={userLike} />
+                  )}
+                  <p>{nFormatter(likes.length, 1)}</p>
+                </div>
+              )}
+            </div>
           </div>
         </section>
       </div>

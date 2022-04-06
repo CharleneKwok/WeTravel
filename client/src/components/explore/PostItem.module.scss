@@ -38,6 +38,11 @@
   @include flex-center();
 }
 
+.info__feature {
+  @include flex-center();
+  column-gap: 10px;
+}
+
 .likes {
   color: rgba(255, 0, 0, 0.605);
 }
