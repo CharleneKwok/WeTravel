@@ -16,6 +16,7 @@ import Space from "./components/space/Space";
 import decode from "jwt-decode";
 import { authActions } from "./store/auth-slice";
 import PostPage from "./components/explore/PostPage";
+import UserSpace from "./components/space/UserSpace";
 
 function App() {
   // const [openPage, setOpenPage] = useState(true);
@@ -68,6 +69,7 @@ function App() {
         <Route path="/space/posts" component={Space} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/pwd-reset" component={ForgotPwd} exact />
+        <Route path="/user-space/:userId" exact component={UserSpace} />
         <Route path="*" component={NotExist} />
       </Switch>
       {/* )} */}

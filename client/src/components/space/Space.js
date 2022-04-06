@@ -20,6 +20,7 @@ import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth-slice";
 import AllPosts from "../explore/AllPosts";
+import UserInfo from "./UserInfo";
 
 const Space = () => {
   const checkUserUpdate = useSelector((state) => state.auth.user);
@@ -108,37 +109,16 @@ const Space = () => {
     <Page isDarkMode={true}>
       {localStorage.getItem("profile") ? (
         <>
-          <div className={classes["space-image"]}>
-            <div className={classes["user_info"]}>
-              <Avatar className={classes["user_info--avatar"]} />
-              <h2>{user.username}</h2>
-              <div className={classes["user_info--follow"]}>
-                <p>Followers: {user.followers}</p>
-                <p>Following: {user.following}</p>
-              </div>
-              <div className={classes["user_info--bio"]}>
-                bio:
-                {/* {!showInput && (
-                  <p
-                    onClick={() => setShowInput(true)}
-                    title="Click to change your bio"
-                  >
-                    {bio}
-                  </p>
-                )}
-                {(showInput || !user.bio) && ( */}
-                {/* )} */}
-                <textarea
-                  type="text"
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  onBlur={changeBioHandler}
-                  maxLength="80"
-                  placeholder="Please enter your bio.."
-                />
-              </div>
-            </div>
-          </div>
+          <UserInfo user={user} self={true}>
+            <textarea
+              type="text"
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+              onBlur={changeBioHandler}
+              maxLength="80"
+              placeholder="Please enter your bio.."
+            />
+          </UserInfo>
           <section>
             <div className={classes.buttons}>
               <Button text="COLLECTS" to="/space/collection" />
