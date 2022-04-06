@@ -18,7 +18,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useDispatch, useSelector } from "react-redux";
-import { settingActions } from "../../store/setting-slice";
 import { authActions } from "../../store/auth-slice";
 import AllPosts from "../explore/AllPosts";
 

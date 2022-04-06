@@ -24,7 +24,7 @@ const AllPosts = (props) => {
   useEffect(async () => {
     try {
       let resp;
-      if (props.isUserPosts) {
+      if (props?.isUserPosts) {
         resp = await getUserPosts(props.userId, offset);
       } else {
         resp = await getRandomPosts(offset);
@@ -33,11 +33,13 @@ const AllPosts = (props) => {
         const posts = resp.data.posts;
         if (posts.length === 0) {
           setLoad("End");
-          return;
         } else {
           setLoad("Loading...");
         }
         props.setPosts((prev) => prev.concat(posts));
+        if (props.posts.length === 0) {
+          setLoad("Cannot find any post...");
+        }
       }
     } catch (err) {
       console.log(err);
@@ -46,7 +48,11 @@ const AllPosts = (props) => {
 
   return (
     <div className={props.className}>
-      <Masonry columns={{ md: 3, sm: 2, xs: 1, lg: 4 }} spacing={2}>
+      <Masonry
+        columns={{ md: 3, sm: 2, xs: 1, lg: 4 }}
+        spacing={2}
+        className={props.posts.length === 0 && classes["hide-masonry"]}
+      >
         {load ? (
           props.posts?.map((post, i) => (
             <PostItem info={post} key={`post_${i}_${post.title}`} />
