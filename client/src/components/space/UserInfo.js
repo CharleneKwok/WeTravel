@@ -19,8 +19,8 @@ const UserInfo = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [followStatus, setFollowStatus] = useState("Follow");
-  const [followers, setFollowers] = useState(user.followers || 0);
-  const [following, setFollowing] = useState(user.following || 0);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
   const [showFollowList, setShowFollowList] = useState("");
 
   useEffect(() => {
@@ -42,9 +42,11 @@ const UserInfo = (props) => {
           setFollowing(resp.data);
         }
       } catch ({ respsonse }) {
-        dispatch(userLogout(loginUser.email));
-        localStorage.removeItem("profile");
-        history.push("/login");
+        if (respsonse.status === 401) {
+          dispatch(userLogout(loginUser.email));
+          localStorage.removeItem("profile");
+          history.push("/login");
+        }
       }
     };
     if (Object.keys(user).length !== 0) {
@@ -52,20 +54,30 @@ const UserInfo = (props) => {
     }
   }, [user]);
 
-  const followUserHandler = async () => {
+  const followUserHandler = async (currStatus) => {
     try {
       let resp;
-      if (followStatus === "Follow") {
+      if (currStatus === "Follow") {
         resp = await followUser(user._id);
         if (resp.status === 200) {
           setFollowStatus("Unfollow");
-          setFollowers((prev) => prev + 1);
+          setFollowers((prev) => {
+            prev.push({
+              avatar: loginUser.avatar,
+              userId: loginUser._id,
+              username: loginUser.username,
+            });
+            return [...prev];
+          });
         }
       } else {
         resp = await unfollowUser(user._id);
         if (resp.status === 200) {
           setFollowStatus("Follow");
-          setFollowers((prev) => prev - 1);
+          setFollowers((prev) => {
+            const l = prev.filter((user) => user.userId !== loginUser._id);
+            return l;
+          });
         }
       }
     } catch ({ response }) {
@@ -87,7 +99,9 @@ const UserInfo = (props) => {
         <div className={classes["user_info--avatar"]}>
           <Avatar src={user.avatar} />
           {!isLoginUserSpace && (
-            <button onClick={followUserHandler}>{followStatus}</button>
+            <button onClick={() => followUserHandler(followStatus)}>
+              {followStatus}
+            </button>
           )}
         </div>
         <h2>{user.username}</h2>
@@ -104,7 +118,13 @@ const UserInfo = (props) => {
           {props.children}
         </div>
       </div>
-      <FollowList text={showFollowList} onClose={closeFollowList} />
+      <FollowList
+        text={showFollowList}
+        onClose={closeFollowList}
+        followers={followers}
+        following={following}
+        followUserHandler={followUserHandler}
+      />
     </div>
   );
 };

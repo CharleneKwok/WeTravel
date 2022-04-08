@@ -10,9 +10,36 @@
   z-index: 200;
   transform: translateX(-400px);
   transition: all ease 500ms;
-  // box-shadow: $box-shadow;
+  box-shadow: $box-shadow;
 }
 
 .show-container {
   transform: translateX(0);
+  h1 {
+    font-family: $title-font;
+    text-align: center;
+  }
+}
+
+.list-wrapper {
+  padding: 0 20px;
+  overflow: scroll;
+  height: 100%;
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.user__name {
+  font-size: 1.1rem;
+  color: black;
+  text-decoration: none;
+  transition: all ease 200ms;
+  margin-left: 10px;
+  &:hover {
+    font-weight: bold;
+  }
 }
