@@ -9,6 +9,7 @@ import {
 } from "../../api/feature-api";
 import { userLogout } from "../../store/auth-actions";
 import Avatar from "../header/Avatar";
+import FollowList from "./FollowList";
 import classes from "./Space.module.scss";
 
 const UserInfo = (props) => {
@@ -17,9 +18,10 @@ const UserInfo = (props) => {
   const isLoginUserSpace = loginUser._id === user._id;
   const dispatch = useDispatch();
   const history = useHistory();
-  const [followStatus, setFollowStatus] = useState("");
-  const [followers, setFollowers] = useState(user.followers);
-  const [following, setFollowing] = useState(user.following);
+  const [followStatus, setFollowStatus] = useState("Follow");
+  const [followers, setFollowers] = useState(user.followers || 0);
+  const [following, setFollowing] = useState(user.following || 0);
+  const [showFollowList, setShowFollowList] = useState("");
 
   useEffect(() => {
     const getFollowList = async () => {
@@ -33,11 +35,11 @@ const UserInfo = (props) => {
               UserIdList.includes(loginUser._id) ? "Unfollow" : "Follow"
             );
           }
-          setFollowers(resp.data.length);
+          setFollowers(resp.data);
         }
         resp = await getFollowingList(user._id);
         if (resp.status === 200) {
-          setFollowing(resp.data.length);
+          setFollowing(resp.data);
         }
       } catch ({ respsonse }) {
         dispatch(userLogout(loginUser.email));
@@ -75,6 +77,10 @@ const UserInfo = (props) => {
     }
   };
 
+  const closeFollowList = () => {
+    setShowFollowList("");
+  };
+
   return (
     <div className={classes["space-image"]}>
       <div className={classes["user_info"]}>
@@ -86,14 +92,19 @@ const UserInfo = (props) => {
         </div>
         <h2>{user.username}</h2>
         <div className={classes["user_info--follow"]}>
-          <p>Followers: {followers}</p>
-          <p>Following: {following}</p>
+          <p onClick={() => setShowFollowList("Followers")}>
+            Followers: {followers.length}
+          </p>
+          <p onClick={() => setShowFollowList("Following")}>
+            Following: {following.length}
+          </p>
         </div>
         <div className={classes["user_info--bio"]}>
           bio:
           {props.children}
         </div>
       </div>
+      <FollowList text={showFollowList} onClose={closeFollowList} />
     </div>
   );
 };

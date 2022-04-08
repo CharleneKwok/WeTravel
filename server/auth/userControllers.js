@@ -255,7 +255,11 @@ export const getFollowingList = async (req, res) => {
   }
   const followingWithName = user.following.map(async (followingUserId) => {
     const followingUser = await User.findById(followingUserId);
-    return { username: followingUser.username, userId: followingUserId };
+    return {
+      username: followingUser.username,
+      userId: followingUserId,
+      avatar: followingUser.avatar,
+    };
   });
   Promise.all(followingWithName).then((following) => {
     return res.status(200).json(following);
@@ -271,7 +275,11 @@ export const getFollwersList = async (req, res) => {
   }
   const followersWithName = user.followers.map(async (followerUserId) => {
     const followerUser = await User.findById(followerUserId);
-    return { username: followerUser.username, userId: followerUserId };
+    return {
+      username: followerUser.username,
+      userId: followerUserId,
+      avatar: followerUser.avatar,
+    };
   });
   Promise.all(followersWithName).then((followers) => {
     return res.status(200).json(followers);

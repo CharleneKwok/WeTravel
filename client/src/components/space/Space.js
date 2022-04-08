@@ -5,7 +5,6 @@ import {
   deleteItemOnList,
   getSaveList,
 } from "../../api/feature-api";
-import Avatar from "../header/Avatar";
 import Button from "../UI/Button";
 import Page from "../UI/Page";
 import CollectionCard from "./CollectionCard";
