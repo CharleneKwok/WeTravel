@@ -48,9 +48,12 @@
 }
 
 .username {
+  margin-left: 7px;
+  color: black;
   font-weight: 700;
   transition: all 500ms ease-in-out;
   text-decoration: none;
+  word-break: break-all;
   &:hover {
     text-decoration: underline;
   }

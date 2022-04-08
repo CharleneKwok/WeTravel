@@ -12,6 +12,7 @@ const AvatarChange = ({ imageToCrop, cancelChangeAvatar }) => {
   const [croppedImage, setCroppedImage] = useState(undefined);
   const history = useHistory();
   const dispatch = useDispatch();
+  const currUser = JSON.parse(localStorage.getItem("profile"));
 
   const storeAvatar = async () => {
     try {
@@ -34,12 +35,12 @@ const AvatarChange = ({ imageToCrop, cancelChangeAvatar }) => {
         {croppedImage ? (
           <Avatar src={croppedImage} className={classes.avatar} />
         ) : (
-          <Avatar className={classes.avatar} />
+          <Avatar className={classes.avatar} src={currUser.avatar} />
         )}
         {croppedImage ? (
           <Avatar src={croppedImage} className={classes["avatar-sm"]} />
         ) : (
-          <Avatar className={classes["avatar-sm"]} />
+          <Avatar className={classes["avatar-sm"]} src={currUser.avatar} />
         )}
         <div className={classes.image}>
           <ImageCropper

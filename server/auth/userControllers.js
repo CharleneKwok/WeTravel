@@ -93,18 +93,18 @@ export const logout = async (req, res) => {
 // get user info
 export const getUser = async (req, res) => {
   const { userId } = req.params;
-  const user = await User.findOne({ _id: userId });
-  if (!user) {
+  const userInfo = await User.findOne({ _id: userId });
+  if (!userInfo) {
     return res.status(404).send("User not found");
   }
   res.status(200).json({
-    bio: user.bio,
-    username: user.username,
-    _id: user._id,
-    avatar: user.avatar,
-    email: user.email,
-    following: user.following.length,
-    followers: user.followers.length,
+    bio: userInfo.bio,
+    username: userInfo.username,
+    _id: userInfo._id,
+    avatar: userInfo.avatar,
+    email: userInfo.email,
+    following: userInfo.following.length,
+    followers: userInfo.followers.length,
   });
 };
 

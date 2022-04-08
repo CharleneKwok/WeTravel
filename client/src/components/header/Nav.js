@@ -10,7 +10,7 @@ import Window from "./Window";
 
 const Nav = (props) => {
   const history = useHistory();
-  const user = useSelector((state) => state.auth);
+  const user = useSelector((state) => state.auth.user);
   const [openSideNav, setOpenSideNav] = useState(false);
   const [openWindow, setOpenWindow] = useState(false);
 
@@ -34,6 +34,7 @@ const Nav = (props) => {
         {localStorage.getItem("profile") ? (
           <div className={classes.user}>
             <Avatar
+              src={user.avatar}
               className={classes.avatar}
               onClick={(e) => {
                 setOpenWindow((prev) => !prev);

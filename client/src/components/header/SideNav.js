@@ -37,7 +37,7 @@ const SideNav = (props) => {
             </button>
           ) : (
             <div className={classes.top}>
-              <Avatar className={classes.avatar} />
+              <Avatar className={classes.avatar} src={user.user.avatar} />
               <h4>Hi! {info.username}</h4>
             </div>
           )}

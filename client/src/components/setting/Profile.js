@@ -88,7 +88,7 @@ const Profile = () => {
         <>
           <div className={classes.container}>
             <div className={classes["avatar-change"]}>
-              <Avatar className={classes.avatar} />
+              <Avatar className={classes.avatar} src={user.avatar} />
               <label className={classes["upload-file"]}>
                 Upload Photo
                 <input type="file" onChange={onUploadFile} />

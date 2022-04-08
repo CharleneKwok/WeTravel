@@ -71,7 +71,7 @@ const Comments = ({ postId }) => {
     <div className={classes.container}>
       <i>✉️ COMMENTS ({cmtLength})</i>
       <form className={classes["send-comment"]} onSubmit={sendComment}>
-        <Avatar className={classes.avatar} />
+        <Avatar className={classes.avatar} src={user.avatar} />
         <textarea
           placeholder="Write a comment..."
           value={content}

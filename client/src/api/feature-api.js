@@ -53,3 +53,5 @@ export const getFollowingList = (userId) =>
   API.get(`/user/following/${userId}`);
 export const getFollowersList = (userId) =>
   API.get(`/user/followers/${userId}`);
+
+export const sendGetUser = (id) => API.get(`/user/${id}`);

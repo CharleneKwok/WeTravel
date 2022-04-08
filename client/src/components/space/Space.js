@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../../store/auth-slice";
 import AllPosts from "../explore/AllPosts";
 import UserInfo from "./UserInfo";
+import { userLogout } from "../../store/auth-actions";
 
 const Space = () => {
   const checkUserUpdate = useSelector((state) => state.auth.user);
@@ -38,6 +39,7 @@ const Space = () => {
   const [showInput, setShowInput] = useState(false);
   const [posts, setPosts] = useState([]);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     setUser(JSON.parse(localStorage.getItem("profile")));
@@ -100,8 +102,13 @@ const Space = () => {
       dispatch(authActions.changeBio({ bio: bio }));
       setShowInput(false);
       console.log("change");
-    } catch (err) {
-      console.log(err);
+    } catch ({ response }) {
+      if (response.status === 401) {
+        console.log("like failed cuz token");
+        dispatch(userLogout(user.email));
+        localStorage.removeItem("profile");
+        history.push("/login");
+      }
     }
   };
 
@@ -109,14 +116,14 @@ const Space = () => {
     <Page isDarkMode={true}>
       {localStorage.getItem("profile") ? (
         <>
-          <UserInfo user={user} self={true}>
+          <UserInfo user={user}>
             <textarea
               type="text"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
               onBlur={changeBioHandler}
               maxLength="80"
-              placeholder="Please enter your bio.."
+              placeholder="Tap here to add your bio.."
             />
           </UserInfo>
           <section>

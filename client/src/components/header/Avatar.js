@@ -10,7 +10,11 @@ const Avatar = (props) => {
       onClick={props.onClick}
     >
       <img
-        src={props.src ? props.src : avatar}
+        src={
+          props.src
+            ? props.src
+            : "https://cdn-icons-png.flaticon.com/512/149/149071.png"
+        }
         alt="avatar"
         width="100%"
         height="100%"

@@ -4,7 +4,7 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { userLogout } from "../../store/auth-actions";
 import { useDispatch } from "react-redux";
-import { useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import { likePost, unlikePost } from "../../api/feature-api";
 import Avatar from "../header/Avatar";
 import PostPage from "./PostPage";
@@ -13,9 +13,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const PostItem = (props) => {
   const info = props.info;
   const user = JSON.parse(localStorage.getItem("profile"));
-  const [likes, setLikes] = useState(info.likes);
   const dispatch = useDispatch();
   const history = useHistory();
+  const [likes, setLikes] = useState(info.likes);
   const [showDetails, setShowDetails] = useState(false);
   const location = useLocation();
 
@@ -56,7 +56,6 @@ const PostItem = (props) => {
       }
     } catch ({ response }) {
       if (response.status === 401) {
-        console.log("like failed cuz token");
         dispatch(userLogout(user.email));
         localStorage.removeItem("profile");
         history.push("/login");
@@ -94,7 +93,12 @@ const PostItem = (props) => {
           <div className={classes["info-wrapper"]}>
             <div className={classes["info"]}>
               <Avatar src={info.avatar} className={classes.avatar} />
-              <p className={classes.username}>{info.username}</p>
+              <Link
+                className={classes.username}
+                to={`/user-space?id=${info.userId}`}
+              >
+                {info.username}
+              </Link>
             </div>
             <div className={classes["info__feature"]}>
               {location.pathname.includes("/space/posts") && (

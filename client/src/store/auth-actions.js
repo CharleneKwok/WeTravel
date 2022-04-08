@@ -42,16 +42,6 @@ export const userSignup = (user, setFieldError) => async (dispatch) => {
   }
 };
 
-export const getUser = (id) => async (dispatch) => {
-  try {
-    const resp = await sendGetUser(id);
-    console.log("🚀 ~ resp", resp);
-    dispatch(authActions.login({ user: resp.data }));
-  } catch (err) {
-    console.log(err);
-  }
-};
-
 export const userGoogleLogin = (user, token) => async (dispatch) => {
   try {
     const sendData = {

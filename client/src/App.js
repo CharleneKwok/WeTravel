@@ -61,6 +61,7 @@ function App() {
         <Route path="/home/restaurants" component={Main} />
         <Route path="/home/hotels" component={Main} />
         <Route path="/home/attractions" component={Main} />
+        <Route path="/user-space" exact component={UserSpace} />
         <Route path="/explore" exact component={Explore} />
         <Route path="/space" exact component={Space}>
           <Redirect to="/space/collection" />
@@ -69,7 +70,6 @@ function App() {
         <Route path="/space/posts" component={Space} />
         <Route path="/signup" exact component={Signup} />
         <Route path="/pwd-reset" component={ForgotPwd} exact />
-        <Route path="/user-space/:userId" exact component={UserSpace} />
         <Route path="*" component={NotExist} />
       </Switch>
       {/* )} */}
