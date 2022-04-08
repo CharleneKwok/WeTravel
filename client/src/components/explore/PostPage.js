@@ -33,6 +33,7 @@ const PostPage = (props) => {
                 className={classes["info__name"]}
                 to={`/user-space?id=${info.userId}`}
                 title="Jump to user space..."
+                target="_blank"
               >
                 {info.username}
               </Link>

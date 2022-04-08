@@ -96,6 +96,7 @@ const PostItem = (props) => {
               <Link
                 className={classes.username}
                 to={`/user-space?id=${info.userId}`}
+                target="_blank"
               >
                 {info.username}
               </Link>
