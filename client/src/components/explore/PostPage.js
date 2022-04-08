@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import classes from "./PostPage.module.scss";
 import CloseIcon from "@mui/icons-material/Close";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
@@ -28,8 +28,14 @@ const PostPage = (props) => {
                 titleAccess="Close Post"
                 onClick={props.onClose}
               />
-              <Avatar src={info.avatar} />
-              <h3>{info.username}</h3>
+              <Avatar src={user.avatar} />
+              <Link
+                className={classes["info__name"]}
+                to={`/user-space?id=${info.userId}`}
+                title="Jump to user space..."
+              >
+                {info.username}
+              </Link>
             </div>
             <div className={classes.info}>
               <div className={classes["info__imgs"]}>

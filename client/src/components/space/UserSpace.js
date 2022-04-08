@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory, useLocation, withRouter } from "react-router-dom";
 import { sendGetUser } from "../../api/feature-api";
 import { userLogout } from "../../store/auth-actions";
+import AllPosts from "../explore/AllPosts";
 import Page from "../UI/Page";
 import UserInfo from "./UserInfo";
 import classes from "./UserSpace.module.scss";
@@ -14,6 +15,7 @@ const UserSpace = (props) => {
   const currUser = JSON.parse(localStorage.getItem("profile"));
   const dispatch = useDispatch();
   const history = useHistory();
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -40,9 +42,18 @@ const UserSpace = (props) => {
   return (
     <Page isDarkMode={true}>
       {userInfo && (
-        <UserInfo user={userInfo}>
-          <p>{userInfo.bio || "This user does not have bio:("}</p>
-        </UserInfo>
+        <>
+          <UserInfo user={userInfo}>
+            <p>{userInfo.bio || "This user does not have bio:("}</p>
+          </UserInfo>
+          <AllPosts
+            className={classes.posts}
+            setPosts={setPosts}
+            posts={posts}
+            isUserPosts={true}
+            userId={userId}
+          />
+        </>
       )}
     </Page>
   );

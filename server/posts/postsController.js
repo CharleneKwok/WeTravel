@@ -45,7 +45,7 @@ export const getPosts = async (req, res) => {
     .skip(offset)
     .limit(10);
   const postsWithName = userPosts.map(async (post) => {
-    return { ...post._doc, username: user.username };
+    return { ...post._doc, username: user.username, avatar: user.avatar };
   });
   Promise.all(postsWithName).then((posts) => {
     return res.status(200).json({ posts: posts });
