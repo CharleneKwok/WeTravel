@@ -967,17 +967,17 @@ const Main = () => {
   }, []);
 
   useEffect(() => {
-    // const getWeather = async () => {
-    //   try {
-    //     const resp = await getWeatherData(center.lat, center.lng);
-    //     setWeatherData(resp.data.list);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-    // if (center.lat && center.lng) {
-    //   getWeather();
-    // }
+    const getWeather = async () => {
+      try {
+        const resp = await getWeatherData(center.lat, center.lng);
+        setWeatherData(resp.data.list);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    if (center.lat && center.lng) {
+      getWeather();
+    }
   }, [center]);
 
   const placeChange = () => {

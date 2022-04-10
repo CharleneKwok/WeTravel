@@ -18,7 +18,6 @@ const listSlice = createSlice({
         list = action.payload.list.filter((item) => item?.name);
       }
       state.list = list;
-      console.log("🚀 ~ state.list", state.list);
     },
     changeLocation(state, action) {
       state.swLocation = action.payload.swLoction;
