@@ -17,6 +17,7 @@ const Login = () => {
   const dispatch = useDispatch();
 
   const googleSuccess = async (res) => {
+    history.push("/");
     dispatch(userGoogleLogin(res.profileObj, res.tokenId));
   };
 
