@@ -79,9 +79,7 @@ export const userResetPwdEmail = (value, setFieldError) => async (dispatch) => {
 export const checkLogin = () => async (dispatch) => {
   const user = JSON.parse(localStorage.getItem("profile"));
   if (user) {
-    console.log("🚀 ~ user", user);
     const decodedToken = decode(user.token);
-    console.log("🚀 ~ user.token", user.token);
     if (decodedToken.exp * 1000 < new Date().getTime()) {
       dispatch(authActions.changeIsLogin());
       localStorage.removeItem("profile");

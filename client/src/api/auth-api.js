@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = axios.create({ baseURL: "http://localhost:5001" });
+const API = axios.create({ baseURL: "https://wetravel-app.herokuapp.com/" });
 
 export const sendLogin = (data) => API.post("/user/login", data);
 export const sendGoogleLogin = (data) => API.post("/user/google/login", data);

@@ -20,7 +20,7 @@ const sendEmail = (email, data, res) => {
     );
     const compiledTemplate = handlebars.compile(source);
     const mailOptions = {
-      from: process.env.PASSWORD,
+      from: process.env.EMAIL,
       to: email,
       subject: "WeTravel--Password reset request",
       html: compiledTemplate(data),

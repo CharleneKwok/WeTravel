@@ -20,8 +20,12 @@ app.use("/pwdReset", pwdResetRoutes);
 app.use("/saveList", saveListRoutes);
 app.use("/post", postsRoutes);
 
+app.get("/", (req, res) => {
+  res.send("hello");
+});
+
 const CONNECTION = process.env.CONNECTION_URL;
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 mongoose
   .connect(CONNECTION, {

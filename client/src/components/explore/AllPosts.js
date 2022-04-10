@@ -66,7 +66,6 @@ const AllPosts = (props) => {
       const resp = await deletePost(postId);
       if (resp.status === 200) {
         props.setPosts((prev) => prev.filter((post) => post._id !== postId));
-        console.log(props.posts);
       }
     } catch ({ response }) {
       if (response.status === 401) {
