@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 import { settingActions } from "../../store/setting-slice";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth-slice";
-import ImageCropper from "./ImageCropper";
+import ImageCropper from "./AvatarImageCropper";
 
 const AvatarChange = ({ imageToCrop, cancelChangeAvatar }) => {
   const [croppedImage, setCroppedImage] = useState(undefined);
