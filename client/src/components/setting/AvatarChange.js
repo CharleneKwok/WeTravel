@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Avatar from "../header/Avatar";
-import ImageCropper from "./ImageCropper.js";
 import classes from "./AvatarChange.module.scss";
 import { changeAvatar } from "../../api/feature-api";
 import { useHistory } from "react-router-dom";
 import { settingActions } from "../../store/setting-slice";
 import { useDispatch } from "react-redux";
 import { authActions } from "../../store/auth-slice";
+import ImageCropper from "./ImageCropper";
 
 const AvatarChange = ({ imageToCrop, cancelChangeAvatar }) => {
   const [croppedImage, setCroppedImage] = useState(undefined);
