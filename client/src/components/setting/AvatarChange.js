@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Avatar from "../header/Avatar";
-import ImageCropper from "./ImageCropper";
+import ImageCropper from "./ImageCropper.js";
 import classes from "./AvatarChange.module.scss";
 import { changeAvatar } from "../../api/feature-api";
 import { useHistory } from "react-router-dom";
