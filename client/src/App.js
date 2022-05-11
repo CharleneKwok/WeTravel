@@ -13,6 +13,7 @@ import decode from "jwt-decode";
 import { authActions } from "./store/auth-slice";
 import UserSpace from "./components/space/UserSpace";
 import { userLogout } from "./store/auth-actions";
+import "./App.module.scss";
 
 function App() {
   const dispatch = useDispatch();
