@@ -23,7 +23,6 @@ const Login = () => {
         "https://www.googleapis.com/oauth2/v3/userinfo",
         { headers: { Authorization: `Bearer ${access_token}` } }
       );
-      console.log("🚀 ~ resp", resp);
       let data = {
         username: resp.data.given_name,
         email: resp.data.email,
