@@ -36,11 +36,14 @@
 
 .google {
   @include flex-center();
+  @include button(100%);
   opacity: 1;
   color: black;
   p {
     margin-left: 10px;
   }
+  position: relative;
+  z-index: 999;
 }
 
 .reset-pwd__link {

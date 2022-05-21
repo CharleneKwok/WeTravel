@@ -55,7 +55,6 @@ function App() {
         <Route path="/pwd-reset" component={ForgotPwd} exact />
         <Route path="*" component={NotExist} />
       </Switch>
-      {/* )} */}
     </Fragment>
   );
 }

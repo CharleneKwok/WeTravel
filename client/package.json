@@ -9,6 +9,7 @@
     "@mui/lab": "^5.0.0-alpha.72",
     "@mui/material": "^5.4.1",
     "@react-google-maps/api": "^2.7.0",
+    "@react-oauth/google": "^0.2.2",
     "@reduxjs/toolkit": "^1.7.2",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.2",

@@ -42,14 +42,8 @@ export const userSignup = (user, setFieldError) => async (dispatch) => {
   }
 };
 
-export const userGoogleLogin = (user, token) => async (dispatch) => {
+export const userGoogleLogin = (sendData) => async (dispatch) => {
   try {
-    const sendData = {
-      username: user.givenName,
-      email: user.email,
-      token: token,
-      avatar: user.imageUrl,
-    };
     const resp = await sendGoogleLogin(sendData);
     dispatch(authActions.login({ user: resp.data }));
   } catch ({ response }) {
