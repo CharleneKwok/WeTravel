@@ -28,7 +28,7 @@ const PostPage = (props) => {
                 titleAccess="Close Post"
                 onClick={props.onClose}
               />
-              <Avatar src={user.avatar} />
+              <Avatar src={info.avatar} />
               <Link
                 className={classes["info__name"]}
                 to={`/user-space?id=${info.userId}`}

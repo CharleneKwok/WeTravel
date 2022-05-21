@@ -56,19 +56,14 @@ export const getPosts = async (req, res) => {
 // offset 10
 export const getRandomPosts = async (req, res) => {
   const { offset } = req.params;
-  // const { offset } = req.body;
   const allPosts = await Post.find({}).skip(offset).limit(10);
-  const len = await Post.estimatedDocumentCount();
-  // const ramdomList = Array.from({ length: 10 }, () =>
-  //   Math.floor(Math.random() * 10)
-  // );
 
   const postsWithName = allPosts.map(async (post) => {
     const user = await User.findById(post.userId);
     return { ...post._doc, username: user.username, avatar: user.avatar };
   });
   Promise.all(postsWithName).then((posts) => {
-    return res.status(200).json({ posts: posts, len: len });
+    return res.status(200).json({ posts: posts });
   });
 };
 

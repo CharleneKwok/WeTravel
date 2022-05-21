@@ -7,13 +7,14 @@ import AddIcon from "@mui/icons-material/Add";
 import Backdrop from "../UI/Backdrop";
 import { addPost } from "../../api/feature-api";
 import { useDispatch } from "react-redux";
-import { checkLogin, userLogout } from "../../store/auth-actions";
-import { Redirect, useHistory } from "react-router-dom";
+import { userLogout } from "../../store/auth-actions";
+import { useHistory } from "react-router-dom";
 import CloseIcon from "@mui/icons-material/Close";
 
 const NewPost = ({ onClose, onPostBar, showNewPost }) => {
   const [postImages, setPostImages] = useState([]);
   const [showError, setShowError] = useState(false);
+  const [status, setStatus] = useState("POST");
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -54,16 +55,15 @@ const NewPost = ({ onClose, onPostBar, showNewPost }) => {
                 return;
               }
               try {
+                setStatus("Sending..");
                 const resp = await addPost(
                   value.postTitle,
                   value.postContent,
                   postImages
                 );
-                if (resp.status === 200) {
-                  onPostBar();
-                  onClose();
-                  showNewPost(resp.data);
-                }
+                onPostBar();
+                onClose();
+                showNewPost(resp.data);
               } catch ({ response }) {
                 if (response.status === 401) {
                   console.log("new post failed cuz token");
@@ -108,8 +108,12 @@ const NewPost = ({ onClose, onPostBar, showNewPost }) => {
               {showError && (
                 <p className={classes.error}>👉At least one image</p>
               )}
-              <button type="submit" className={classes["post-btn"]}>
-                POST
+              <button
+                type="submit"
+                className={classes["post-btn"]}
+                disabled={status === "Sending.."}
+              >
+                {status}
               </button>
             </Form>
           </Formik>

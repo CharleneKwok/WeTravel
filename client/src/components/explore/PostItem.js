@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "./PostItem.module.scss";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { userLogout } from "../../store/auth-actions";
 import { useDispatch } from "react-redux";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { likePost, unlikePost } from "../../api/feature-api";
 import Avatar from "../header/Avatar";
 import PostPage from "./PostPage";
@@ -44,15 +44,11 @@ const PostItem = (props) => {
   const userLike = async () => {
     try {
       if (!likes.includes(user._id)) {
-        const resp = await likePost(info._id);
-        if (resp.status === 200) {
-          setLikes((prev) => [...prev, user._id]);
-        }
+        setLikes((prev) => [...prev, user._id]);
+        await likePost(info._id);
       } else {
-        const resp = await unlikePost(info._id);
-        if (resp.status === 200) {
-          setLikes((prev) => prev.filter((id) => id !== user._id));
-        }
+        setLikes((prev) => prev.filter((id) => id !== user._id));
+        await unlikePost(info._id);
       }
     } catch ({ response }) {
       if (response.status === 401) {

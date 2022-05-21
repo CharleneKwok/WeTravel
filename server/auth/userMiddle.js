@@ -1,4 +1,5 @@
 import User from "./user.js";
+import jwt from "jsonwebtoken";
 
 export const checkSignUp = async (req, res, next) => {
   const { username, email, password } = req.body;
@@ -39,5 +40,12 @@ export const checkGoogle = async (req, res, next) => {
     req.body.avatar = oldUser.avatar;
     req.body.username = oldUser.username;
   }
+  req.body.token = jwt.sign(
+    { email: req.body.email.toLowerCase() },
+    process.env.TOKEN_KEY,
+    {
+      expiresIn: "1h",
+    }
+  );
   next();
 };

@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import Page from "../UI/Page";
 import { authActions } from "../../store/auth-slice";
 import { sendLogin } from "../../api/auth-api";
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { useGoogleLogin } from "@react-oauth/google";
 import { userGoogleLogin } from "../../store/auth-actions";
 import axios from "axios";
 
@@ -17,44 +17,25 @@ const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const googleSuccess = async (res) => {
-    const resp = await axios.get(
-      `https://oauth2.googleapis.com/tokeninfo?id_token=${res.credential}`
-    );
-    const info = resp.data;
-    let data = {
-      username: info.given_name,
-      email: info.email,
-      token: res.credential,
-      avatar: info.picture,
-    };
-    dispatch(userGoogleLogin(data));
-    history.push("/");
-  };
-
-  const googleFailure = async (err) => {
-    console.log(err);
-  };
-
   const googleLogin = useGoogleLogin({
-    onSuccess: (res) => {
-      console.log("auth.js-googlesuccess-res", res);
-      fetch(
-        `https://oauth2.googleapis.com/tokeninfo?id_token=${res.credential}`
-      )
-        .then((res) => res.json())
-        .then((response) => {
-          console.log("user Info=", response);
-        })
-        .catch((error) => console.log(error));
+    onSuccess: async ({ access_token }) => {
+      const resp = await axios.get(
+        "https://www.googleapis.com/oauth2/v3/userinfo",
+        { headers: { Authorization: `Bearer ${access_token}` } }
+      );
+      console.log("🚀 ~ resp", resp);
+      let data = {
+        username: resp.data.given_name,
+        email: resp.data.email,
+        avatar: resp.data.picture,
+      };
+      dispatch(userGoogleLogin(data));
+      history.push("/");
     },
-    onError: googleFailure,
+    onError: (err) => {
+      console.log(err);
+    },
   });
-
-  // useGoogleOneTapLogin({
-  //   onSuccess: googleSuccess,
-  //   onError: googleFailure,
-  // });
 
   return (
     <Page className={classes.page}>
@@ -100,15 +81,13 @@ const Login = () => {
           </Link>
           <button type="submit">LOGIN</button>
           <button onClick={() => history.push("/signup")}>SIGNUP</button>
-          <button className={classes.google} type="button">
+          <button
+            className={classes.google}
+            type="button"
+            onClick={googleLogin}
+          >
             <img src={google} alt="google login button" />
             <p>Sign in with Google</p>
-            <div style={{ position: "absolute", opacity: 0 }}>
-              <GoogleLogin
-                onSuccess={googleSuccess}
-                onFailure={googleFailure}
-              />
-            </div>
           </button>
         </Form>
       </Formik>
